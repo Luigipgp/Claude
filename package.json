@@ -1,0 +1,19 @@
+{
+  "name": "claude",
+  "version": "1.0.0",
+  "description": "",
+  "main": "default_state.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:33153/git/Luigipgp/Claude"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsdom": "^24.1.3"
+  }
+}

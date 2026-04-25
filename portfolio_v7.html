@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Luigi's Portfolio v7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a08;--s1:#13130f;--s2:#1c1c17;--s3:#252520;
+  --brd:#2e2e27;--brd2:#3a3a30;
+  --t1:#eeece1;--t2:#aeac9f;--t3:#6f6d62;
+  --grn:#4ade80;--grn-d:#14532d;--grn-bg:rgba(74,222,128,.08);
+  --red:#f87171;--red-d:#7f1d1d;--red-bg:rgba(248,113,113,.08);
+  --ylw:#fbbf24;--ylw-d:#713f12;--ylw-bg:rgba(251,191,36,.08);
+  --blu:#60a5fa;--blu-d:#1e3a5f;--blu-bg:rgba(96,165,250,.08);
+  --acc:#a78bfa;--acc-bg:rgba(167,139,250,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+body{font-family:'JetBrains Mono',ui-monospace,monospace;color:var(--t1);background:var(--bg);font-size:12px;min-height:100vh;
+  background-image:radial-gradient(circle at 20% 0%,rgba(96,165,250,.03) 0%,transparent 50%),radial-gradient(circle at 80% 50%,rgba(74,222,128,.02) 0%,transparent 50%);padding-bottom:60px}
+.wrap{max-width:820px;margin:0 auto;padding:14px 12px}
+h1{font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:700;letter-spacing:-1px;line-height:1}
+h1 em{font-style:italic;background:linear-gradient(92deg,var(--grn) 0%,var(--blu) 60%,var(--acc) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h2{font-family:'Fraunces',Georgia,serif;font-size:15px;font-weight:700;letter-spacing:-.3px;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+h3{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--t3);margin-bottom:6px;font-weight:600}
+
+.hdr{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--brd)}
+.hdr-l .sub{font-size:10px;color:var(--t3);margin-top:3px}
+.hdr-r{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+.date-info{font-size:10px;color:var(--t2);text-align:right;margin-right:4px}
+.date-info .sm{font-size:9px;color:var(--t3)}
+
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2s ease-in-out infinite;vertical-align:middle;margin-right:5px}
+.live-dot.err{background:var(--red);box-shadow:0 0 8px var(--red);animation:none}
+.live-dot.warn{background:var(--ylw);box-shadow:0 0 8px var(--ylw)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.tag{font-size:8px;padding:2px 7px;border-radius:3px;font-weight:700;display:inline-block;text-transform:uppercase;letter-spacing:.7px;border:1px solid}
+.tg{background:var(--grn-bg);color:var(--grn);border-color:var(--grn-d)}
+.tr{background:var(--red-bg);color:var(--red);border-color:var(--red-d)}
+.tw{background:var(--ylw-bg);color:var(--ylw);border-color:var(--ylw-d)}
+.tb{background:var(--blu-bg);color:var(--blu);border-color:var(--blu-d)}
+.ta{background:var(--acc-bg);color:var(--acc);border-color:rgba(167,139,250,.3)}
+
+.btn{background:var(--s2);color:var(--t1);border:1px solid var(--brd2);padding:5px 10px;border-radius:5px;font-family:inherit;font-size:10px;cursor:pointer;transition:all .15s;font-weight:500;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.btn:hover{background:var(--s3);border-color:var(--t3)}
+.btn.primary{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.btn.primary:hover{background:var(--grn);color:var(--grn-d)}
+.btn.danger{background:var(--red-d);color:var(--red);border-color:var(--red)}
+.btn.sm{padding:3px 7px;font-size:9px}
+
+/* TAB NAVIGATION */
+.tabs-nav{display:flex;gap:2px;margin-bottom:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.tabs-nav::-webkit-scrollbar{display:none}
+.tab-btn{background:var(--s1);border:1px solid var(--brd);color:var(--t2);padding:8px 12px;border-radius:6px;font-family:inherit;font-size:10px;cursor:pointer;font-weight:600;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:5px;white-space:nowrap;transition:all .15s}
+.tab-btn:hover{background:var(--s2)}
+.tab-btn.active{background:var(--s3);color:var(--t1);border-color:var(--brd2)}
+.tab-btn .emoji{font-size:14px}
+.tab-btn .badge{background:var(--brd2);color:var(--t2);font-size:8px;padding:1px 5px;border-radius:8px;margin-left:2px}
+
+.tab-content{display:none}
+.tab-content.active{display:block;animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* KPI */
+.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:6px;margin-bottom:10px}
+.kpi{background:var(--s1);border:1px solid var(--brd);border-radius:7px;padding:10px 12px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--brd2)}
+.kpi.kpi-g::before{background:var(--grn)}
+.kpi.kpi-r::before{background:var(--red)}
+.kpi.kpi-w::before{background:var(--ylw)}
+.kpi.kpi-b::before{background:var(--blu)}
+.kpi.kpi-a::before{background:var(--acc)}
+.kpi .l{font-size:8px;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;font-weight:600;margin-bottom:2px}
+.kpi .v{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.kpi .s{font-size:9px;color:var(--t3);margin-top:2px}
+.p{color:var(--grn)}.n{color:var(--red)}.w{color:var(--ylw)}.b{color:var(--blu)}
+
+/* SEC */
+.sec{background:var(--s1);border:1px solid var(--brd);border-radius:8px;padding:12px 14px;margin-bottom:10px}
+.sec-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:10px}
+th{text-align:left;font-weight:600;color:var(--t3);padding:5px 5px 5px 0;border-bottom:1px solid var(--brd);font-size:8px;text-transform:uppercase;letter-spacing:.6px}
+td{padding:5px 5px 5px 0;border-bottom:1px solid #1a1a15;transition:background .3s;white-space:nowrap;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--s2)}
+tr.flash td{background:var(--grn-bg);transition:background 1.5s}
+tr.flash-red td{background:var(--red-bg);transition:background 1.5s}
+
+.al{border-left:3px solid;padding:8px 10px;border-radius:0 6px 6px 0;margin:6px 0;font-size:10px;line-height:1.55}
+.al-g{border-color:var(--grn);background:var(--grn-bg)}
+.al-r{border-color:var(--red);background:var(--red-bg)}
+.al-w{border-color:var(--ylw);background:var(--ylw-bg)}
+.al-b{border-color:var(--blu);background:var(--blu-bg)}
+.al-a{border-color:var(--acc);background:var(--acc-bg)}
+
+.nt{font-size:10px;color:var(--t2);padding:10px;background:var(--s2);border-radius:5px;line-height:1.6}
+.nt b{color:var(--t1);font-weight:600}
+
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;backdrop-filter:blur(4px)}
+.modal.active{display:flex}
+.modal-box{background:var(--s1);border:1px solid var(--brd2);border-radius:10px;padding:18px;max-width:480px;width:100%;margin-top:20px}
+.form-row{margin-bottom:10px}
+.form-row label{display:block;font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px;font-weight:600}
+.form-row input,.form-row select{width:100%;background:var(--bg);border:1px solid var(--brd2);color:var(--t1);padding:7px 9px;border-radius:5px;font-family:inherit;font-size:11px}
+.form-row input:focus,.form-row select:focus{outline:none;border-color:var(--grn)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.modal-tabs{display:flex;gap:4px;margin-bottom:12px;border-bottom:1px solid var(--brd)}
+.modal-tab{background:none;border:none;color:var(--t3);padding:7px 12px;font-family:inherit;font-size:10px;cursor:pointer;border-bottom:2px solid transparent;font-weight:600;text-transform:uppercase;letter-spacing:.6px}
+.modal-tab.active{color:var(--t1);border-bottom-color:var(--grn)}
+
+.bar{height:4px;background:var(--brd);border-radius:2px;overflow:hidden;margin-top:3px}
+.bar-fill{height:100%;background:var(--grn);transition:width .5s}
+
+.status{position:fixed;bottom:0;left:0;right:0;background:rgba(19,19,15,.95);border-top:1px solid var(--brd);padding:7px 14px;display:flex;justify-content:space-between;align-items:center;font-size:9px;z-index:10;backdrop-filter:blur(8px)}
+.spinner{display:inline-block;width:10px;height:10px;border:1.5px solid var(--brd2);border-top-color:var(--grn);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:5px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.src{font-size:8px;padding:1px 5px;border-radius:2px;font-weight:600;cursor:help}
+.src-stooq{background:var(--grn-bg);color:var(--grn);border:1px solid var(--grn-d)}
+.src-yahoo{background:var(--blu-bg);color:var(--blu);border:1px solid var(--blu-d)}
+.src-manual{background:var(--acc-bg);color:var(--acc);border:1px solid rgba(167,139,250,.3)}
+.src-cache{background:var(--ylw-bg);color:var(--ylw);border:1px solid var(--ylw-d)}
+.src-err{background:var(--red-bg);color:var(--red);border:1px solid var(--red-d)}
+
+.rec{counter-reset:r;margin-top:8px}
+.rec .r{counter-increment:r;padding-left:28px;position:relative;margin-bottom:7px}
+.rec .r::before{content:counter(r);position:absolute;left:0;top:1px;width:20px;height:20px;background:var(--grn-d);color:var(--grn);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border:1px solid var(--grn)}
+
+.tx-row{display:grid;grid-template-columns:70px 1fr 50px 70px 80px 80px 20px;gap:8px;padding:6px 0;border-bottom:1px solid #1a1a15;font-size:10px;align-items:center}
+.tx-row:last-child{border-bottom:none}
+.tx-row .x{background:none;border:none;color:var(--t3);cursor:pointer;font-size:14px;padding:0}
+.tx-row .x:hover{color:var(--red)}
+
+.scroll{max-height:340px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--brd2) transparent}
+.scroll::-webkit-scrollbar{width:6px}
+.scroll::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:3px}
+
+.news-item{padding:9px 0;border-bottom:1px solid #1a1a15;font-size:10px;line-height:1.5}
+.news-item:last-child{border-bottom:none}
+.news-item b{color:var(--t1)}
+.news-item a{color:var(--blu);text-decoration:none;font-size:9px}
+.news-item a:hover{text-decoration:underline}
+.news-item .tick{font-size:8px;padding:1px 5px;border-radius:2px;background:var(--s3);color:var(--t2);margin-right:6px;font-weight:600}
+.news-item .time{color:var(--t3);font-size:9px;margin-left:4px}
+
+.price-cell{cursor:pointer;padding:2px 4px;border-radius:3px;transition:background .15s}
+.price-cell:hover{background:var(--s3)}
+.price-edit{width:80px;background:var(--bg);border:1px solid var(--grn);color:var(--grn);padding:2px 4px;font-family:inherit;font-size:10px;border-radius:3px}
+
+.alert-rule{display:grid;grid-template-columns:60px 60px 80px 1fr 20px;gap:6px;padding:4px 0;font-size:10px;align-items:center;border-bottom:1px solid #1a1a15}
+.alert-rule.triggered{background:var(--grn-bg);padding:6px;border-radius:4px;border-left:3px solid var(--grn)}
+
+.log-entry{font-size:9px;padding:3px 0;border-bottom:1px solid #1a1a15;line-height:1.4;font-family:'JetBrains Mono',monospace}
+.log-entry.ok{color:var(--grn)}.log-entry.err{color:var(--red)}.log-entry.warn{color:var(--ylw)}
+
+.macro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:6px}
+
+@media (max-width:520px){
+  .kpi .v{font-size:14px}
+  table{font-size:9px}
+  th,td{padding:4px 3px 4px 0}
+  .tx-row{grid-template-columns:55px 1fr 50px 60px 70px 20px;font-size:9px}
+  .tx-row .tx-valor{display:none}
+  h1{font-size:20px}
+  .tab-btn{padding:6px 9px;font-size:9px}
+  .tab-btn .emoji{font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-l">
+      <h1>Portfolio <em>v7</em></h1>
+      <div class="sub"><span class="live-dot" id="liveDot"></span><span id="sourceText">Multi-source · Real-time</span></div>
+    </div>
+    <div class="hdr-r">
+      <div class="date-info">
+        <div id="dateStr">—</div>
+        <div class="sm" id="updStr">—</div>
+      </div>
+      <button class="btn sm" onclick="manualRefresh()" title="Refresh precios">↻</button>
+      <button class="btn sm primary" onclick="openTxModal()" title="Nueva transacción">+ Trade</button>
+      <button class="btn sm" onclick="shareApp()" title="Compartir">↗</button>
+    </div>
+  </div>
+
+  <!-- TAB NAVIGATION -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" data-tab="dashboard"><span class="emoji">📊</span>Dashboard</button>
+    <button class="tab-btn" data-tab="positions"><span class="emoji">💼</span>Positions<span class="badge" id="posTabBadge">—</span></button>
+    <button class="tab-btn" data-tab="analytics"><span class="emoji">📈</span>Analytics</button>
+    <button class="tab-btn" data-tab="alerts"><span class="emoji">🔔</span>Alerts<span class="badge" id="alertTabBadge">—</span></button>
+    <button class="tab-btn" data-tab="news"><span class="emoji">📰</span>News</button>
+    <button class="tab-btn" data-tab="macro"><span class="emoji">🌎</span>Macro</button>
+    <button class="tab-btn" data-tab="settings"><span class="emoji">⚙</span>Settings</button>
+  </div>
+
+  <!-- ALERT BANNER -->
+  <div id="alertBanner"></div>
+
+  <!-- ═══════════ TAB: DASHBOARD ═══════════ -->
+  <div class="tab-content active" id="tab-dashboard">
+    <div class="kg" id="kpiGrid"></div>
+
+    <div class="sec">
+      <h2>Movers del día <span class="tag ta">LIVE</span></h2>
+      <div class="kg" id="moversGrid"></div>
+    </div>
+
+    <div class="sec">
+      <h2>Insights dinámicos <span class="tag ta">AUTO</span></h2>
+      <div id="insightsList"></div>
+    </div>
+
+    <div class="sec" style="border-color:var(--grn-d)">
+      <h2>Acciones recomendadas <span class="tag tg">HOY</span></h2>
+      <div id="recList"></div>
+    </div>
+
+    <div class="sec">
+      <h2>Calendario earnings</h2>
+      <div id="earningsCal"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: POSITIONS ═══════════ -->
+  <div class="tab-content" id="tab-positions">
+    <div class="sec">
+      <div class="sec-hdr">
+        <h2>Posiciones <span class="tag tg" id="posCount">—</span></h2>
+        <span style="font-size:9px;color:var(--t3)">Click precio → editar · Click ticker → detalle</span>
+      </div>
+      <div style="overflow-x:auto">
+        <table id="posTable"></table>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>Por broker</h2>
+      <div id="brokerGrid"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hdr">
+        <h2>Transacciones <span class="tag tb" id="txCount">—</span></h2>
+        <button class="btn sm primary" onclick="openTxModal()">+ Agregar</button>
+      </div>
+      <div class="scroll" id="txList"></div>
+    </div>
+
+    <div class="sec">
+      <h2>Posiciones cerradas históricas <span class="tag" id="closedCount">—</span></h2>
+      <div class="scroll" id="closedList"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: ANALYTICS ═══════════ -->
+  <div class="tab-content" id="tab-analytics">
+    <div class="sec">
+      <h2>Métricas avanzadas</h2>
+      <div class="kg" id="analyticsGrid"></div>
+      <div class="nt" id="analyticsNote"></div>
+    </div>
+
+    <div class="sec">
+      <h2>Distribución</h2>
+      <div id="distribView"></div>
+    </div>
+
+    <div class="sec">
+      <h2>Ranking performers</h2>
+      <div class="scroll"><table id="rankingTable"></table></div>
+    </div>
+
+    <div class="sec">
+      <h2>Historial fondeos <span class="tag" id="fundingCount">—</span></h2>
+      <div class="scroll" id="fundingList"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: ALERTS ═══════════ -->
+  <div class="tab-content" id="tab-alerts">
+    <div class="sec">
+      <div class="sec-hdr">
+        <h2>Alertas configuradas <span class="tag tw" id="alertCount">—</span></h2>
+        <button class="btn sm primary" onclick="openAlertModal()">+ Alerta</button>
+      </div>
+      <div id="alertList"></div>
+    </div>
+
+    <div class="sec">
+      <h2>Cómo funciona</h2>
+      <div class="nt">
+        Las alertas se revisan en cada refresh de precios (cada 5 min). Cuando un precio cruza el umbral configurado, aparece banner en el dashboard y entrada visible en "Insights dinámicos". 
+        <br><br>
+        <b>Alertas pre-configuradas:</b> MSFT <$390 (DCA entry), EPU <$82 (dip post-Perú), MSFT >$420 (post-ER target).
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: NEWS ═══════════ -->
+  <div class="tab-content" id="tab-news">
+    <div class="sec">
+      <div class="sec-hdr">
+        <h2>Noticias <span class="tag tb" id="newsSource">—</span></h2>
+        <button class="btn sm" onclick="refreshNews()">↻ Actualizar</button>
+      </div>
+      <div class="scroll" id="newsList" style="max-height:600px"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: MACRO ═══════════ -->
+  <div class="tab-content" id="tab-macro">
+    <div class="sec">
+      <div class="sec-hdr">
+        <h2>Indicadores macro</h2>
+        <button class="btn sm" onclick="refreshMacro()">↻ Actualizar</button>
+      </div>
+      <div class="macro-grid" id="macroGrid"></div>
+      <div class="nt" id="macroNote" style="margin-top:8px"></div>
+    </div>
+
+    <div class="sec">
+      <h2>Situación geopolítica</h2>
+      <div id="geoList"></div>
+    </div>
+
+    <div class="sec">
+      <h2>Elecciones Perú (impacto EPU)</h2>
+      <div id="peruList"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB: SETTINGS ═══════════ -->
+  <div class="tab-content" id="tab-settings">
+    <div class="sec">
+      <h2>Gestión de datos</h2>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="btn" onclick="exportData()">📥 Export JSON</button>
+        <button class="btn" onclick="document.getElementById('imp').click()">📤 Import JSON</button>
+        <button class="btn" onclick="resetToDefault()">🔄 Reset defaults</button>
+        <button class="btn danger" onclick="clearAll()">✕ Borrar todo</button>
+        <input type="file" id="imp" accept=".json" style="display:none" onchange="importData(event)">
+      </div>
+      <div class="nt" style="margin-top:8px">
+        Datos guardados en <b>localStorage</b>. Exporta regularmente como backup. 
+        <br><br>
+        <b>Para compartir:</b> sube este HTML a GitHub Pages, Netlify Drop o cualquier hosting estático. Funciona como URL pública.
+        <br><br>
+        <b>Fuentes de precio:</b> Stooq (CORS nativo, rápido) → Yahoo Finance vía proxy (respaldo) → override manual (click precio). OTC y TSO (ASX) requieren manual.
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>Debug log</h2>
+      <div style="display:flex;gap:4px;margin-bottom:6px">
+        <button class="btn sm" onclick="copyDebugLog()">Copiar log</button>
+        <button class="btn sm" onclick="clearDebugLog()">Limpiar</button>
+      </div>
+      <div class="scroll" id="debugLog" style="max-height:280px"></div>
+    </div>
+
+    <div class="sec">
+      <h2>Info versión</h2>
+      <div class="nt">
+        <b>v6.0</b> · Build: Apr 2026 · Datos iniciales tomados del workbook Inversiones.xlsx<br>
+        Multi-source pricing con 3 niveles de fallback. Auto-refresh cada 5 min. Noticias cada 15 min.<br>
+        <b>Compatible:</b> Chrome, Firefox, Safari, Edge (mobile + desktop).<br>
+        <b>Shareable:</b> HTML standalone. Subir a GitHub Pages o Netlify → URL pública.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TX MODAL -->
+<div class="modal" id="txModal">
+  <div class="modal-box">
+    <h2 id="modalTitle">Nueva transacción</h2>
+    <div class="modal-tabs">
+      <button class="modal-tab active" data-type="compra" onclick="switchTxTab('compra',event)">Compra</button>
+      <button class="modal-tab" data-type="venta" onclick="switchTxTab('venta',event)">Venta</button>
+      <button class="modal-tab" data-type="fondeo" onclick="switchTxTab('fondeo',event)">Fondeo</button>
+    </div>
+    <form onsubmit="saveTx(event)">
+      <input type="hidden" id="txType" value="compra">
+      <div class="form-row">
+        <label>Fecha</label>
+        <input type="date" id="txDate" required>
+      </div>
+      <div class="form-grid" id="fgPos">
+        <div class="form-row">
+          <label>Ticker</label>
+          <input type="text" id="txTicker" style="text-transform:uppercase">
+        </div>
+        <div class="form-row">
+          <label>Broker</label>
+          <select id="txBroker">
+            <option value="TYBA">TYBA</option>
+            <option value="IBK">IBK</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid" id="fgAmt">
+        <div class="form-row">
+          <label>Cantidad (shares)</label>
+          <input type="number" id="txQty" step="any" min="0">
+        </div>
+        <div class="form-row">
+          <label>Precio por share</label>
+          <input type="number" id="txPrice" step="any" min="0">
+        </div>
+      </div>
+      <div class="form-row" id="fgFondeo" style="display:none">
+        <label>Monto USD (negativo = retiro)</label>
+        <input type="number" id="txAmount" step="any">
+      </div>
+      <div class="form-row">
+        <label>Nota (opcional)</label>
+        <input type="text" id="txNote">
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button type="submit" class="btn primary" style="flex:1;justify-content:center">Guardar</button>
+        <button type="button" class="btn" onclick="closeTxModal()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ALERT MODAL -->
+<div class="modal" id="alertModal">
+  <div class="modal-box">
+    <h2>Nueva alerta</h2>
+    <form onsubmit="saveAlert(event)">
+      <div class="form-grid">
+        <div class="form-row">
+          <label>Ticker</label>
+          <input type="text" id="alTicker" required style="text-transform:uppercase">
+        </div>
+        <div class="form-row">
+          <label>Condición</label>
+          <select id="alCondition">
+            <option value="above">Sube sobre ▲</option>
+            <option value="below">Baja de ▼</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Precio objetivo</label>
+        <input type="number" id="alPrice" step="any" required>
+      </div>
+      <div class="form-row">
+        <label>Nota</label>
+        <input type="text" id="alNote">
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button type="submit" class="btn primary" style="flex:1;justify-content:center">Guardar</button>
+        <button type="button" class="btn" onclick="closeAlertModal()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="status">
+  <div><span id="statusText">Inicializando…</span></div>
+  <div>Próximo: <b id="countdown" style="color:var(--ylw)">5:00</b></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// DEFAULT STATE (Apr 25 2026 — sourced from Inversiones.xlsx)
+// ═══════════════════════════════════════════════════════
+const DEFAULT_STATE = {
+  positions: [
+    {ticker:'VOO', broker:'TYBA', shares:13.9984, costAvg:509.84292, note:'Core S&P 500'},
+    {ticker:'EPU', broker:'TYBA', shares:81, costAvg:85.434815, note:'Peru ETF'},
+    {ticker:'GOOGL', broker:'TYBA', shares:12, costAvg:149.75, note:'Tech mega-cap'},
+    {ticker:'NVDA', broker:'TYBA', shares:27, costAvg:127.157778, note:'AI semis'},
+    {ticker:'META', broker:'TYBA', shares:6, costAvg:669.86, note:'Tech mega-cap'},
+    {ticker:'B', broker:'TYBA', shares:100, costAvg:40.42, note:'Insurance'},
+    {ticker:'MSFT', broker:'TYBA', shares:22, costAvg:446.668182, note:'Tech mega-cap'},
+    {ticker:'BMM', broker:'TYBA', shares:500, costAvg:3.85, note:'Mining junior'},
+    {ticker:'RIOFF', broker:'IBK', shares:21300, costAvg:1.287392, note:'Penny - mining'},
+    {ticker:'GLGDF', broker:'IBK', shares:3000, costAvg:2.231666, note:'Penny - gold'},
+    {ticker:'QUEXF', broker:'IBK', shares:5000, costAvg:1.493333, note:'Penny - gold'},
+    {ticker:'SRGXF', broker:'IBK', shares:17000, costAvg:0.389218, note:'Penny - mining'},
+    {ticker:'TSO', broker:'IBK', shares:8800, costAvg:0.712744, note:'Penny - mining'},
+    {ticker:'SMI', broker:'IBK', shares:8000, costAvg:0.624041, note:'Penny - mining'},
+  ],
+  transactions: [
+    {id:'t1', date:'2025-03-31', type:'compra', ticker:'VOO', broker:'TYBA', qty:9.9984, price:508.56, note:''},
+    {id:'t2', date:'2025-03-31', type:'compra', ticker:'IBIT', broker:'TYBA', qty:10.5559, price:47.37, note:''},
+    {id:'t3', date:'2025-03-31', type:'compra', ticker:'QQQ', broker:'TYBA', qty:4.7446, price:488.37, note:''},
+    {id:'t4', date:'2025-04-01', type:'compra', ticker:'QQQ', broker:'TYBA', qty:1, price:471.38, note:''},
+    {id:'t5', date:'2025-04-01', type:'compra', ticker:'VOO', broker:'TYBA', qty:2, price:514.99, note:''},
+    {id:'t6', date:'2025-04-03', type:'compra', ticker:'NVDA', broker:'TYBA', qty:5, price:103.89, note:''},
+    {id:'t7', date:'2025-04-03', type:'compra', ticker:'TSLA', broker:'TYBA', qty:5, price:269.65, note:''},
+    {id:'t8', date:'2025-04-03', type:'compra', ticker:'VOO', broker:'TYBA', qty:5, price:498.24, note:''},
+    {id:'t9', date:'2025-04-03', type:'compra', ticker:'QQQ', broker:'TYBA', qty:5, price:454.85, note:''},
+    {id:'t10', date:'2025-04-04', type:'compra', ticker:'VOO', broker:'TYBA', qty:2, price:480.16, note:''},
+    {id:'t11', date:'2025-04-04', type:'compra', ticker:'TSLA', broker:'TYBA', qty:5, price:251.06, note:''},
+    {id:'t12', date:'2025-04-04', type:'compra', ticker:'QQQ', broker:'TYBA', qty:1.3505, price:436.88, note:''},
+    {id:'t13', date:'2025-04-04', type:'compra', ticker:'NVDA', broker:'TYBA', qty:5, price:96.79, note:''},
+    {id:'t14', date:'2025-04-11', type:'compra', ticker:'TSLA', broker:'TYBA', qty:5, price:242.63, note:''},
+    {id:'t15', date:'2025-04-11', type:'compra', ticker:'GOOGL', broker:'TYBA', qty:10, price:155.33, note:''},
+    {id:'t16', date:'2025-04-12', type:'compra', ticker:'TSLA', broker:'TYBA', qty:5, price:273.16, note:''},
+    {id:'t17', date:'2025-04-16', type:'compra', ticker:'VOO', broker:'TYBA', qty:1, price:479.66, note:''},
+    {id:'t18', date:'2025-04-16', type:'compra', ticker:'VOO', broker:'TYBA', qty:6, price:480, note:''},
+    {id:'t19', date:'2025-04-16', type:'compra', ticker:'QQQ', broker:'TYBA', qty:6, price:445, note:''},
+    {id:'t20', date:'2025-04-16', type:'compra', ticker:'QQQ', broker:'TYBA', qty:2.4008, price:479.66, note:''},
+    {id:'t21', date:'2025-05-07', type:'compra', ticker:'GOOGL', broker:'TYBA', qty:15, price:149.75, note:''},
+    {id:'t22', date:'2025-05-20', type:'compra', ticker:'QQQ', broker:'TYBA', qty:1, price:542.5, note:''},
+    {id:'t23', date:'2025-05-20', type:'compra', ticker:'QQQ', broker:'TYBA', qty:1, price:545.32, note:''},
+    {id:'t24', date:'2025-05-20', type:'compra', ticker:'VOO', broker:'TYBA', qty:1, price:545.32, note:''},
+    {id:'t25', date:'2025-05-20', type:'compra', ticker:'VOO', broker:'TYBA', qty:1, price:542.5, note:''},
+    {id:'t26', date:'2025-05-23', type:'compra', ticker:'IBIT', broker:'TYBA', qty:5, price:61.5, note:''},
+    {id:'t27', date:'2025-05-29', type:'compra', ticker:'NVDA', broker:'TYBA', qty:16, price:139.91, note:''},
+    {id:'t28', date:'2025-05-30', type:'venta', ticker:'VOO', broker:'TYBA', qty:3, price:500.49, note:'', costAtSell:500.520255},
+    {id:'t29', date:'2025-05-30', type:'compra', ticker:'IBIT', broker:'TYBA', qty:2, price:59, note:''},
+    {id:'t30', date:'2025-05-30', type:'compra', ticker:'QQQ', broker:'TYBA', qty:3, price:517.93, note:''},
+    {id:'t31', date:'2025-06-09', type:'compra', ticker:'ITA', broker:'TYBA', qty:6, price:183.01, note:''},
+    {id:'t32', date:'2025-06-09', type:'compra', ticker:'IBIT', broker:'TYBA', qty:2, price:60.99, note:''},
+    {id:'t33', date:'2025-06-10', type:'compra', ticker:'ITA', broker:'TYBA', qty:6, price:181, note:''},
+    {id:'t34', date:'2025-06-11', type:'compra', ticker:'ARKW', broker:'TYBA', qty:10, price:132.5, note:''},
+    {id:'t35', date:'2025-06-12', type:'compra', ticker:'ARKW', broker:'TYBA', qty:6, price:131, note:''},
+    {id:'t36', date:'2025-06-12', type:'compra', ticker:'ITA', broker:'TYBA', qty:6, price:178.12, note:''},
+    {id:'t37', date:'2025-06-17', type:'compra', ticker:'IBIT', broker:'TYBA', qty:2, price:59, note:''},
+    {id:'t38', date:'2025-06-17', type:'compra', ticker:'VOO', broker:'TYBA', qty:1, price:551, note:''},
+    {id:'t39', date:'2025-06-17', type:'compra', ticker:'QQQ', broker:'TYBA', qty:1, price:551, note:''},
+    {id:'t40', date:'2025-06-23', type:'compra', ticker:'XLE', broker:'TYBA', qty:35, price:89, note:''},
+    {id:'t41', date:'2025-07-01', type:'compra', ticker:'IBIT', broker:'TYBA', qty:1, price:60.5, note:''},
+    {id:'t42', date:'2025-07-02', type:'compra', ticker:'RIOFF', broker:'IBK', qty:500, price:1.14, note:''},
+    {id:'t43', date:'2025-07-03', type:'compra', ticker:'BMM', broker:'TYBA', qty:500, price:2.41, note:''},
+    {id:'t44', date:'2025-07-03', type:'compra', ticker:'RIOFF', broker:'IBK', qty:2000, price:1.16, note:''},
+    {id:'t45', date:'2025-07-07', type:'compra', ticker:'ARKK', broker:'TYBA', qty:15, price:70, note:''},
+    {id:'t46', date:'2025-07-07', type:'compra', ticker:'IBIT', broker:'TYBA', qty:1, price:61.92, note:''},
+    {id:'t47', date:'2025-07-07', type:'compra', ticker:'SOXX', broker:'TYBA', qty:6, price:240, note:''},
+    {id:'t48', date:'2025-07-10', type:'compra', ticker:'BMM', broker:'TYBA', qty:200, price:2.32, note:''},
+    {id:'t49', date:'2025-07-11', type:'compra', ticker:'RIOFF', broker:'IBK', qty:2200, price:1.15, note:''},
+    {id:'t50', date:'2025-07-18', type:'compra', ticker:'RIOFF', broker:'IBK', qty:3300, price:1.16, note:''},
+    {id:'t51', date:'2025-07-24', type:'venta', ticker:'XLE', broker:'TYBA', qty:35, price:86.6, note:'', costAtSell:89},
+    {id:'t52', date:'2025-07-24', type:'compra', ticker:'TSLA', broker:'TYBA', qty:3, price:304, note:''},
+    {id:'t53', date:'2025-07-24', type:'compra', ticker:'ARKW', broker:'TYBA', qty:2, price:156, note:''},
+    {id:'t54', date:'2025-07-25', type:'venta', ticker:'SOXX', broker:'TYBA', qty:6, price:240.5, note:'', costAtSell:240},
+    {id:'t55', date:'2025-08-11', type:'venta', ticker:'IBIT', broker:'TYBA', qty:23.5559, price:68.5, note:'', costAtSell:54.675601},
+    {id:'t56', date:'2025-08-11', type:'venta', ticker:'ARKK', broker:'TYBA', qty:15, price:76.4, note:'', costAtSell:70},
+    {id:'t57', date:'2025-08-11', type:'venta', ticker:'ITA', broker:'TYBA', qty:18, price:197, note:'', costAtSell:180.71},
+    {id:'t58', date:'2025-08-15', type:'compra', ticker:'VOO', broker:'TYBA', qty:1, price:591.5, note:''},
+    {id:'t59', date:'2025-08-18', type:'compra', ticker:'ARKW', broker:'TYBA', qty:4, price:160, note:''},
+    {id:'t60', date:'2025-08-20', type:'compra', ticker:'BMM', broker:'TYBA', qty:300, price:2.35, note:''},
+    {id:'t61', date:'2025-08-20', type:'compra', ticker:'RIOFF', broker:'IBK', qty:6000, price:1.16, note:''},
+    {id:'t62', date:'2025-09-28', type:'compra', ticker:'RIOFF', broker:'IBK', qty:300, price:1.15, note:''},
+    {id:'t63', date:'2025-09-28', type:'compra', ticker:'RIOFF', broker:'IBK', qty:2500, price:1.17, note:''},
+    {id:'t64', date:'2025-10-24', type:'compra', ticker:'MSFT', broker:'TYBA', qty:6, price:523.7, note:''},
+    {id:'t65', date:'2025-10-24', type:'venta', ticker:'TSLA', broker:'TYBA', qty:7, price:444.2, note:'', costAtSell:264.978261},
+    {id:'t66', date:'2025-10-24', type:'venta', ticker:'TSLA', broker:'TYBA', qty:4, price:490, note:'', costAtSell:264.978261},
+    {id:'t67', date:'2025-10-25', type:'compra', ticker:'META', broker:'TYBA', qty:6, price:669.86, note:''},
+    {id:'t68', date:'2025-10-25', type:'venta', ticker:'ARKW', broker:'TYBA', qty:22, price:174.48, note:'', costAtSell:139.227273},
+    {id:'t69', date:'2025-11-07', type:'compra', ticker:'RIOFF', broker:'IBK', qty:1900, price:1.55, note:''},
+    {id:'t70', date:'2025-11-24', type:'venta', ticker:'BMM', broker:'TYBA', qty:1000, price:2.88, note:'', costAtSell:2.374},
+    {id:'t71', date:'2025-11-25', type:'venta', ticker:'GOOGL', broker:'TYBA', qty:13, price:151.98, note:'', costAtSell:151.982},
+    {id:'t72', date:'2025-12-01', type:'compra', ticker:'QQQ', broker:'TYBA', qty:1, price:608, note:''},
+    {id:'t73', date:'2025-12-01', type:'compra', ticker:'RIOFF', broker:'IBK', qty:1600, price:1.75, note:''},
+    {id:'t74', date:'2025-12-04', type:'compra', ticker:'QQQ', broker:'TYBA', qty:1, price:621, note:''},
+    {id:'t75', date:'2025-12-15', type:'compra', ticker:'QQQ', broker:'TYBA', qty:1, price:611, note:''},
+    {id:'t76', date:'2025-12-16', type:'compra', ticker:'MSFT', broker:'TYBA', qty:3, price:473, note:''},
+    {id:'t77', date:'2025-12-17', type:'compra', ticker:'VOO', broker:'TYBA', qty:1, price:620, note:''},
+    {id:'t78', date:'2026-01-05', type:'compra', ticker:'EPU', broker:'TYBA', qty:31, price:80.6, note:''},
+    {id:'t79', date:'2026-01-05', type:'compra', ticker:'BMM', broker:'IBK', qty:589, price:4.58, note:''},
+    {id:'t80', date:'2026-01-10', type:'compra', ticker:'VZLA', broker:'IBK', qty:200, price:5.78, note:''},
+    {id:'t81', date:'2026-01-10', type:'compra', ticker:'VZLA', broker:'IBK', qty:200, price:5.8, note:''},
+    {id:'t82', date:'2026-01-10', type:'compra', ticker:'SMI', broker:'IBK', qty:500, price:0.728, note:''},
+    {id:'t83', date:'2026-01-10', type:'compra', ticker:'GLGDF', broker:'TYBA', qty:600, price:2.25, note:''},
+    {id:'t84', date:'2026-01-26', type:'compra', ticker:'EPU', broker:'TYBA', qty:29, price:91, note:''},
+    {id:'t85', date:'2026-01-26', type:'compra', ticker:'SMI', broker:'IBK', qty:600, price:0.735, note:''},
+    {id:'t86', date:'2026-01-26', type:'venta', ticker:'TSLA', broker:'TYBA', qty:12, price:442.37, note:'', costAtSell:264.978261},
+    {id:'t87', date:'2026-02-02', type:'compra', ticker:'NVDA', broker:'TYBA', qty:1, price:191.4, note:''},
+    {id:'t88', date:'2026-02-02', type:'compra', ticker:'GLGDF', broker:'TYBA', qty:900, price:2.48, note:''},
+    {id:'t89', date:'2026-02-05', type:'compra', ticker:'RIOFF', broker:'IBK', qty:1000, price:2.18, note:''},
+    {id:'t90', date:'2026-02-06', type:'compra', ticker:'MSFT', broker:'TYBA', qty:9, price:399.5, note:''},
+    {id:'t91', date:'2026-02-06', type:'compra', ticker:'BMM', broker:'IBK', qty:611, price:3.62, note:''},
+    {id:'t92', date:'2026-02-09', type:'venta', ticker:'VZLA', broker:'IBK', qty:400, price:4.2, note:'', costAtSell:5.79},
+    {id:'t93', date:'2026-02-10', type:'compra', ticker:'SMI', broker:'IBK', qty:1500, price:0.7245, note:''},
+    {id:'t94', date:'2026-02-11', type:'compra', ticker:'GLGDF', broker:'TYBA', qty:400, price:2.36, note:''},
+    {id:'t95', date:'2026-02-17', type:'compra', ticker:'SMI', broker:'IBK', qty:483, price:0.612507, note:''},
+    {id:'t96', date:'2026-02-17', type:'compra', ticker:'SMI', broker:'IBK', qty:800, price:0.609, note:''},
+    {id:'t97', date:'2026-02-17', type:'compra', ticker:'SMI', broker:'IBK', qty:1000, price:0.616, note:''},
+    {id:'t98', date:'2026-02-17', type:'compra', ticker:'GLGDF', broker:'TYBA', qty:500, price:2.23, note:''},
+    {id:'t99', date:'2026-02-24', type:'compra', ticker:'SMI', broker:'IBK', qty:1117, price:0.623, note:''},
+    {id:'t100', date:'2026-03-02', type:'venta', ticker:'BMM', broker:'IBK', qty:400, price:6, note:'', costAtSell:4.0912},
+    {id:'t101', date:'2026-03-03', type:'compra', ticker:'EPU', broker:'TYBA', qty:10, price:86, note:''},
+    {id:'t102', date:'2026-03-04', type:'compra', ticker:'EPU', broker:'TYBA', qty:10, price:84, note:''},
+    {id:'t103', date:'2026-03-06', type:'compra', ticker:'QQQ', broker:'TYBA', qty:1, price:599, note:''},
+    {id:'t104', date:'2026-03-12', type:'compra', ticker:'EPU', broker:'TYBA', qty:1, price:82.62, note:''},
+    {id:'t105', date:'2026-03-16', type:'venta', ticker:'VOO', broker:'TYBA', qty:14, price:509.84, note:'', costAtSell:509.840046},
+    {id:'t106', date:'2026-03-16', type:'venta', ticker:'QQQ', broker:'TYBA', qty:30.4959, price:489.8, note:'', costAtSell:495.343127},
+    {id:'t107', date:'2026-03-18', type:'compra', ticker:'QUEXF', broker:'IBK', qty:100, price:1.56, note:''},
+    {id:'t108', date:'2026-03-18', type:'compra', ticker:'QUEXF', broker:'IBK', qty:100, price:1.55, note:''},
+    {id:'t109', date:'2026-03-18', type:'compra', ticker:'QUEXF', broker:'IBK', qty:100, price:1.555, note:''},
+    {id:'t110', date:'2026-03-18', type:'compra', ticker:'QUEXF', broker:'IBK', qty:1100, price:1.555, note:''},
+    {id:'t111', date:'2026-03-18', type:'compra', ticker:'SRGXF', broker:'IBK', qty:2000, price:0.4293, note:''},
+    {id:'t112', date:'2026-03-18', type:'compra', ticker:'SRGXF', broker:'IBK', qty:2000, price:0.4293, note:''},
+    {id:'t113', date:'2026-03-23', type:'compra', ticker:'QUEXF', broker:'IBK', qty:300, price:1.465, note:''},
+    {id:'t114', date:'2026-03-23', type:'compra', ticker:'QUEXF', broker:'IBK', qty:700, price:1.465, note:''},
+    {id:'t115', date:'2026-03-23', type:'compra', ticker:'QUEXF', broker:'IBK', qty:600, price:1.465, note:''},
+    {id:'t116', date:'2026-03-23', type:'compra', ticker:'SRGXF', broker:'IBK', qty:4000, price:0.3636, note:''},
+    {id:'t117', date:'2026-03-23', type:'compra', ticker:'GLGDF', broker:'IBK', qty:600, price:1.75, note:''},
+    {id:'t118', date:'2026-03-24', type:'compra', ticker:'SMI', broker:'IBK', qty:2000, price:0.539, note:''},
+    {id:'t119', date:'2026-03-25', type:'compra', ticker:'QUEXF', broker:'IBK', qty:200, price:1.445, note:''},
+    {id:'t120', date:'2026-03-25', type:'compra', ticker:'QUEXF', broker:'IBK', qty:100, price:1.445, note:''},
+    {id:'t121', date:'2026-03-26', type:'compra', ticker:'QUEXF', broker:'IBK', qty:400, price:1.365, note:''},
+    {id:'t122', date:'2026-03-26', type:'compra', ticker:'QUEXF', broker:'IBK', qty:300, price:1.365, note:''},
+    {id:'t123', date:'2026-03-26', type:'compra', ticker:'SRGXF', broker:'IBK', qty:3000, price:0.3535, note:''},
+    {id:'t124', date:'2026-04-01', type:'compra', ticker:'QUEXF', broker:'IBK', qty:1000, price:1.545, note:''},
+    {id:'t125', date:'2026-04-02', type:'compra', ticker:'QUEXF', broker:'IBK', qty:1000, price:1.505, note:''},
+    {id:'t126', date:'2026-04-07', type:'compra', ticker:'SRGXF', broker:'IBK', qty:2000, price:0.3844, note:''},
+    {id:'t127', date:'2026-04-09', type:'compra', ticker:'SRGXF', broker:'IBK', qty:4000, price:0.404, note:''},
+    {id:'t128', date:'2026-04-10', type:'compra', ticker:'TSO', broker:'IBK', qty:1800, price:0.7007, note:''},
+    {id:'t129', date:'2026-04-14', type:'venta', ticker:'QUEXF', broker:'IBK', qty:1000, price:1.78, note:'', costAtSell:1.493333},
+    {id:'t130', date:'2026-04-15', type:'venta', ticker:'BMM', broker:'IBK', qty:300, price:8.18, note:'', costAtSell:4.0912},
+    {id:'t131', date:'2026-04-15', type:'compra', ticker:'TSO', broker:'IBK', qty:2484, price:0.683066, note:''},
+    {id:'t132', date:'2026-04-21', type:'compra', ticker:'TSO', broker:'IBK', qty:2000, price:0.7441, note:''},
+    {id:'t133', date:'2026-04-21', type:'compra', ticker:'TSO', broker:'IBK', qty:1266, price:0.762818, note:''},
+    {id:'t134', date:'2026-04-21', type:'compra', ticker:'TSO', broker:'IBK', qty:1250, price:0.7525, note:''},
+    {id:'t135', date:'2026-04-22', type:'compra', ticker:'MSFT', broker:'TYBA', qty:4, price:417.5, note:''},
+    {id:'t136', date:'2026-04-22', type:'compra', ticker:'B', broker:'TYBA', qty:50, price:40.94, note:''},
+    {id:'t137', date:'2026-04-22', type:'compra', ticker:'B', broker:'TYBA', qty:50, price:39.9, note:''},
+  ],
+  fundings: [
+    {id:'f1', date:'2025-03-20', broker:'TYBA', amount:9642.5, note:''},
+    {id:'f3', date:'2025-04-02', broker:'TYBA', amount:9997.75, note:''},
+    {id:'f4', date:'2025-04-09', broker:'TYBA', amount:9997.75, note:''},
+    {id:'f5', date:'2025-04-20', broker:'TYBA', amount:1827, note:''},
+    {id:'f6', date:'2025-04-25', broker:'TYBA', amount:5075, note:''},
+    {id:'f7', date:'2025-05-12', broker:'TYBA', amount:1522.5, note:''},
+    {id:'f8', date:'2025-06-03', broker:'TYBA', amount:9997.75, note:''},
+    {id:'f9', date:'2025-06-04', broker:'IBK', amount:11000, note:''},
+    {id:'f10', date:'2025-07-02', broker:'TYBA', amount:2537.5, note:''},
+    {id:'f11', date:'2025-08-13', broker:'TYBA', amount:-8200, note:''},
+    {id:'f12', date:'2025-08-19', broker:'IBK', amount:7000, note:''},
+    {id:'f13', date:'2025-08-27', broker:'IBK', amount:4000, note:''},
+    {id:'f14', date:'2025-11-10', broker:'IBK', amount:3000, note:''},
+    {id:'f14b', date:'2026-01-13', broker:'IBK', amount:4500, note:''},
+    {id:'f15', date:'2026-02-05', broker:'IBK', amount:5000, note:''},
+    {id:'f16', date:'2026-02-05', broker:'TYBA', amount:6000, note:''},
+    {id:'f17', date:'2026-02-17', broker:'IBK', amount:3000, note:''},
+    {id:'f18', date:'2026-03-13', broker:'TYBA', amount:-20000, note:''},
+    {id:'f19', date:'2026-03-15', broker:'IBK', amount:19000, note:''},
+    {id:'f20', date:'2026-04-20', broker:'IBK', amount:3500, note:''},
+  ],
+  closedPositions: [
+    {ticker:'QQQ', pnl:3419, date:'2025'},
+    {ticker:'TSLA', pnl:2129, date:'2025'},
+    {ticker:'GOOGL', pnl:2262, date:'2025'},
+    {ticker:'VOO', pnl:1500, date:'2025'},
+    {ticker:'ARKW', pnl:776, date:'2025'},
+    {ticker:'BMOOF', pnl:507, date:'2025'},
+    {ticker:'BMM', pnl:764, date:'2025'},
+    {ticker:'IBIT', pnl:329, date:'2025'},
+    {ticker:'ITA', pnl:293, date:'2025'},
+    {ticker:'ARKK', pnl:96, date:'2025'},
+    {ticker:'SOXX', pnl:3, date:'2025'},
+    {ticker:'VZLA', pnl:-636, date:'2025'},
+    {ticker:'XLE', pnl:-84, date:'2025'},
+  ],
+  cash: {TYBA:3761.2, IBK:95.36},
+  priceOverrides: {},
+  alerts: [
+    {id:'a1', ticker:'MSFT', condition:'below', price:390, note:'DCA entry zone'},
+    {id:'a2', ticker:'EPU', condition:'below', price:82, note:'Post-Per\u00fa dip'},
+    {id:'a3', ticker:'MSFT', condition:'above', price:420, note:'Post-ER target'},
+    {id:'a4', ticker:'RIOFF', condition:'above', price:2.50, note:'Trim candidate'},
+    {id:'a5', ticker:'BMM', condition:'above', price:9.00, note:'Trim candidate'},
+  ],
+  prevClose: {
+    VOO: 656.42,
+    EPU: 81.63,
+    GOOGL: 344.4,
+    NVDA: 208.26,
+    META: 675.05,
+    B: 41.1,
+    MSFT: 424.6,
+    BMM: 7.9,
+    RIOFF: 2.021,
+    GLGDF: 2.022,
+    QUEXF: 2.0188,
+    SRGXF: 0.4713,
+    TSO: 0.7383,
+    SMI: 0.4554,
+  },
+};
+
+const SKIP_FETCH = new Set(['TSO']);
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let STATE = loadState();
+let PRICES = {};
+let FETCH_STATUS = {};
+let LAST_UPDATE = null;
+let LAST_NEWS_UPDATE = null;
+let UPDATE_COUNT = 0;
+let NEXT_REFRESH = Date.now() + 5*60*1000;
+let NEXT_NEWS = Date.now() + 15*60*1000;
+let IS_FETCHING = false;
+let DEBUG_LOG = [];
+let TRIGGERED_ALERTS = [];
+let NEWS_CACHE = [];
+let MACRO_CACHE = {};
+
+// Initialize PRICES
+STATE.positions.forEach(p => { PRICES[p.ticker] = STATE.prevClose?.[p.ticker] || p.costAvg; });
+Object.entries(STATE.priceOverrides||{}).forEach(([t,v])=>{
+  PRICES[t] = v.price;
+  FETCH_STATUS[t] = {source:'manual', ts:v.timestamp, latency:0};
+});
+
+function loadState(){
+  try{
+    const s = localStorage.getItem('luigi_portfolio_v7');
+    if(s){
+      const p = JSON.parse(s);
+      p.priceOverrides = p.priceOverrides || {};
+      p.alerts = p.alerts || [];
+      p.prevClose = p.prevClose || DEFAULT_STATE.prevClose;
+      return p;
+    }
+    // Auto-clean older versions so the new DEFAULT_STATE loads fresh.
+    const old = localStorage.getItem('luigi_portfolio_v6');
+    if(old){
+      console.info('Migrating from v6: clearing old cache, loading v7 defaults');
+      localStorage.removeItem('luigi_portfolio_v6');
+    }
+  }catch(e){console.error(e);}
+  return structuredClone(DEFAULT_STATE);
+}
+
+function saveState(){
+  try{localStorage.setItem('luigi_portfolio_v7', JSON.stringify(STATE));}
+  catch(e){alert('Error guardando');}
+}
+
+// ═══════════════════════════════════════════════════════
+// DEBUG
+// ═══════════════════════════════════════════════════════
+function debugLog(level, message){
+  const ts = new Date().toLocaleTimeString('es-PE');
+  DEBUG_LOG.unshift({ts, level, message});
+  if(DEBUG_LOG.length > 150) DEBUG_LOG.pop();
+  renderDebug();
+}
+function renderDebug(){
+  const el = document.getElementById('debugLog');
+  if(!el) return;
+  el.innerHTML = DEBUG_LOG.slice(0,60).map(l => `<div class="log-entry ${l.level}">[${l.ts}] ${l.message}</div>`).join('');
+}
+function copyDebugLog(){
+  navigator.clipboard.writeText(DEBUG_LOG.map(l=>`[${l.ts}] ${l.level}: ${l.message}`).join('\n')).then(()=>alert('Log copiado'));
+}
+function clearDebugLog(){DEBUG_LOG=[]; renderDebug();}
+
+// ═══════════════════════════════════════════════════════
+// PRICE FETCHER
+// ═══════════════════════════════════════════════════════
+async function fetchT(url, opts={}, timeout=8000){
+  const ctrl = new AbortController();
+  const tid = setTimeout(()=>ctrl.abort(), timeout);
+  try{
+    const r = await fetch(url, {...opts, signal:ctrl.signal});
+    return r;
+  }finally{
+    clearTimeout(tid);
+  }
+}
+
+async function fetchStooq(ticker, suffix='.us'){
+  const t0 = Date.now();
+  const url = `https://stooq.com/q/l/?s=${ticker.toLowerCase()}${suffix}&f=sd2t2ohlcv&h&e=csv`;
+  try{
+    const r = await fetchT(url,{cache:'no-cache'},6000);
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
+    const txt = await r.text();
+    const lines = txt.trim().split('\n');
+    if(lines.length < 2) throw new Error('no data');
+    const parts = lines[1].split(',');
+    // f=sd2t2ohlcv -> [Symbol,Date,Time,Open,High,Low,Close,Volume]
+    const close = parseFloat(parts[6]);
+    if(!close||isNaN(close)||close<=0) throw new Error('invalid:'+parts[6]);
+    const lat = Date.now()-t0;
+    debugLog('ok',`Stooq ${ticker}: $${close.toFixed(3)} (${lat}ms)`);
+    return {price:close, source:'stooq', latency:lat};
+  }catch(e){
+    debugLog('warn',`Stooq ${ticker}: ${e.name==='AbortError'?'timeout':e.message}`);
+    return null;
+  }
+}
+
+async function fetchYahoo(ticker, ySymbol=null){
+  const t0 = Date.now();
+  const sym = ySymbol || ticker;
+  const yUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${sym}?interval=1d&range=1d`;
+  // Ordered by observed reliability (2026); corsproxy.io accepts Origin: null from file://
+  const proxies = [
+    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u => `https://api.cors.lol/?url=${encodeURIComponent(u)}`,
+    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+    u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
+  ];
+  for(let i=0;i<proxies.length;i++){
+    try{
+      const r = await fetchT(proxies[i](yUrl),{cache:'no-cache'},7000);
+      if(!r.ok) throw new Error(`HTTP ${r.status}`);
+      const d = await r.json();
+      const price = d?.chart?.result?.[0]?.meta?.regularMarketPrice;
+      if(price&&!isNaN(price)&&price>0){
+        const lat = Date.now()-t0;
+        debugLog('ok',`Yahoo ${sym}: $${price.toFixed(3)} [p${i+1}] (${lat}ms)`);
+        return {price, source:'yahoo', latency:lat};
+      }
+      throw new Error('no price');
+    }catch(e){
+      debugLog('warn',`Yahoo ${sym} p${i+1}: ${e.name==='AbortError'?'timeout':e.message}`);
+    }
+  }
+  return null;
+}
+
+// Tickers that Stooq doesn't list (OTC / pink sheets / foreign).
+// We skip Stooq for these and go directly to Yahoo to save latency.
+const OTC_TICKERS = new Set(['RIOFF','GLGDF','QUEXF','SRGXF','GOGOF','BMOOF','TLSA','BMM','VZLA']);
+// Tickers that need a Yahoo symbol suffix (foreign exchanges).
+const YAHOO_SUFFIX = {TSO:'TSO.AX', SMI:'SMI.AX'};
+
+async function fetchTicker(ticker){
+  if(SKIP_FETCH.has(ticker)){debugLog('warn',`${ticker}: skip (manual)`);return null;}
+  // Manual overrides are now persistent (no 24h expiry). User can clear from Settings.
+  const override = STATE.priceOverrides[ticker];
+  if(override && override.price > 0){
+    debugLog('ok',`${ticker}: override $${override.price}`);
+    return {price:override.price, source:'manual', latency:0};
+  }
+  const ySym = YAHOO_SUFFIX[ticker] || null;
+  // OTC / foreign tickers: skip Stooq (always fails), go straight to Yahoo
+  if(OTC_TICKERS.has(ticker) || ySym){
+    const r = await fetchYahoo(ticker, ySym);
+    if(r) return r;
+    debugLog('err',`${ticker}: all failed (OTC/foreign)`);
+    return null;
+  }
+  // Standard listed tickers: Stooq first, Yahoo fallback
+  let r = await fetchStooq(ticker);
+  if(r) return r;
+  r = await fetchYahoo(ticker);
+  if(r) return r;
+  debugLog('err',`${ticker}: all failed`);
+  return null;
+}
+
+async function fetchAllPrices(){
+  if(IS_FETCHING) return;
+  IS_FETCHING = true;
+  setStatus('<span class="spinner"></span>Consultando fuentes…','warn');
+  debugLog('ok',`═══ Refresh #${UPDATE_COUNT+1} ═══`);
+
+  const tickers = [...new Set(STATE.positions.map(p=>p.ticker))];
+  const prev = {...PRICES};
+
+  const res = await Promise.all(tickers.map(async t => {
+    const r = await fetchTicker(t);
+    if(r?.price){
+      PRICES[t] = r.price;
+      FETCH_STATUS[t] = {source:r.source, ts:Date.now(), latency:r.latency};
+      return {t, ok:true};
+    }
+    FETCH_STATUS[t] = {...FETCH_STATUS[t], source:FETCH_STATUS[t]?.source==='manual'?'manual':'cache'};
+    return {t, ok:false};
+  }));
+
+  const ok = res.filter(r=>r.ok).length;
+  const fail = res.length - ok;
+  UPDATE_COUNT++;
+  LAST_UPDATE = new Date();
+  IS_FETCHING = false;
+  const msg = fail===0 ? `✓ ${ok} LIVE — ${LAST_UPDATE.toLocaleTimeString('es-PE')}` : `${ok} live · ${fail} cache — ${LAST_UPDATE.toLocaleTimeString('es-PE')}`;
+  setStatus(msg, fail===0?'live':'warn');
+  debugLog('ok',`═══ Complete: ${ok}/${res.length} live ═══`);
+
+  checkAlerts(prev);
+  render();
+  flashChanges(prev);
+}
+
+function setStatus(msg, type='live'){
+  const t = document.getElementById('statusText');
+  if(t) t.innerHTML = msg;
+  const d = document.getElementById('liveDot');
+  if(d) d.className = 'live-dot' + (type==='err'?' err':type==='warn'?' warn':'');
+  if(LAST_UPDATE){
+    const u = document.getElementById('updStr');
+    if(u) u.textContent = `${LAST_UPDATE.toLocaleTimeString('es-PE')} · #${UPDATE_COUNT}`;
+  }
+}
+
+function flashChanges(prev){
+  document.querySelectorAll('tr[data-ticker]').forEach(tr=>{
+    const t = tr.dataset.ticker;
+    if(PRICES[t] && prev[t] && Math.abs(PRICES[t]-prev[t]) > 0.001){
+      tr.classList.add(PRICES[t] > prev[t] ? 'flash' : 'flash-red');
+      setTimeout(()=>tr.classList.remove('flash','flash-red'),2500);
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// NEWS FETCHER (Yahoo RSS via proxy)
+// ═══════════════════════════════════════════════════════
+async function fetchNewsForTicker(ticker){
+  const rssUrl = `https://feeds.finance.yahoo.com/rss/2.0/headline?s=${ticker}&region=US&lang=en-US`;
+  const proxies = [
+    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+    u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
+  ];
+  for(const p of proxies){
+    try{
+      const r = await fetchT(p(rssUrl),{},6000);
+      if(!r.ok) continue;
+      const txt = await r.text();
+      const items = [];
+      const itemRegex = /<item>([\s\S]*?)<\/item>/g;
+      let m;
+      while((m = itemRegex.exec(txt)) && items.length < 3){
+        const content = m[1];
+        const title = (content.match(/<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?<\/title>/) || [])[1] || '';
+        const link = (content.match(/<link>(.*?)<\/link>/) || [])[1] || '';
+        const pubDate = (content.match(/<pubDate>(.*?)<\/pubDate>/) || [])[1] || '';
+        if(title) items.push({ticker, title:title.trim(), link, pubDate});
+      }
+      if(items.length) return items;
+    }catch(e){}
+  }
+  return [];
+}
+
+async function refreshNews(){
+  debugLog('ok','Fetching news...');
+  const tickers = ['MSFT','NVDA','GOOGL','META','VOO'];
+  const all = [];
+  for(const t of tickers){
+    const items = await fetchNewsForTicker(t);
+    all.push(...items);
+  }
+  if(all.length > 0){
+    NEWS_CACHE = all;
+    LAST_NEWS_UPDATE = new Date();
+    debugLog('ok',`News loaded: ${all.length} items`);
+  } else {
+    debugLog('warn','News fetch failed, using static fallback');
+  }
+  renderNews();
+}
+
+// ═══════════════════════════════════════════════════════
+// MACRO DATA
+// ═══════════════════════════════════════════════════════
+async function refreshMacro(){
+  debugLog('ok','Fetching macro data...');
+  // Gold (GC.F) via Stooq
+  try{
+    const goldUrl = `https://stooq.com/q/l/?s=gc.f&f=sd2t2ohlcv&h&e=csv`;
+    const r = await fetchT(goldUrl,{},6000);
+    const txt = await r.text();
+    const parts = txt.trim().split('\n')[1]?.split(',');
+    if(parts && parseFloat(parts[6])) MACRO_CACHE.gold = {price:parseFloat(parts[6]), source:'Stooq'};
+  }catch(e){debugLog('warn','Gold fetch failed');}
+
+  // Oil (CL.F)
+  try{
+    const oilUrl = `https://stooq.com/q/l/?s=cl.f&f=sd2t2ohlcv&h&e=csv`;
+    const r = await fetchT(oilUrl,{},6000);
+    const txt = await r.text();
+    const parts = txt.trim().split('\n')[1]?.split(',');
+    if(parts && parseFloat(parts[6])) MACRO_CACHE.oil = {price:parseFloat(parts[6]), source:'Stooq'};
+  }catch(e){debugLog('warn','Oil fetch failed');}
+
+  // S&P 500 via VOO as proxy (already fetched)
+  if(PRICES.VOO) MACRO_CACHE.sp500 = {price:PRICES.VOO, label:'VOO proxy', source:'Stooq/Yahoo'};
+
+  // DXY (dollar index) - skip, not reliable
+  debugLog('ok','Macro data refreshed');
+  renderMacro();
+}
+
+// ═══════════════════════════════════════════════════════
+// ALERTS
+// ═══════════════════════════════════════════════════════
+function checkAlerts(prev){
+  TRIGGERED_ALERTS = [];
+  (STATE.alerts||[]).forEach(a=>{
+    const p = PRICES[a.ticker];
+    const pp = prev[a.ticker];
+    if(!p) return;
+    let trig = false;
+    if(a.condition==='above' && p >= a.price && (!pp||pp<a.price)) trig = true;
+    if(a.condition==='below' && p <= a.price && (!pp||pp>a.price)) trig = true;
+    if(trig) TRIGGERED_ALERTS.push({...a, currentPrice:p});
+  });
+}
+
+function openAlertModal(){
+  document.getElementById('alertModal').classList.add('active');
+  ['alTicker','alPrice','alNote'].forEach(id=>document.getElementById(id).value='');
+}
+function closeAlertModal(){document.getElementById('alertModal').classList.remove('active');}
+function saveAlert(event){
+  event.preventDefault();
+  const ticker = document.getElementById('alTicker').value.toUpperCase();
+  const condition = document.getElementById('alCondition').value;
+  const price = parseFloat(document.getElementById('alPrice').value);
+  const note = document.getElementById('alNote').value;
+  if(!ticker||!price) return alert('Completa campos');
+  STATE.alerts = STATE.alerts || [];
+  STATE.alerts.push({id:'a'+Date.now(), ticker, condition, price, note});
+  saveState(); closeAlertModal(); render();
+}
+function deleteAlert(id){
+  STATE.alerts = STATE.alerts.filter(a=>a.id!==id);
+  saveState(); render();
+}
+
+// ═══════════════════════════════════════════════════════
+// PRICE EDIT
+// ═══════════════════════════════════════════════════════
+function editPrice(ticker){
+  const cell = document.querySelector(`[data-price-cell="${ticker}"]`);
+  if(!cell || cell.querySelector('input')) return;
+  const cur = PRICES[ticker] || 0;
+  const fmtVal = cur < 10 ? cur.toFixed(3) : cur.toFixed(2);
+  cell.innerHTML = `<input type="number" class="price-edit" value="${fmtVal}" step="any" autofocus>`;
+  const input = cell.querySelector('input');
+  input.select();
+  const save = () => {
+    const v = parseFloat(input.value);
+    if(v && v > 0){
+      PRICES[ticker] = v;
+      STATE.priceOverrides[ticker] = {price:v, timestamp:Date.now()};
+      FETCH_STATUS[ticker] = {source:'manual', ts:Date.now(), latency:0};
+      saveState();
+      debugLog('ok',`${ticker}: manual $${v}`);
+    }
+    render();
+  };
+  input.addEventListener('blur', save);
+  input.addEventListener('keydown', e => {
+    if(e.key==='Enter') input.blur();
+    if(e.key==='Escape') render();
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// CALCULATIONS
+// ═══════════════════════════════════════════════════════
+function fmt(n,dec=0){
+  if(n===null||n===undefined||isNaN(n)) return '—';
+  return n.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+}
+function fmtPct(n,dec=1){
+  if(n===null||isNaN(n)) return '—';
+  return (n>=0?'+':'')+n.toFixed(dec)+'%';
+}
+function cls(n){return n>0?'p':n<0?'n':'';}
+
+function calcPositions(){
+  return STATE.positions.map(p=>{
+    const price = PRICES[p.ticker] || p.costAvg;
+    const prevClose = STATE.prevClose?.[p.ticker] || price;
+    const value = p.shares * price;
+    const costTotal = p.shares * p.costAvg;
+    const pnl = value - costTotal;
+    const pnlPct = costTotal>0?(pnl/costTotal)*100:0;
+    const dayChange = p.shares * (price - prevClose);
+    const dayChangePct = prevClose>0?((price-prevClose)/prevClose)*100:0;
+    const status = FETCH_STATUS[p.ticker] || {source:'cache'};
+    return {...p, price, prevClose, value, costTotal, pnl, pnlPct, dayChange, dayChangePct, status};
+  });
+}
+
+function calcRealizedPnL(){
+  const closed = STATE.closedPositions.reduce((s,c)=>s+c.pnl, 0);
+  const sells = STATE.transactions.filter(t=>t.type==='venta').reduce((s,t)=>{
+    const cb = t.costAtSell !== undefined ? t.costAtSell : (STATE.positions.find(p=>p.ticker===t.ticker)?.costAvg||0);
+    return s + t.qty*(t.price-cb);
+  }, 0);
+  return closed + sells;
+}
+
+function calcTotalFunded(){return STATE.fundings.reduce((s,f)=>s+f.amount,0);}
+
+function calcXIRR(){
+  try{
+    const flows = [];
+    STATE.fundings.forEach(f=>flows.push({d:new Date(f.date), a:-f.amount}));
+    STATE.transactions.filter(t=>t.type==='venta').forEach(t=>flows.push({d:new Date(t.date), a:t.qty*t.price}));
+    const pos = calcPositions();
+    const totalValue = pos.reduce((s,p)=>s+p.value,0);
+    const cashTotal = (STATE.cash.TYBA||0)+(STATE.cash.IBK||0);
+    flows.push({d:new Date(), a:totalValue+cashTotal});
+    if(flows.length<2) return null;
+    flows.sort((a,b)=>a.d-b.d);
+    const base = flows[0].d;
+    const yrs = d=>(d-base)/(365.25*86400000);
+    const npv = r=>flows.reduce((s,f)=>s + f.a/Math.pow(1+r,yrs(f.d)),0);
+    const dnpv = r=>flows.reduce((s,f)=>s - yrs(f.d)*f.a/Math.pow(1+r,yrs(f.d)+1),0);
+    let r = 0.1;
+    for(let i=0;i<200;i++){
+      const f = npv(r);
+      if(Math.abs(f)<0.01) return r*100;
+      const df = dnpv(r);
+      if(Math.abs(df)<1e-10) break;
+      const nr = r - f/df;
+      if(Math.abs(nr-r)<1e-7) return nr*100;
+      r = Math.max(-0.99, Math.min(100, nr));
+    }
+    return r*100;
+  }catch(e){return null;}
+}
+
+function calcCAGR(invested, currentValue){
+  if(!invested||invested<=0) return null;
+  const dates = STATE.fundings.map(f=>new Date(f.date));
+  if(!dates.length) return null;
+  const earliest = new Date(Math.min(...dates));
+  const years = (new Date()-earliest)/(365.25*86400000);
+  if(years<0.05) return null;
+  const ratio = currentValue/invested;
+  if(ratio<=0) return null;
+  return (Math.pow(ratio,1/years)-1)*100;
+}
+
+function calcKPIs(){
+  const positions = calcPositions();
+  const totalValue = positions.reduce((s,p)=>s+p.value,0);
+  const totalCost = positions.reduce((s,p)=>s+p.costTotal,0);
+  const cashTotal = (STATE.cash.TYBA||0)+(STATE.cash.IBK||0);
+  const portfolioValue = totalValue + cashTotal;
+  const unrealizedPnL = totalValue - totalCost;
+  const unrealizedPct = totalCost>0?(unrealizedPnL/totalCost)*100:0;
+  const realizedPnL = calcRealizedPnL();
+  const totalFunded = calcTotalFunded();
+  const totalPnL = unrealizedPnL + realizedPnL;
+  const totalROI = totalFunded>0?(totalPnL/totalFunded)*100:0;
+  const winners = positions.filter(p=>p.pnl>0).length;
+  const losers = positions.filter(p=>p.pnl<0).length;
+  const winRate = (winners+losers)>0?(winners/(winners+losers))*100:0;
+  const rioff = positions.find(p=>p.ticker==='RIOFF');
+  const rioffPct = rioff&&portfolioValue>0?(rioff.value/portfolioValue)*100:0;
+  const dayChange = positions.reduce((s,p)=>s+p.dayChange,0);
+  const prevPortValue = portfolioValue - dayChange;
+  const dayChangePct = prevPortValue>0?(dayChange/prevPortValue)*100:0;
+  return {positions,totalValue,totalCost,cashTotal,portfolioValue,unrealizedPnL,unrealizedPct,realizedPnL,totalFunded,totalPnL,totalROI,winners,losers,winRate,rioffPct,dayChange,dayChangePct,xirr:calcXIRR(),cagr:calcCAGR(totalFunded,portfolioValue)};
+}
+
+// ═══════════════════════════════════════════════════════
+// INSIGHTS
+// ═══════════════════════════════════════════════════════
+function generateInsights(k){
+  const insights = [];
+  const pos = k.positions;
+  const topUp = [...pos].filter(p=>p.dayChangePct>0).sort((a,b)=>b.dayChangePct-a.dayChangePct)[0];
+  const topDown = [...pos].filter(p=>p.dayChangePct<0).sort((a,b)=>a.dayChangePct-b.dayChangePct)[0];
+  if(topUp && topUp.dayChangePct > 2) insights.push({type:'g',msg:`<b>${topUp.ticker}</b> liderando +${topUp.dayChangePct.toFixed(1)}% hoy ($${topUp.dayChange.toFixed(0)})`});
+  if(topDown && topDown.dayChangePct < -2) insights.push({type:'r',msg:`<b>${topDown.ticker}</b> cayendo ${topDown.dayChangePct.toFixed(1)}% ($${topDown.dayChange.toFixed(0)})`});
+  if(k.rioffPct > 35){
+    const rioff = pos.find(p=>p.ticker==='RIOFF');
+    insights.push({type:'w',msg:`<b>RIOFF concentración ${k.rioffPct.toFixed(1)}%</b> — stress test: si gold -10%, riesgo ~$${(rioff.value*0.1).toFixed(0)}`});
+  }
+  const underwater = pos.filter(p=>p.pnlPct<-15).sort((a,b)=>a.pnlPct-b.pnlPct);
+  underwater.slice(0,2).forEach(u=>{
+    const extra = u.ticker==='MSFT'?' · ER 29/4 catalyst':u.ticker==='SMI'?' · evaluar salida':'';
+    insights.push({type:'w',msg:`<b>${u.ticker}</b> underwater ${u.pnlPct.toFixed(0)}% ($${u.pnl.toFixed(0)})${extra}`});
+  });
+  pos.filter(p=>p.pnlPct>80).sort((a,b)=>b.pnlPct-a.pnlPct).slice(0,2).forEach(w=>{
+    insights.push({type:'g',msg:`<b>${w.ticker}</b> +${w.pnlPct.toFixed(0)}% ($${w.pnl.toFixed(0)}) — considerar trim parcial`});
+  });
+  if(k.cashTotal > 8000) insights.push({type:'b',msg:`<b>Cash ${((k.cashTotal/k.portfolioValue)*100).toFixed(0)}%</b> ocioso ($${k.cashTotal.toFixed(0)}). Earnings season 22-29/4 ofrece entries`});
+  const tybaVal = pos.filter(p=>p.broker==='TYBA').reduce((s,p)=>s+p.value,0);
+  const ibkVal = pos.filter(p=>p.broker==='IBK').reduce((s,p)=>s+p.value,0);
+  if(ibkVal > tybaVal*2) insights.push({type:'w',msg:`<b>IBK domina ${((ibkVal/(tybaVal+ibkVal))*100).toFixed(0)}%</b> — trading concentrado, TYBA debería ser core`});
+  TRIGGERED_ALERTS.forEach(a=>insights.push({type:'a',msg:`🔔 <b>${a.ticker}</b> cruzó ${a.condition==='above'?'sobre':'bajo'} $${a.price} → $${a.currentPrice.toFixed(2)} · ${a.note||''}`}));
+  return insights;
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════
+function render(){
+  const k = calcKPIs();
+  document.getElementById('dateStr').textContent = new Date().toLocaleDateString('es-PE',{weekday:'short',day:'numeric',month:'short'});
+
+  // Badges
+  document.getElementById('posTabBadge').textContent = k.positions.length;
+  document.getElementById('alertTabBadge').textContent = (STATE.alerts||[]).length;
+
+  // Alert banner
+  document.getElementById('alertBanner').innerHTML = TRIGGERED_ALERTS.length
+    ? TRIGGERED_ALERTS.map(a=>`<div class="al al-a"><b>🔔 ${a.ticker}</b> cruzó ${a.condition==='above'?'sobre':'bajo'} $${a.price} → actual $${a.currentPrice.toFixed(2)}. ${a.note||''}</div>`).join('')
+    : '';
+
+  // KPIs
+  document.getElementById('kpiGrid').innerHTML = `
+    <div class="kpi kpi-${k.totalPnL>=0?'g':'r'}">
+      <div class="l">Patrimonio</div>
+      <div class="v">$${fmt(k.portfolioValue,0)}</div>
+      <div class="s ${cls(k.dayChange)}">${k.dayChange>=0?'+':''}$${fmt(k.dayChange,0)} (${fmtPct(k.dayChangePct)})</div>
+    </div>
+    <div class="kpi kpi-${k.unrealizedPnL>=0?'g':'r'}">
+      <div class="l">PnL no realiz.</div>
+      <div class="v ${cls(k.unrealizedPnL)}">${k.unrealizedPnL>=0?'+':''}$${fmt(k.unrealizedPnL,0)}</div>
+      <div class="s">${fmtPct(k.unrealizedPct)}</div>
+    </div>
+    <div class="kpi kpi-${k.realizedPnL>=0?'g':'r'}">
+      <div class="l">PnL realizado</div>
+      <div class="v ${cls(k.realizedPnL)}">${k.realizedPnL>=0?'+':''}$${fmt(k.realizedPnL,0)}</div>
+      <div class="s">${STATE.closedPositions.length+STATE.transactions.filter(t=>t.type==='venta').length} trades</div>
+    </div>
+    <div class="kpi kpi-b">
+      <div class="l">XIRR</div>
+      <div class="v ${cls(k.xirr)}">${k.xirr!==null?fmtPct(k.xirr):'—'}</div>
+      <div class="s">Anualizado</div>
+    </div>
+    <div class="kpi kpi-b">
+      <div class="l">CAGR</div>
+      <div class="v ${cls(k.cagr)}">${k.cagr!==null?fmtPct(k.cagr):'—'}</div>
+      <div class="s">Compuesto</div>
+    </div>
+    <div class="kpi kpi-w">
+      <div class="l">Cash libre</div>
+      <div class="v w">$${fmt(k.cashTotal,0)}</div>
+      <div class="s">TYBA $${fmt(STATE.cash.TYBA,0)} · IBK $${fmt(STATE.cash.IBK,0)}</div>
+    </div>
+    <div class="kpi">
+      <div class="l">Win rate</div>
+      <div class="v">${k.winners}<span class="p">W</span>/${k.losers}<span class="n">L</span></div>
+      <div class="s">${fmt(k.winRate,0)}%</div>
+    </div>
+    <div class="kpi ${k.rioffPct>35?'kpi-w':''}">
+      <div class="l">Conc. RIOFF</div>
+      <div class="v ${k.rioffPct>35?'w':''}">${fmt(k.rioffPct,1)}%</div>
+      <div class="s">Max sugerido 30%</div>
+    </div>`;
+
+  // Movers
+  const movers = [...k.positions].filter(p=>Math.abs(p.dayChange)>0.5).sort((a,b)=>Math.abs(b.dayChange)-Math.abs(a.dayChange)).slice(0,4);
+  document.getElementById('moversGrid').innerHTML = movers.length
+    ? movers.map(m=>`<div class="kpi kpi-${m.dayChange>=0?'g':'r'}"><div class="l">${m.ticker}</div><div class="v ${cls(m.dayChange)}">${m.dayChange>=0?'+':''}$${fmt(m.dayChange,0)}</div><div class="s ${cls(m.dayChangePct)}">${fmtPct(m.dayChangePct)} · ${k.dayChange!==0?((m.dayChange/k.dayChange)*100).toFixed(0):0}%</div></div>`).join('')
+    : '<div class="nt">Sin movimientos significativos</div>';
+
+  // Insights
+  const insights = generateInsights(k);
+  document.getElementById('insightsList').innerHTML = insights.length
+    ? insights.map(i=>`<div class="al al-${i.type}">${i.msg}</div>`).join('')
+    : '<div class="nt">Portfolio en orden · sin insights críticos</div>';
+
+  // Recommendations (dynamic)
+  document.getElementById('recList').innerHTML = renderRecs(k);
+
+  // Earnings
+  document.getElementById('earningsCal').innerHTML = renderEarnings(k.positions);
+
+  // Positions
+  document.getElementById('posCount').textContent = k.positions.length;
+  const sorted = [...k.positions].sort((a,b)=>b.value-a.value);
+  document.getElementById('posTable').innerHTML = `
+    <tr><th>#</th><th>Ticker</th><th>BK</th><th>Shares</th><th>Costo</th><th>Precio</th><th>Src</th><th>Δ</th><th>Valor</th><th>PnL $</th><th>PnL %</th><th>%</th></tr>
+    ${sorted.map((p,i)=>{
+      const pp = k.portfolioValue>0?(p.value/k.portfolioValue)*100:0;
+      const sc = `src-${p.status.source}`;
+      const sl = {'stooq':'STQ','yahoo':'YF','manual':'MAN','cache':'CACHE','err':'ERR'}[p.status.source]||'?';
+      const st = p.status.source==='manual'?`Manual: ${new Date(p.status.ts).toLocaleString('es-PE')}`:`${p.status.source}${p.status.latency?' · '+p.status.latency+'ms':''}`;
+      return `<tr data-ticker="${p.ticker}">
+        <td style="color:var(--t3)">${i+1}</td>
+        <td onclick="showPosDetail('${p.ticker}')" style="cursor:pointer"><b>${p.ticker}</b></td>
+        <td style="color:var(--t3)">${p.broker}</td>
+        <td>${p.shares>=1000?(p.shares/1000).toFixed(p.shares%1000===0?0:1)+'K':fmt(p.shares,p.shares%1===0?0:2)}</td>
+        <td>$${p.costAvg<10?p.costAvg.toFixed(3):p.costAvg.toFixed(2)}</td>
+        <td data-price-cell="${p.ticker}" onclick="editPrice('${p.ticker}')" class="price-cell ${cls(p.pnl)}" title="Click editar"><b>$${p.price<10?p.price.toFixed(3):p.price.toFixed(2)}</b></td>
+        <td><span class="src ${sc}" title="${st}">${sl}</span></td>
+        <td class="${cls(p.dayChangePct)}" style="font-size:8.5px">${Math.abs(p.dayChangePct)>0.01?fmtPct(p.dayChangePct,2):'—'}</td>
+        <td>$${fmt(p.value,0)}</td>
+        <td class="${cls(p.pnl)}">${p.pnl>=0?'+':''}$${fmt(p.pnl,0)}</td>
+        <td class="${cls(p.pnl)}">${fmtPct(p.pnlPct)}</td>
+        <td style="color:var(--t3)">${fmt(pp,1)}%</td>
+      </tr>`;
+    }).join('')}`;
+
+  // Brokers
+  const tybaVal = sorted.filter(p=>p.broker==='TYBA').reduce((s,p)=>s+p.value,0)+STATE.cash.TYBA;
+  const ibkVal = sorted.filter(p=>p.broker==='IBK').reduce((s,p)=>s+p.value,0)+STATE.cash.IBK;
+  const tybaCost = sorted.filter(p=>p.broker==='TYBA').reduce((s,p)=>s+p.costTotal,0);
+  const ibkCost = sorted.filter(p=>p.broker==='IBK').reduce((s,p)=>s+p.costTotal,0);
+  const tybaPnL = sorted.filter(p=>p.broker==='TYBA').reduce((s,p)=>s+p.pnl,0);
+  const ibkPnL = sorted.filter(p=>p.broker==='IBK').reduce((s,p)=>s+p.pnl,0);
+  document.getElementById('brokerGrid').innerHTML = `
+    <div class="kg" style="grid-template-columns:1fr 1fr">
+      <div class="kpi kpi-b">
+        <div class="l">TYBA — Largo Plazo</div>
+        <div class="v">$${fmt(tybaVal,0)}</div>
+        <div class="s ${cls(tybaPnL)}">PnL ${tybaPnL>=0?'+':''}$${fmt(tybaPnL,0)} · ${tybaCost>0?fmtPct(tybaPnL/tybaCost*100):'—'}</div>
+        <div class="bar"><div class="bar-fill" style="width:${(tybaVal/k.portfolioValue)*100}%;background:var(--blu)"></div></div>
+      </div>
+      <div class="kpi kpi-g">
+        <div class="l">IBK — Trading</div>
+        <div class="v">$${fmt(ibkVal,0)}</div>
+        <div class="s ${cls(ibkPnL)}">PnL ${ibkPnL>=0?'+':''}$${fmt(ibkPnL,0)} · ${ibkCost>0?fmtPct(ibkPnL/ibkCost*100):'—'}</div>
+        <div class="bar"><div class="bar-fill" style="width:${(ibkVal/k.portfolioValue)*100}%"></div></div>
+      </div>
+    </div>`;
+
+  // Transactions
+  const allTx = [...STATE.transactions].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  document.getElementById('txCount').textContent = allTx.length;
+  document.getElementById('txList').innerHTML = allTx.length?allTx.map(t=>`
+    <div class="tx-row">
+      <span style="color:var(--t3);font-size:9px">${t.date}</span>
+      <span class="${t.type==='compra'?'p':t.type==='venta'?'n':''}"><b>${t.type.toUpperCase()}</b> ${t.ticker||''}</span>
+      <span>${t.broker||''}</span>
+      <span>${t.qty?fmt(t.qty,0):'—'} sh</span>
+      <span>${t.price?'$'+fmt(t.price,t.price<10?3:2):t.amount?'$'+fmt(t.amount,0):'—'}</span>
+      <span class="tx-valor">${t.qty&&t.price?'$'+fmt(t.qty*t.price,0):''}</span>
+      <button class="x" onclick="deleteTx('${t.id}')">×</button>
+    </div>`).join('') : '<div class="nt">Sin transacciones</div>';
+
+  // Closed positions
+  document.getElementById('closedCount').textContent = STATE.closedPositions.length;
+  document.getElementById('closedList').innerHTML = STATE.closedPositions.length?STATE.closedPositions.map(c=>`
+    <div style="display:grid;grid-template-columns:80px 1fr 100px;gap:8px;padding:5px 0;border-bottom:1px solid #1a1a15;font-size:10px">
+      <span style="color:var(--t3)">${c.date||'—'}</span>
+      <span><b>${c.ticker}</b></span>
+      <span class="${c.pnl>=0?'p':'n'}">${c.pnl>=0?'+':''}$${fmt(c.pnl,0)}</span>
+    </div>`).join('') : '<div class="nt">Sin posiciones cerradas</div>';
+
+  // Analytics
+  const bestPos = sorted.reduce((a,b)=>b.pnlPct>a.pnlPct?b:a, sorted[0]);
+  const worstPos = sorted.reduce((a,b)=>b.pnlPct<a.pnlPct?b:a, sorted[0]);
+  document.getElementById('analyticsGrid').innerHTML = `
+    <div class="kpi"><div class="l">Fondeado neto</div><div class="v">$${fmt(k.totalFunded,0)}</div><div class="s">${STATE.fundings.length} movs</div></div>
+    <div class="kpi"><div class="l">Profit total</div><div class="v ${cls(k.totalPnL)}">$${fmt(k.totalPnL,0)}</div><div class="s">${fmtPct(k.totalROI)} ROI</div></div>
+    <div class="kpi kpi-g"><div class="l">Mejor</div><div class="v p">${bestPos.ticker}</div><div class="s p">${fmtPct(bestPos.pnlPct)}</div></div>
+    <div class="kpi kpi-r"><div class="l">Peor</div><div class="v n">${worstPos.ticker}</div><div class="s n">${fmtPct(worstPos.pnlPct)}</div></div>`;
+
+  document.getElementById('analyticsNote').innerHTML = `
+    <b>XIRR ${k.xirr!==null?fmtPct(k.xirr):'—'}</b> — retorno anualizado real considerando timing de cada fondeo (Newton-Raphson sobre NPV).<br>
+    <b>CAGR ${k.cagr!==null?fmtPct(k.cagr):'—'}</b> — crecimiento compuesto asumiendo todo invertido desde el primer fondeo.<br>
+    XIRR > CAGR indica que el capital reciente está performando mejor que el promedio histórico.`;
+
+  // Distribution
+  const byTipo = {};
+  sorted.forEach(p=>{byTipo[p.tipo||'Otros']=(byTipo[p.tipo||'Otros']||0)+p.value;});
+  document.getElementById('distribView').innerHTML = Object.entries({'Tech':sorted.filter(p=>['MSFT','NVDA','GOOGL','META'].includes(p.ticker)).reduce((s,p)=>s+p.value,0),'ETFs':sorted.filter(p=>['VOO','EPU'].includes(p.ticker)).reduce((s,p)=>s+p.value,0),'Mining':sorted.filter(p=>['RIOFF','QUEXF','SRGXF','GLGDF','BMM','SMI','TSO'].includes(p.ticker)).reduce((s,p)=>s+p.value,0),'Cash':k.cashTotal}).map(([cat,val])=>{
+    const pct = (val/k.portfolioValue)*100;
+    return `<div style="margin-bottom:8px">
+      <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px"><b>${cat}</b><span>$${fmt(val,0)} · ${pct.toFixed(1)}%</span></div>
+      <div class="bar"><div class="bar-fill" style="width:${pct}%;background:${cat==='Tech'?'var(--blu)':cat==='Mining'?'var(--grn)':cat==='ETFs'?'var(--acc)':'var(--ylw)'}"></div></div>
+    </div>`;
+  }).join('');
+
+  // Ranking
+  document.getElementById('rankingTable').innerHTML = `<tr><th>#</th><th>Ticker</th><th>PnL %</th><th>PnL $</th><th>Valor</th></tr>
+    ${[...sorted].sort((a,b)=>b.pnlPct-a.pnlPct).map((p,i)=>`<tr><td>${i+1}</td><td><b>${p.ticker}</b></td><td class="${cls(p.pnl)}">${fmtPct(p.pnlPct)}</td><td class="${cls(p.pnl)}">${p.pnl>=0?'+':''}$${fmt(p.pnl,0)}</td><td>$${fmt(p.value,0)}</td></tr>`).join('')}`;
+
+  // Fundings
+  document.getElementById('fundingCount').textContent = STATE.fundings.length;
+  const sortedFundings = [...STATE.fundings].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  document.getElementById('fundingList').innerHTML = sortedFundings.map(f=>`
+    <div style="display:grid;grid-template-columns:80px 60px 100px 1fr;gap:8px;padding:5px 0;border-bottom:1px solid #1a1a15;font-size:10px">
+      <span style="color:var(--t3)">${f.date}</span>
+      <span>${f.broker}</span>
+      <span class="${f.amount>=0?'p':'n'}">${f.amount>=0?'+':''}$${fmt(f.amount,0)}</span>
+      <span style="color:var(--t3);font-size:9px">${f.note||''}</span>
+    </div>`).join('');
+
+  // Alerts
+  const alerts = STATE.alerts||[];
+  document.getElementById('alertCount').textContent = alerts.length;
+  document.getElementById('alertList').innerHTML = alerts.length?alerts.map(a=>{
+    const cur = PRICES[a.ticker];
+    const dist = cur?((cur-a.price)/a.price*100):null;
+    const trig = TRIGGERED_ALERTS.some(t=>t.id===a.id);
+    return `<div class="alert-rule ${trig?'triggered':''}">
+      <span><b>${a.ticker}</b></span>
+      <span>${a.condition==='above'?'▲':'▼'} $${a.price}</span>
+      <span>${cur?'$'+cur.toFixed(2):'—'}</span>
+      <span style="color:var(--t3);font-size:9px">${dist!==null?`${dist>0?'+':''}${dist.toFixed(1)}% · ${a.note||''}`:a.note||''}</span>
+      <button class="x" onclick="deleteAlert('${a.id}')" style="background:none;border:none;color:var(--t3);cursor:pointer;font-size:14px">×</button>
+    </div>`;
+  }).join(''):'<div class="nt">Sin alertas configuradas</div>';
+
+  // News
+  renderNews();
+  renderMacro();
+}
+
+function renderRecs(k){
+  const pos = k.positions;
+  const msft = pos.find(p=>p.ticker==='MSFT');
+  const msftP = msft?msft.price:394;
+  const newAvg = msft?((msft.costTotal+4*msftP)/(msft.shares+4)):0;
+  const cash = k.cashTotal;
+  return `<div class="rec">
+    <div class="r"><div class="al al-g" style="margin:0;border:none;padding:6px 0;background:none"><b>MSFT DCA</b>: comprar 4 @ ~$${msftP.toFixed(0)} → $${(4*msftP).toFixed(0)}. Avg baja $${msft?.costAvg.toFixed(0)||453}→$${newAvg.toFixed(0)}. ER 29/4. PT consensus $600 (+${((600/msftP-1)*100).toFixed(0)}%)</div></div>
+    <div class="r"><div class="al al-w" style="margin:0;border:none;padding:6px 0;background:none"><b>EPU</b>: HOLD 81sh. Perú ONPE incertidumbre 2do lugar. Si confirma izquierda → dip a $80-82 para agregar 20sh</div></div>
+    <div class="r"><div class="al al-b" style="margin:0;border:none;padding:6px 0;background:none"><b>HOLD ganadoras</b>: GOOGL +${pos.find(p=>p.ticker==='GOOGL')?fmt(pos.find(p=>p.ticker==='GOOGL').pnlPct,0):'—'}%, NVDA +${pos.find(p=>p.ticker==='NVDA')?fmt(pos.find(p=>p.ticker==='NVDA').pnlPct,0):'—'}%, BMM +${pos.find(p=>p.ticker==='BMM')?fmt(pos.find(p=>p.ticker==='BMM').pnlPct,0):'—'}%. Catalizadores abiertos</div></div>
+    <div class="r"><div class="al al-g" style="margin:0;border:none;padding:6px 0;background:none"><b>META</b>: cerca breakeven. Costo $669.86 vs $${pos.find(p=>p.ticker==='META')?pos.find(p=>p.ticker==='META').price.toFixed(2):'—'} actual. ER 29/4 · NO comprar más hasta ER</div></div>
+    <div class="r"><div class="al al-w" style="margin:0;border:none;padding:6px 0;background:none"><b>Reservar $${fmt(cash-1580,0)}</b> para earnings season 22-29/4. 4 reportes · distribución: $1.6K EPU dip · $1.4K MSFT tramo 2 · $1.5K Barrick · $1K emergencia</div></div>
+  </div>`;
+}
+
+function renderEarnings(positions){
+  const earnings = [
+    {ticker:'GOOGL',date:'2026-04-22',time:'after close'},
+    {ticker:'MSFT',date:'2026-04-29',time:'after close'},
+    {ticker:'META',date:'2026-04-29',time:'after close'},
+    {ticker:'NVDA',date:'2026-05-20',time:'after close'}
+  ];
+  const today = new Date();
+  return earnings.map(e=>{
+    const d = new Date(e.date);
+    const days = Math.ceil((d-today)/86400000);
+    const pos = positions.find(p=>p.ticker===e.ticker);
+    const info = pos?`${pos.shares}sh · ${fmtPct(pos.pnlPct)}`:'—';
+    const urg = days<=7?'al-w':days<=14?'al-b':'';
+    return `<div class="al ${urg}" style="margin:4px 0"><b>${e.ticker}</b> · ${e.date} · <span style="color:var(--t3)">${days>0?days+' días':'hoy/pasado'} · ${info}</span></div>`;
+  }).join('');
+}
+
+function renderNews(){
+  const newsEl = document.getElementById('newsList');
+  if(!newsEl) return;
+
+  const fallback = [
+    {tick:'MSFT',title:'Data center campus 3,200 acres Wyoming. Earnings 29 abril',link:'https://finance.yahoo.com/quote/MSFT',pubDate:''},
+    {tick:'NVDA',title:'10 días consecutivos subiendo. Rubin demand + quantum AI',link:'https://finance.yahoo.com/quote/NVDA',pubDate:''},
+    {tick:'META',title:'Partnership Broadcom chips AI. Muse Spark model',link:'https://finance.yahoo.com/quote/META',pubDate:''},
+    {tick:'GOOGL',title:'Pre-earnings rally. Bulls esperan upside AI+Cloud. ER 22/4',link:'https://finance.yahoo.com/quote/GOOGL',pubDate:''},
+    {tick:'RIOFF',title:'Fenix Gold mina activa. Gold recuperando. Q1 production report',link:'https://finance.yahoo.com/quote/RIOFF',pubDate:''},
+    {tick:'BMM',title:'Gage acquisition cerrada. Nussir Feasibility Study Q2',link:'https://finance.yahoo.com/quote/BMM',pubDate:''},
+    {tick:'EPU',title:'Perú ONPE 88%: Keiko 17%, Sánchez (izq) vs López Aliaga',link:'https://finance.yahoo.com/quote/EPU',pubDate:''},
+  ];
+
+  const newsToShow = NEWS_CACHE.length ? NEWS_CACHE : fallback;
+  const srcLabel = NEWS_CACHE.length ? 'YAHOO RSS' : 'CACHED';
+  const srcEl = document.getElementById('newsSource');
+  if(srcEl) srcEl.textContent = srcLabel;
+
+  newsEl.innerHTML = newsToShow.map(n=>{
+    const time = n.pubDate ? new Date(n.pubDate).toLocaleString('es-PE',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : '';
+    return `<div class="news-item">
+      <span class="tick">${n.tick||n.ticker}</span>
+      <b>${n.title||n.txt}</b>
+      ${time?`<span class="time">· ${time}</span>`:''}
+      <br><a href="${n.link||'#'}" target="_blank">Ver fuente →</a>
+    </div>`;
+  }).join('');
+}
+
+function renderMacro(){
+  const el = document.getElementById('macroGrid');
+  if(!el) return;
+
+  const items = [
+    {label:'S&P 500 (VOO)', ...MACRO_CACHE.sp500, fallback:646},
+    {label:'Gold spot', ...MACRO_CACHE.gold, fallback:4822},
+    {label:'WTI Oil', ...MACRO_CACHE.oil, fallback:94},
+  ];
+
+  el.innerHTML = items.map(m=>{
+    const v = m.price || m.fallback;
+    const src = m.price ? m.source : 'cached';
+    return `<div class="kpi kpi-b">
+      <div class="l">${m.label}</div>
+      <div class="v">$${fmt(v,v>1000?0:2)}</div>
+      <div class="s">${src}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('macroNote').innerHTML = `
+    <b>Situación macro (Apr 2026):</b> S&P cerca de ATH post rally Iran-desescalada. Gold en máximos históricos ~$4,800 (JPM target $6,300). 
+    Oil bajó de $104 (picos Iran war) a ~$93. PPI dovish (0.5% vs 1.1% est) → Fed menos hawkish.`;
+
+  document.getElementById('geoList').innerHTML = `
+    <div class="al al-w"><b>Irán-US:</b> Ceasefire frágil expiró ~22/4. Oil cayó de $104 → $93. Negociaciones reanudando. Hormuz bloqueo activo pero pausable</div>
+    <div class="al al-g"><b>Gold cycle:</b> $4,822 spot. Central banks compraron 800+ ton en 2025. JPM target $6,300. Beneficia RIOFF/QUEXF/BMM</div>
+    <div class="al al-b"><b>Tech earnings season:</b> GOOGL 22/4, MSFT+META 29/4, NVDA 20/5. Impacto directo sobre 44% del portafolio TYBA</div>`;
+
+  document.getElementById('peruList').innerHTML = `
+    <div class="al al-w"><b>ONPE al 88.3%:</b> Keiko Fujimori 16.9% confirmada 1ra. 2do lugar disputado: Sánchez (izq) 12.28% proyectado vs López Aliaga 12.04%</div>
+    <div class="al al-r"><b>López Aliaga pide anulación</b> — dio 24h al JNE. Constitucionalistas confirman: NO procede (63K votos no cumplen umbral 1/3)</div>
+    <div class="al al-b"><b>Polymarket:</b> Sánchez 59% prob 2do lugar vs López Aliaga 41%. Keiko 59% prob ganar runoff final</div>
+    <div class="al al-g"><b>Impacto EPU:</b> Runoff Keiko vs derecha = bullish. Keiko vs Sánchez (izq) = neutro-negativo inicial, pero Keiko favorita. Pico volatilidad entre ahora y 7 junio</div>`;
+}
+
+function showPosDetail(ticker){
+  const p = STATE.positions.find(x=>x.ticker===ticker);
+  if(!p) return;
+  const price = PRICES[ticker]||p.costAvg;
+  const txs = STATE.transactions.filter(t=>t.ticker===ticker);
+  const s = FETCH_STATUS[ticker];
+  alert(`${ticker} @ ${p.broker}\n─────────────\nShares: ${p.shares}\nCosto avg: $${p.costAvg.toFixed(3)}\nPrecio: $${price.toFixed(3)}\nValor: $${fmt(p.shares*price,2)}\nPnL: $${fmt(p.shares*(price-p.costAvg),2)} (${fmtPct((price-p.costAvg)/p.costAvg*100)})\n${s?`Fuente: ${s.source}${s.latency?' ('+s.latency+'ms)':''}\n`:''}${p.note?'\nNota: '+p.note+'\n':''}${txs.length?'\n'+txs.length+' transacciones asociadas':''}`);
+}
+
+// ═══════════════════════════════════════════════════════
+// TX MODAL
+// ═══════════════════════════════════════════════════════
+function openTxModal(){
+  document.getElementById('txModal').classList.add('active');
+  document.getElementById('txDate').value = new Date().toISOString().split('T')[0];
+  ['txTicker','txQty','txPrice','txAmount','txNote'].forEach(id=>document.getElementById(id).value='');
+  switchTxTab('compra', null);
+}
+function closeTxModal(){document.getElementById('txModal').classList.remove('active');}
+function switchTxTab(type, event){
+  document.getElementById('txType').value = type;
+  document.querySelectorAll('.modal-tab').forEach(t=>t.classList.toggle('active', t.dataset.type===type));
+  document.getElementById('fgPos').style.display = type==='fondeo'?'none':'grid';
+  document.getElementById('fgAmt').style.display = type==='fondeo'?'none':'grid';
+  document.getElementById('fgFondeo').style.display = type==='fondeo'?'block':'none';
+}
+function saveTx(event){
+  event.preventDefault();
+  const type = document.getElementById('txType').value;
+  const date = document.getElementById('txDate').value;
+  const note = document.getElementById('txNote').value;
+  if(type==='fondeo'){
+    const broker = document.getElementById('txBroker').value;
+    const amount = parseFloat(document.getElementById('txAmount').value);
+    if(!amount) return alert('Monto requerido');
+    STATE.fundings.push({id:'f'+Date.now(),date,broker,amount,note});
+    STATE.cash[broker]=(STATE.cash[broker]||0)+amount;
+  } else {
+    const ticker = document.getElementById('txTicker').value.toUpperCase();
+    const broker = document.getElementById('txBroker').value;
+    const qty = parseFloat(document.getElementById('txQty').value);
+    const price = parseFloat(document.getElementById('txPrice').value);
+    if(!ticker||!qty||!price) return alert('Ticker, cantidad y precio');
+    const txId = 't'+Date.now();
+    let pos = STATE.positions.find(p=>p.ticker===ticker && p.broker===broker);
+    if(type==='compra'){
+      if(pos){const tot = pos.shares*pos.costAvg + qty*price; pos.shares+=qty; pos.costAvg=tot/pos.shares;}
+      else STATE.positions.push({ticker,broker,shares:qty,costAvg:price,note:note||''});
+      STATE.cash[broker]=(STATE.cash[broker]||0)-qty*price;
+      STATE.transactions.push({id:txId,date,type,ticker,broker,qty,price,note});
+    } else {
+      if(!pos||pos.shares<qty) return alert('Shares insuficientes');
+      const costAtSell = pos.costAvg;
+      STATE.transactions.push({id:txId,date,type,ticker,broker,qty,price,costAtSell,note});
+      pos.shares-=qty;
+      STATE.cash[broker]=(STATE.cash[broker]||0)+qty*price;
+      if(pos.shares<0.001){
+        STATE.closedPositions.push({ticker,pnl:qty*(price-costAtSell),date});
+        STATE.positions=STATE.positions.filter(p=>!(p.ticker===ticker && p.broker===broker));
+      }
+    }
+  }
+  saveState(); closeTxModal(); render();
+}
+function deleteTx(id){
+  if(!confirm('Eliminar? (No revierte efectos automáticamente)')) return;
+  STATE.transactions = STATE.transactions.filter(t=>t.id!==id);
+  saveState(); render();
+}
+
+// ═══════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════
+function exportData(){
+  const d = JSON.stringify({state:STATE,prices:PRICES,exported:new Date().toISOString()},null,2);
+  const b = new Blob([d],{type:'application/json'});
+  const u = URL.createObjectURL(b);
+  const a = document.createElement('a');
+  a.href=u; a.download=`portfolio_${new Date().toISOString().split('T')[0]}.json`;
+  a.click(); URL.revokeObjectURL(u);
+}
+function importData(event){
+  const f = event.target.files[0];
+  if(!f) return;
+  const r = new FileReader();
+  r.onload = e=>{
+    try{
+      const d = JSON.parse(e.target.result);
+      if(d.state && confirm('Sobrescribir?')){
+        STATE = d.state;
+        saveState(); render();
+        alert('Importado OK');
+      }
+    }catch(err){alert('Error: '+err.message);}
+  };
+  r.readAsText(f);
+}
+function resetToDefault(){
+  if(!confirm('Reset al default? Se pierden cambios.')) return;
+  STATE = structuredClone(DEFAULT_STATE);
+  saveState(); render(); manualRefresh();
+}
+function clearAll(){
+  if(!confirm('BORRAR TODO?')) return;
+  if(!confirm('Último aviso?')) return;
+  localStorage.removeItem('luigi_portfolio_v7');
+  STATE = {positions:[],transactions:[],fundings:[],closedPositions:[],cash:{TYBA:0,IBK:0},priceOverrides:{},alerts:[],prevClose:{}};
+  render();
+}
+function manualRefresh(){
+  NEXT_REFRESH = Date.now()+5*60*1000;
+  fetchAllPrices();
+  refreshMacro();
+}
+function shareApp(){
+  const url = window.location.href;
+  if(navigator.share){
+    navigator.share({title:'Portfolio v6',text:'Luigi Portfolio Tracker',url}).catch(()=>{});
+  } else if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(()=>alert('URL copiada. Para compartir completo: Export JSON + enviar archivo.'));
+  } else {
+    prompt('URL:', url);
+  }
+}
+function updateCountdown(){
+  const r = Math.max(0, NEXT_REFRESH - Date.now());
+  const m = Math.floor(r/60000);
+  const s = Math.floor((r%60000)/1000);
+  const el = document.getElementById('countdown');
+  if(el) el.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+  if(r<=0 && !IS_FETCHING){
+    NEXT_REFRESH = Date.now()+5*60*1000;
+    fetchAllPrices();
+  }
+  // News refresh
+  if(Date.now() >= NEXT_NEWS){
+    NEXT_NEWS = Date.now() + 15*60*1000;
+    refreshNews();
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// TAB NAVIGATION
+// ═══════════════════════════════════════════════════════
+function setupTabs(){
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+      btn.classList.add('active');
+      const tc = document.getElementById(`tab-${target}`);
+      if(tc) tc.classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+function init(){
+  document.getElementById('txModal').addEventListener('click', e=>{if(e.target.id==='txModal') closeTxModal();});
+  document.getElementById('alertModal').addEventListener('click', e=>{if(e.target.id==='alertModal') closeAlertModal();});
+  setupTabs();
+  debugLog('ok','Portfolio v7 inicializado');
+  debugLog('ok',`${STATE.positions.length} positions, ${STATE.transactions.length} trans, ${STATE.alerts.length} alerts`);
+  render();
+  setStatus('Cargando precios…','warn');
+  // Fire-and-forget so a fetch failure during init doesn't break tab navigation
+  Promise.resolve().then(()=>fetchAllPrices()).catch(e=>debugLog('err','init fetch: '+e.message));
+  Promise.resolve().then(()=>refreshMacro()).catch(e=>debugLog('err','init macro: '+e.message));
+  Promise.resolve().then(()=>refreshNews()).catch(e=>debugLog('err','init news: '+e.message));
+  setInterval(updateCountdown, 1000);
+}
+
+init();
+</script>
+</body>
+</html>
