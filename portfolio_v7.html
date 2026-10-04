@@ -223,12 +223,12 @@ tr.flash-red td{background:var(--red-bg);transition:background 1.5s}
     </div>
 
     <div class="sec" style="border-color:var(--grn-d)">
-      <h2>Acciones recomendadas <span class="tag tg">HOY</span></h2>
+      <h2>Controles IPS <span class="tag tg">AUTO</span></h2>
       <div id="recList"></div>
     </div>
 
     <div class="sec">
-      <h2>Calendario earnings</h2>
+      <h2>Agenda de catalizadores</h2>
       <div id="earningsCal"></div>
     </div>
   </div>
@@ -303,7 +303,7 @@ tr.flash-red td{background:var(--red-bg);transition:background 1.5s}
       <div class="nt">
         Las alertas se revisan en cada refresh de precios (cada 5 min). Cuando un precio cruza el umbral configurado, aparece banner en el dashboard y entrada visible en "Insights dinámicos". 
         <br><br>
-        <b>Alertas pre-configuradas:</b> MSFT <$390 (DCA entry), EPU <$82 (dip post-Perú), MSFT >$420 (post-ER target).
+        <b>Alertas pre-configuradas:</b> ver lista arriba. Las alertas de precio de IBKR viven en tu cuenta IBKR, no aquí.
       </div>
     </div>
   </div>
@@ -331,12 +331,12 @@ tr.flash-red td{background:var(--red-bg);transition:background 1.5s}
     </div>
 
     <div class="sec">
-      <h2>Situación geopolítica</h2>
+      <h2>Próximos eventos</h2>
       <div id="geoList"></div>
     </div>
 
     <div class="sec">
-      <h2>Elecciones Perú (impacto EPU)</h2>
+      <h2>FOMC y tasas</h2>
       <div id="peruList"></div>
     </div>
   </div>
@@ -373,7 +373,7 @@ tr.flash-red td{background:var(--red-bg);transition:background 1.5s}
     <div class="sec">
       <h2>Info versión</h2>
       <div class="nt">
-        <b>v6.0</b> · Build: Apr 2026 · Datos iniciales tomados del workbook Inversiones.xlsx<br>
+        <b>v7</b> · Datos: snapshot 2026-10-02 (IBKR + resumen matutino) · ver tracking/ en el repo<br>
         Multi-source pricing con 3 niveles de fallback. Auto-refresh cada 5 min. Noticias cada 15 min.<br>
         <b>Compatible:</b> Chrome, Firefox, Safari, Edge (mobile + desktop).<br>
         <b>Shareable:</b> HTML standalone. Subir a GitHub Pages o Netlify → URL pública.
@@ -478,24 +478,27 @@ tr.flash-red td{background:var(--red-bg);transition:background 1.5s}
 
 <script>
 // ═══════════════════════════════════════════════════════
-// DEFAULT STATE (Apr 25 2026 — sourced from Inversiones.xlsx)
+// DEFAULT STATE (2-oct-2026 — IBKR connector + resumen matutino; see tracking/)
 // ═══════════════════════════════════════════════════════
 const DEFAULT_STATE = {
+  dataVersion: '2026-10-02',
   positions: [
-    {ticker:'VOO', broker:'TYBA', shares:13.9984, costAvg:509.84292, note:'Core S&P 500'},
-    {ticker:'EPU', broker:'TYBA', shares:81, costAvg:85.434815, note:'Peru ETF'},
+    {ticker:'VOO', broker:'TYBA', shares:13.9984, costAvg:509.843268, note:'Core S&P 500'},
+    {ticker:'NVDA', broker:'TYBA', shares:35, costAvg:144.806286, note:'AI semis'},
+    {ticker:'MSFT', broker:'TYBA', shares:16, costAvg:417.78, note:'Tech mega-cap'},
+    {ticker:'META', broker:'TYBA', shares:10, costAvg:639.662, note:'Tech mega-cap'},
+    {ticker:'B', broker:'TYBA', shares:139, costAvg:39.455683, note:'Oro large-cap (Barrick)'},
     {ticker:'GOOGL', broker:'TYBA', shares:12, costAvg:149.75, note:'Tech mega-cap'},
-    {ticker:'NVDA', broker:'TYBA', shares:27, costAvg:127.157778, note:'AI semis'},
-    {ticker:'META', broker:'TYBA', shares:6, costAvg:669.86, note:'Tech mega-cap'},
-    {ticker:'B', broker:'TYBA', shares:100, costAvg:40.42, note:'Insurance'},
-    {ticker:'MSFT', broker:'TYBA', shares:22, costAvg:446.668182, note:'Tech mega-cap'},
-    {ticker:'BMM', broker:'TYBA', shares:500, costAvg:3.85, note:'Mining junior'},
-    {ticker:'RIOFF', broker:'IBK', shares:21300, costAvg:1.287392, note:'Penny - mining'},
-    {ticker:'GLGDF', broker:'IBK', shares:3000, costAvg:2.231666, note:'Penny - gold'},
-    {ticker:'QUEXF', broker:'IBK', shares:5000, costAvg:1.493333, note:'Penny - gold'},
-    {ticker:'SRGXF', broker:'IBK', shares:17000, costAvg:0.389218, note:'Penny - mining'},
-    {ticker:'TSO', broker:'IBK', shares:8800, costAvg:0.712744, note:'Penny - mining'},
-    {ticker:'SMI', broker:'IBK', shares:8000, costAvg:0.624041, note:'Penny - mining'},
+    {ticker:'BMM', broker:'TYBA', shares:700, costAvg:4.55, note:'Junior - metales (Blue Moon)'},
+    {ticker:'PPTA', broker:'TYBA', shares:144, costAvg:23.233889, note:'Junior - oro/antimonio (Perpetua)'},
+    {ticker:'IONS', broker:'TYBA', shares:49, costAvg:62.305102, note:'Biotecnología'},
+    {ticker:'RIOFF', broker:'IBK', shares:19000, costAvg:1.302842, note:'Junior - oro/cobre (Rio2)'},
+    {ticker:'TSO', broker:'IBK', shares:17200, costAvg:0.699477, note:'Junior - oro (ASX, AUD)', ccy:'AUD'},
+    {ticker:'SRGXF', broker:'IBK', shares:27000, costAvg:0.412099, note:'Junior - cobre (Surge)'},
+    {ticker:'GLGDF', broker:'IBK', shares:3000, costAvg:2.232333, note:'Junior - oro/plata (GoGold)'},
+    {ticker:'QUEXF', broker:'IBK', shares:5000, costAvg:1.481, note:'Junior - litio (Q2 Metals)'},
+    {ticker:'GAL', broker:'IBK', shares:17000, costAvg:0.322604, note:'Junior - oro (TSXV, CAD)', ccy:'CAD'},
+    {ticker:'SMI', broker:'IBK', shares:9500, costAvg:0.591948, note:'Junior - oro (ASX, AUD)', ccy:'AUD'},
   ],
   transactions: [
     {id:'t1', date:'2025-03-31', type:'compra', ticker:'VOO', broker:'TYBA', qty:9.9984, price:508.56, note:''},
@@ -657,8 +660,14 @@ const DEFAULT_STATE = {
     {id:'f18', date:'2026-03-13', broker:'TYBA', amount:-20000, note:''},
     {id:'f19', date:'2026-03-15', broker:'IBK', amount:19000, note:''},
     {id:'f20', date:'2026-04-20', broker:'IBK', amount:3500, note:''},
+    {id:'f21', date:'2026-05-27', broker:'IBK', amount:11000, note:'Aporte neto may-2026 (serie de capital del resumen matutino; fecha = salto de NAV en IBKR PA)'},
   ],
   closedPositions: [
+    {ticker:'RIOFF', pnl:1519.75, date:'2026-09-22'},
+    {ticker:'TSO', pnl:-5.55, date:'2026-09-03'},
+    {ticker:'RIOFF', pnl:1407.39, date:'2026-08-17'},
+    {ticker:'RIOFF', pnl:64.03, date:'2026-08-13'},
+    {ticker:'MSFT', pnl:-86.85, date:'2026-06-25'},
     {ticker:'QQQ', pnl:3419, date:'2025'},
     {ticker:'TSLA', pnl:2129, date:'2025'},
     {ticker:'GOOGL', pnl:2262, date:'2025'},
@@ -673,34 +682,36 @@ const DEFAULT_STATE = {
     {ticker:'VZLA', pnl:-636, date:'2025'},
     {ticker:'XLE', pnl:-84, date:'2025'},
   ],
-  cash: {TYBA:3761.2, IBK:95.36},
+  cash: {TYBA:18.47, IBK:85.87},
+  fx: {AUD:0.69535525, CAD:0.701708},
   priceOverrides: {},
   alerts: [
     {id:'a1', ticker:'MSFT', condition:'below', price:390, note:'DCA entry zone'},
-    {id:'a2', ticker:'EPU', condition:'below', price:82, note:'Post-Per\u00fa dip'},
     {id:'a3', ticker:'MSFT', condition:'above', price:420, note:'Post-ER target'},
     {id:'a4', ticker:'RIOFF', condition:'above', price:2.50, note:'Trim candidate'},
     {id:'a5', ticker:'BMM', condition:'above', price:9.00, note:'Trim candidate'},
   ],
   prevClose: {
-    VOO: 656.42,
-    EPU: 81.63,
-    GOOGL: 344.4,
-    NVDA: 208.26,
-    META: 675.05,
-    B: 41.1,
-    MSFT: 424.6,
-    BMM: 7.9,
-    RIOFF: 2.021,
-    GLGDF: 2.022,
-    QUEXF: 2.0188,
-    SRGXF: 0.4713,
-    TSO: 0.7383,
-    SMI: 0.4554,
+    VOO: 707.5,
+    NVDA: 234.22,
+    MSFT: 517.19,
+    META: 727.65,
+    B: 40.09,
+    GOOGL: 343.25,
+    BMM: 4.77,
+    PPTA: 20.7261,
+    IONS: 43.61,
+    RIOFF: 2.27,
+    TSO: 0.629296,
+    SRGXF: 0.372835,
+    GLGDF: 2.8755,
+    QUEXF: 1.63,
+    GAL: 0.343837,
+    SMI: 0.358108,
   },
 };
 
-const SKIP_FETCH = new Set(['TSO']);
+const SKIP_FETCH = new Set([]);
 
 // ═══════════════════════════════════════════════════════
 // STATE
@@ -731,7 +742,18 @@ function loadState(){
     const s = localStorage.getItem('luigi_portfolio_v7');
     if(s){
       const p = JSON.parse(s);
+      if(p.dataVersion !== DEFAULT_STATE.dataVersion){
+        // Saved data predates the current broker snapshot: back it up, load the new
+        // defaults and carry over only the user's own alerts. Old manual price
+        // overrides are dropped because the new broker marks are more recent.
+        localStorage.setItem('luigi_portfolio_v7_backup_'+(p.dataVersion||'pre'), s);
+        console.info('Data snapshot changed: loading '+DEFAULT_STATE.dataVersion+' defaults (backup saved)');
+        const fresh = structuredClone(DEFAULT_STATE);
+        fresh.alerts = Array.isArray(p.alerts) ? p.alerts : fresh.alerts;
+        return fresh;
+      }
       p.priceOverrides = p.priceOverrides || {};
+      p.fx = p.fx || DEFAULT_STATE.fx;
       p.alerts = p.alerts || [];
       p.prevClose = p.prevClose || DEFAULT_STATE.prevClose;
       return p;
@@ -840,7 +862,27 @@ async function fetchYahoo(ticker, ySymbol=null){
 // We skip Stooq for these and go directly to Yahoo to save latency.
 const OTC_TICKERS = new Set(['RIOFF','GLGDF','QUEXF','SRGXF','GOGOF','BMOOF','TLSA','BMM','VZLA']);
 // Tickers that need a Yahoo symbol suffix (foreign exchanges).
-const YAHOO_SUFFIX = {TSO:'TSO.AX', SMI:'SMI.AX'};
+const YAHOO_SUFFIX = {TSO:'TSO.AX', SMI:'SMI.AX', GAL:'GAL.V'};
+// Foreign listings quote in local currency; positions are stored in USD.
+const FX_YAHOO = {AUD:'AUDUSD=X', CAD:'CADUSD=X'};
+let FX_CACHE = {};
+function tickerCcy(ticker){
+  return STATE.positions.find(p=>p.ticker===ticker)?.ccy || 'USD';
+}
+async function getFx(ccy){
+  if(ccy==='USD') return 1;
+  const c = FX_CACHE[ccy];
+  if(c && Date.now()-c.ts < 15*60*1000) return c.rate;
+  const r = FX_YAHOO[ccy] ? await fetchYahoo(FX_YAHOO[ccy], FX_YAHOO[ccy]) : null;
+  if(r && r.price > 0.3 && r.price < 1.5){
+    FX_CACHE[ccy] = {rate:r.price, ts:Date.now()};
+    return r.price;
+  }
+  // Fallback: last IBKR rate stored with the data snapshot
+  const fb = STATE.fx?.[ccy] || DEFAULT_STATE.fx?.[ccy] || null;
+  debugLog('warn',`FX ${ccy}: live rate unavailable, using stored ${fb}`);
+  return fb;
+}
 
 async function fetchTicker(ticker){
   if(SKIP_FETCH.has(ticker)){debugLog('warn',`${ticker}: skip (manual)`);return null;}
@@ -854,6 +896,13 @@ async function fetchTicker(ticker){
   // OTC / foreign tickers: skip Stooq (always fails), go straight to Yahoo
   if(OTC_TICKERS.has(ticker) || ySym){
     const r = await fetchYahoo(ticker, ySym);
+    const ccy = tickerCcy(ticker);
+    if(r && ccy!=='USD'){
+      const fx = await getFx(ccy);
+      if(!fx){debugLog('err',`${ticker}: no FX ${ccy}`);return null;}
+      debugLog('ok',`${ticker}: ${r.price} ${ccy} × ${fx} = $${(r.price*fx).toFixed(4)}`);
+      return {...r, price:r.price*fx, localPrice:r.price, ccy, fx};
+    }
     if(r) return r;
     debugLog('err',`${ticker}: all failed (OTC/foreign)`);
     return null;
@@ -995,7 +1044,7 @@ async function refreshMacro(){
   }catch(e){debugLog('warn','Oil fetch failed');}
 
   // S&P 500 via VOO as proxy (already fetched)
-  if(PRICES.VOO) MACRO_CACHE.sp500 = {price:PRICES.VOO, label:'VOO proxy', source:'Stooq/Yahoo'};
+  if(PRICES.VOO) MACRO_CACHE.sp500 = {price:PRICES.VOO, label:'VOO proxy', source:(FETCH_STATUS.VOO?.source||'cache')};
 
   // DXY (dollar index) - skip, not reliable
   debugLog('ok','Macro data refreshed');
@@ -1111,7 +1160,6 @@ function calcXIRR(){
   try{
     const flows = [];
     STATE.fundings.forEach(f=>flows.push({d:new Date(f.date), a:-f.amount}));
-    STATE.transactions.filter(t=>t.type==='venta').forEach(t=>flows.push({d:new Date(t.date), a:t.qty*t.price}));
     const pos = calcPositions();
     const totalValue = pos.reduce((s,p)=>s+p.value,0);
     const cashTotal = (STATE.cash.TYBA||0)+(STATE.cash.IBK||0);
@@ -1158,7 +1206,7 @@ function calcKPIs(){
   const unrealizedPct = totalCost>0?(unrealizedPnL/totalCost)*100:0;
   const realizedPnL = calcRealizedPnL();
   const totalFunded = calcTotalFunded();
-  const totalPnL = unrealizedPnL + realizedPnL;
+  const totalPnL = portfolioValue - totalFunded;
   const totalROI = totalFunded>0?(totalPnL/totalFunded)*100:0;
   const winners = positions.filter(p=>p.pnl>0).length;
   const losers = positions.filter(p=>p.pnl<0).length;
@@ -1187,13 +1235,13 @@ function generateInsights(k){
   }
   const underwater = pos.filter(p=>p.pnlPct<-15).sort((a,b)=>a.pnlPct-b.pnlPct);
   underwater.slice(0,2).forEach(u=>{
-    const extra = u.ticker==='MSFT'?' · ER 29/4 catalyst':u.ticker==='SMI'?' · evaluar salida':'';
+    const extra = '';
     insights.push({type:'w',msg:`<b>${u.ticker}</b> underwater ${u.pnlPct.toFixed(0)}% ($${u.pnl.toFixed(0)})${extra}`});
   });
   pos.filter(p=>p.pnlPct>80).sort((a,b)=>b.pnlPct-a.pnlPct).slice(0,2).forEach(w=>{
     insights.push({type:'g',msg:`<b>${w.ticker}</b> +${w.pnlPct.toFixed(0)}% ($${w.pnl.toFixed(0)}) — considerar trim parcial`});
   });
-  if(k.cashTotal > 8000) insights.push({type:'b',msg:`<b>Cash ${((k.cashTotal/k.portfolioValue)*100).toFixed(0)}%</b> ocioso ($${k.cashTotal.toFixed(0)}). Earnings season 22-29/4 ofrece entries`});
+  if(k.cashTotal > 8000) insights.push({type:'b',msg:`<b>Cash ${((k.cashTotal/k.portfolioValue)*100).toFixed(0)}%</b> ocioso ($${k.cashTotal.toFixed(0)}).`});
   const tybaVal = pos.filter(p=>p.broker==='TYBA').reduce((s,p)=>s+p.value,0);
   const ibkVal = pos.filter(p=>p.broker==='IBK').reduce((s,p)=>s+p.value,0);
   if(ibkVal > tybaVal*2) insights.push({type:'w',msg:`<b>IBK domina ${((ibkVal/(tybaVal+ibkVal))*100).toFixed(0)}%</b> — trading concentrado, TYBA debería ser core`});
@@ -1355,7 +1403,7 @@ function render(){
   const worstPos = sorted.reduce((a,b)=>b.pnlPct<a.pnlPct?b:a, sorted[0]);
   document.getElementById('analyticsGrid').innerHTML = `
     <div class="kpi"><div class="l">Fondeado neto</div><div class="v">$${fmt(k.totalFunded,0)}</div><div class="s">${STATE.fundings.length} movs</div></div>
-    <div class="kpi"><div class="l">Profit total</div><div class="v ${cls(k.totalPnL)}">$${fmt(k.totalPnL,0)}</div><div class="s">${fmtPct(k.totalROI)} ROI</div></div>
+    <div class="kpi"><div class="l">Profit total</div><div class="v ${cls(k.totalPnL)}">$${fmt(k.totalPnL,0)}</div><div class="s">${fmtPct(k.totalROI)} sobre fondeado</div></div>
     <div class="kpi kpi-g"><div class="l">Mejor</div><div class="v p">${bestPos.ticker}</div><div class="s p">${fmtPct(bestPos.pnlPct)}</div></div>
     <div class="kpi kpi-r"><div class="l">Peor</div><div class="v n">${worstPos.ticker}</div><div class="s n">${fmtPct(worstPos.pnlPct)}</div></div>`;
 
@@ -1367,7 +1415,10 @@ function render(){
   // Distribution
   const byTipo = {};
   sorted.forEach(p=>{byTipo[p.tipo||'Otros']=(byTipo[p.tipo||'Otros']||0)+p.value;});
-  document.getElementById('distribView').innerHTML = Object.entries({'Tech':sorted.filter(p=>['MSFT','NVDA','GOOGL','META'].includes(p.ticker)).reduce((s,p)=>s+p.value,0),'ETFs':sorted.filter(p=>['VOO','EPU'].includes(p.ticker)).reduce((s,p)=>s+p.value,0),'Mining':sorted.filter(p=>['RIOFF','QUEXF','SRGXF','GLGDF','BMM','SMI','TSO'].includes(p.ticker)).reduce((s,p)=>s+p.value,0),'Cash':k.cashTotal}).map(([cat,val])=>{
+  const bySector = {};
+  sorted.forEach(p=>{const s=SECTOR[p.ticker]||'Otros'; bySector[s]=(bySector[s]||0)+p.value;});
+  bySector.Cash = k.cashTotal;
+  document.getElementById('distribView').innerHTML = Object.entries(bySector).map(([cat,val])=>{
     const pct = (val/k.portfolioValue)*100;
     return `<div style="margin-bottom:8px">
       <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px"><b>${cat}</b><span>$${fmt(val,0)} · ${pct.toFixed(1)}%</span></div>
@@ -1411,52 +1462,42 @@ function render(){
   renderMacro();
 }
 
+const CATALYSTS = [{"d": "2026-10-12", "t": "Verificar fechas de resultados 3T (MSFT, GOOGL, META, NVDA, IONS, B, PPTA)", "est": "Recordatorio", "q": "B 9-nov confirmado; NVDA 17-nov; MSFT/GOOGL/META ~28–30 oct por confirmar en IR."}, {"d": "2026-10-28", "t": "FOMC · decisión de tasas (sin proyecciones)", "est": "Verificado", "q": "2:00 p.m. ET. Tras el empleo débil de hoy (29K) el mercado reevalúa la segunda alza que sugería el dot plot."}, {"d": "2026-10-29", "t": "BMM · cierre de la facilidad de prepago de tungsteno y acuerdos definitivos con Elmet", "est": "Por confirmar", "q": "Sujeto a due diligence y aprobación del TSXV; dilución estimada 3.3%–6.3%."}, {"d": "2026-10-30", "t": "Plazo reportes trimestrales ASX de TSO y SMI (trimestre a septiembre)", "est": "Regla ASX", "q": "Caja, runway y avance de permisos. TSO: caja neta A$15.3M al 30-jun."}, {"d": "2026-11-09", "t": "B · resultados 3T", "est": "Confirmado", "q": "Fuente: barrick.com (nota del calendario, 1-oct)."}, {"d": "2026-11-17", "t": "NVDA · resultados 3T (after market)", "est": "Por confirmar", "q": "Wall Street Horizon."}, {"d": "2026-11-26", "t": "GAL · resultados 3T y caja actualizada", "est": "Estimado por patrón", "q": "NYSE cerrado ese día (Acción de Gracias)."}, {"d": "2026-12-09", "t": "FOMC · decisión + dot plot", "est": "Verificado", "q": "Última reunión del año."}, {"d": "2026-12-15", "t": "SRGXF · revisión del avance de Berg (fase de Compromiso Temprano, EAO BC)", "est": "Revisión propia", "q": "No es un hito anunciado."}, {"d": "2026-12-15", "t": "GAL · PEA de Andacollo (guía 4T) y traslado del chancador", "est": "Guía del CEO · Por confirmar", "q": ""}, {"d": "2026-12-31", "t": "TSO · DFS de El Zorro (guía: diciembre 2026)", "est": "Guía de la empresa", "q": "Mining Forum 30-sep: DFS en diciembre; EIA y decisión de inversión 1T-2027. Fecha exacta sin anunciar."}];
+const CATALYSTS_ASOF = "2026-10-02";
+const IPS = {miningMax:0.70, positionMax:0.30, cashMin:0.02, drawdownReview:-0.30};
+const SECTOR = {MSFT:'Tech',NVDA:'Tech',GOOGL:'Tech',META:'Tech',VOO:'ETFs',IONS:'Biotech',B:'Mining',RIOFF:'Mining',QUEXF:'Mining',SRGXF:'Mining',GLGDF:'Mining',BMM:'Mining',SMI:'Mining',TSO:'Mining',GAL:'Mining',PPTA:'Mining'};
 function renderRecs(k){
-  const pos = k.positions;
-  const msft = pos.find(p=>p.ticker==='MSFT');
-  const msftP = msft?msft.price:394;
-  const newAvg = msft?((msft.costTotal+4*msftP)/(msft.shares+4)):0;
-  const cash = k.cashTotal;
-  return `<div class="rec">
-    <div class="r"><div class="al al-g" style="margin:0;border:none;padding:6px 0;background:none"><b>MSFT DCA</b>: comprar 4 @ ~$${msftP.toFixed(0)} → $${(4*msftP).toFixed(0)}. Avg baja $${msft?.costAvg.toFixed(0)||453}→$${newAvg.toFixed(0)}. ER 29/4. PT consensus $600 (+${((600/msftP-1)*100).toFixed(0)}%)</div></div>
-    <div class="r"><div class="al al-w" style="margin:0;border:none;padding:6px 0;background:none"><b>EPU</b>: HOLD 81sh. Perú ONPE incertidumbre 2do lugar. Si confirma izquierda → dip a $80-82 para agregar 20sh</div></div>
-    <div class="r"><div class="al al-b" style="margin:0;border:none;padding:6px 0;background:none"><b>HOLD ganadoras</b>: GOOGL +${pos.find(p=>p.ticker==='GOOGL')?fmt(pos.find(p=>p.ticker==='GOOGL').pnlPct,0):'—'}%, NVDA +${pos.find(p=>p.ticker==='NVDA')?fmt(pos.find(p=>p.ticker==='NVDA').pnlPct,0):'—'}%, BMM +${pos.find(p=>p.ticker==='BMM')?fmt(pos.find(p=>p.ticker==='BMM').pnlPct,0):'—'}%. Catalizadores abiertos</div></div>
-    <div class="r"><div class="al al-g" style="margin:0;border:none;padding:6px 0;background:none"><b>META</b>: cerca breakeven. Costo $669.86 vs $${pos.find(p=>p.ticker==='META')?pos.find(p=>p.ticker==='META').price.toFixed(2):'—'} actual. ER 29/4 · NO comprar más hasta ER</div></div>
-    <div class="r"><div class="al al-w" style="margin:0;border:none;padding:6px 0;background:none"><b>Reservar $${fmt(cash-1580,0)}</b> para earnings season 22-29/4. 4 reportes · distribución: $1.6K EPU dip · $1.4K MSFT tramo 2 · $1.5K Barrick · $1K emergencia</div></div>
-  </div>`;
+  // Policy (IPS) controls computed from current positions; flags only, no trade advice.
+  const pos = k.positions, tot = k.portfolioValue;
+  const mining = pos.filter(p=>SECTOR[p.ticker]==='Mining').reduce((s,p)=>s+p.value,0)/tot;
+  const rows = [];
+  const row = (ok,label,detail)=>rows.push(`<div class="r"><div class="al ${ok?'al-g':'al-w'}" style="margin:0;border:none;padding:6px 0;background:none"><b>${ok?'✓':'⚠'} ${label}</b>: ${detail}</div></div>`);
+  row(mining<=IPS.miningMax, 'Minería', `${(mining*100).toFixed(1)}% vs límite ${(IPS.miningMax*100).toFixed(0)}%`);
+  const top = [...pos].sort((a,b)=>b.value-a.value)[0];
+  if(top) row(top.value/tot<=IPS.positionMax, `Mayor posición ${top.ticker}`, `${(top.value/tot*100).toFixed(1)}% vs límite ${(IPS.positionMax*100).toFixed(0)}%`);
+  row(k.cashTotal/tot>=IPS.cashMin, 'Liquidez', `cash $${fmt(k.cashTotal,0)} (${(k.cashTotal/tot*100).toFixed(2)}%) vs mínimo ${(IPS.cashMin*100).toFixed(0)}%`);
+  const deep = pos.filter(p=>p.pnlPct/100<=IPS.drawdownReview).map(p=>`${p.ticker} ${p.pnlPct.toFixed(0)}%`);
+  row(!deep.length, 'Revisión de tesis', deep.length?`bajo costo ≥30%: ${deep.join(', ')}`:'ninguna posición ≥30% bajo costo');
+  return `<div class="rec">${rows.join('')}</div>`;
 }
 
 function renderEarnings(positions){
-  const earnings = [
-    {ticker:'GOOGL',date:'2026-04-22',time:'after close'},
-    {ticker:'MSFT',date:'2026-04-29',time:'after close'},
-    {ticker:'META',date:'2026-04-29',time:'after close'},
-    {ticker:'NVDA',date:'2026-05-20',time:'after close'}
-  ];
   const today = new Date();
-  return earnings.map(e=>{
-    const d = new Date(e.date);
-    const days = Math.ceil((d-today)/86400000);
-    const pos = positions.find(p=>p.ticker===e.ticker);
-    const info = pos?`${pos.shares}sh · ${fmtPct(pos.pnlPct)}`:'—';
+  const upcoming = CATALYSTS.filter(e=>new Date(e.d+'T23:59:59')>=today);
+  if(!upcoming.length) return `<div class="nt">Sin eventos futuros en la agenda del ${CATALYSTS_ASOF}. Actualiza desde el resumen matutino.</div>`;
+  return upcoming.map(e=>{
+    const days = Math.ceil((new Date(e.d)-today)/86400000);
     const urg = days<=7?'al-w':days<=14?'al-b':'';
-    return `<div class="al ${urg}" style="margin:4px 0"><b>${e.ticker}</b> · ${e.date} · <span style="color:var(--t3)">${days>0?days+' días':'hoy/pasado'} · ${info}</span></div>`;
-  }).join('');
+    return `<div class="al ${urg}" style="margin:4px 0"><b>${e.d}</b> · ${e.t} <span style="color:var(--t3)">· ${days>0?days+' días':'hoy'} · ${e.est}</span>${e.q?`<div style="color:var(--t3);font-size:10px;margin-top:2px">${e.q}</div>`:''}</div>`;
+  }).join('') + `<div class="nt" style="margin-top:6px">Fuente: agenda del resumen matutino del ${CATALYSTS_ASOF} (estado tal como lo publica).</div>`;
 }
 
 function renderNews(){
   const newsEl = document.getElementById('newsList');
   if(!newsEl) return;
 
-  const fallback = [
-    {tick:'MSFT',title:'Data center campus 3,200 acres Wyoming. Earnings 29 abril',link:'https://finance.yahoo.com/quote/MSFT',pubDate:''},
-    {tick:'NVDA',title:'10 días consecutivos subiendo. Rubin demand + quantum AI',link:'https://finance.yahoo.com/quote/NVDA',pubDate:''},
-    {tick:'META',title:'Partnership Broadcom chips AI. Muse Spark model',link:'https://finance.yahoo.com/quote/META',pubDate:''},
-    {tick:'GOOGL',title:'Pre-earnings rally. Bulls esperan upside AI+Cloud. ER 22/4',link:'https://finance.yahoo.com/quote/GOOGL',pubDate:''},
-    {tick:'RIOFF',title:'Fenix Gold mina activa. Gold recuperando. Q1 production report',link:'https://finance.yahoo.com/quote/RIOFF',pubDate:''},
-    {tick:'BMM',title:'Gage acquisition cerrada. Nussir Feasibility Study Q2',link:'https://finance.yahoo.com/quote/BMM',pubDate:''},
-    {tick:'EPU',title:'Perú ONPE 88%: Keiko 17%, Sánchez (izq) vs López Aliaga',link:'https://finance.yahoo.com/quote/EPU',pubDate:''},
-  ];
+  // Dated headlines from the latest morning brief (shown only when the live RSS fails)
+  const fallback = [{"tick": "MACRO", "title": "Empleo de septiembre: +29,000 nóminas (esperado ~84–90 mil); desempleo sube a 4.2% · CNBC / BLS", "link": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html", "pubDate": "02-oct-2026"}, {"tick": "RIOFF", "title": "Rio2 publica actualización operativa del 3T de Fenix Gold: impacto de tormentas invernales severas · Rio2 (comunicado)", "link": "https://www.rio2.com/post/rio2-provides-fenix-gold-q3-operations-update", "pubDate": "28-sep-2026"}, {"tick": "SRGXF", "title": "Surge Copper anuncia resultados de la junta anual y otorga unidades diferidas (DSU) a directores · Surge Copper (comunicado)", "link": "https://surgecopper.com/news-releases/surge-copper-announces-agm-results-and-grant-of-deferred-share-units/", "pubDate": "02-oct-2026"}];
 
   const newsToShow = NEWS_CACHE.length ? NEWS_CACHE : fallback;
   const srcLabel = NEWS_CACHE.length ? 'YAHOO RSS' : 'CACHED';
@@ -1480,34 +1521,28 @@ function renderMacro(){
 
   const items = [
     {label:'S&P 500 (VOO)', ...MACRO_CACHE.sp500, fallback:646},
-    {label:'Gold spot', ...MACRO_CACHE.gold, fallback:4822},
-    {label:'WTI Oil', ...MACRO_CACHE.oil, fallback:94},
+    {label:'Gold spot', ...MACRO_CACHE.gold, fallback:null},
+    {label:'WTI Oil', ...MACRO_CACHE.oil, fallback:null},
   ];
 
   el.innerHTML = items.map(m=>{
     const v = m.price || m.fallback;
-    const src = m.price ? m.source : 'cached';
+    const src = m.price ? m.source : (v ? 'cached' : 'sin dato en vivo');
     return `<div class="kpi kpi-b">
       <div class="l">${m.label}</div>
-      <div class="v">$${fmt(v,v>1000?0:2)}</div>
+      <div class="v">${v?'$'+fmt(v,v>1000?0:2):'—'}</div>
       <div class="s">${src}</div>
     </div>`;
   }).join('');
 
   document.getElementById('macroNote').innerHTML = `
-    <b>Situación macro (Apr 2026):</b> S&P cerca de ATH post rally Iran-desescalada. Gold en máximos históricos ~$4,800 (JPM target $6,300). 
-    Oil bajó de $104 (picos Iran war) a ~$93. PPI dovish (0.5% vs 1.1% est) → Fed menos hawkish.`;
+    <b>Contexto al 2026-10-02 (resumen matutino):</b> Empleo de septiembre: +29,000 nóminas; desempleo 4.2% (CNBC/BLS, 2-oct). Tesoro 10 años 5.24% (1-oct; Fuente: FMP treasury-rates (último publicado 1-oct).)`;
 
-  document.getElementById('geoList').innerHTML = `
-    <div class="al al-w"><b>Irán-US:</b> Ceasefire frágil expiró ~22/4. Oil cayó de $104 → $93. Negociaciones reanudando. Hormuz bloqueo activo pero pausable</div>
-    <div class="al al-g"><b>Gold cycle:</b> $4,822 spot. Central banks compraron 800+ ton en 2025. JPM target $6,300. Beneficia RIOFF/QUEXF/BMM</div>
-    <div class="al al-b"><b>Tech earnings season:</b> GOOGL 22/4, MSFT+META 29/4, NVDA 20/5. Impacto directo sobre 44% del portafolio TYBA</div>`;
+  const nextMacro = CATALYSTS.filter(e=>/FOMC|resultados|ASX/.test(e.t) && new Date(e.d+'T23:59:59')>=new Date());
+  document.getElementById('geoList').innerHTML = nextMacro.length ? nextMacro.map(e=>`<div class="al al-b"><b>${e.d}</b> · ${e.t} <span style="color:var(--t3)">· ${e.est}</span></div>`).join('') : '<div class="nt">Sin eventos próximos en la agenda.</div>';
 
   document.getElementById('peruList').innerHTML = `
-    <div class="al al-w"><b>ONPE al 88.3%:</b> Keiko Fujimori 16.9% confirmada 1ra. 2do lugar disputado: Sánchez (izq) 12.28% proyectado vs López Aliaga 12.04%</div>
-    <div class="al al-r"><b>López Aliaga pide anulación</b> — dio 24h al JNE. Constitucionalistas confirman: NO procede (63K votos no cumplen umbral 1/3)</div>
-    <div class="al al-b"><b>Polymarket:</b> Sánchez 59% prob 2do lugar vs López Aliaga 41%. Keiko 59% prob ganar runoff final</div>
-    <div class="al al-g"><b>Impacto EPU:</b> Runoff Keiko vs derecha = bullish. Keiko vs Sánchez (izq) = neutro-negativo inicial, pero Keiko favorita. Pico volatilidad entre ahora y 7 junio</div>`;
+    <div class="al al-b"><b>Fed 2026-09-16:</b> +25 pb a 3.75% - 4.00% (desde 3.50% - 3.75%), voto Unánime (12-0). Mediana del dot plot: 4.1% fin 2026 y 4.1% fin 2027.</div>`;
 }
 
 function showPosDetail(ticker){
@@ -1616,7 +1651,7 @@ function clearAll(){
   if(!confirm('BORRAR TODO?')) return;
   if(!confirm('Último aviso?')) return;
   localStorage.removeItem('luigi_portfolio_v7');
-  STATE = {positions:[],transactions:[],fundings:[],closedPositions:[],cash:{TYBA:0,IBK:0},priceOverrides:{},alerts:[],prevClose:{}};
+  STATE = {dataVersion:DEFAULT_STATE.dataVersion,positions:[],transactions:[],fundings:[],closedPositions:[],cash:{TYBA:0,IBK:0},fx:{...DEFAULT_STATE.fx},priceOverrides:{},alerts:[],prevClose:{}};
   render();
 }
 function manualRefresh(){
