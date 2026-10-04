@@ -1,5 +1,35 @@
 # Portfolio v7 — Changelog
 
+## 2026-10-04 · Sincronización con IBKR + resumen matutino del 2-oct
+
+**Datos (`default_state.js`, regenerado con `tracking/sync_default_state.py`)**
+- 16 posiciones (7 IBK + 9 TYBA). Antes eran 14, con datos de abril.
+  - IBK, del conector IBKR: RIOFF 19.000 · TSO 17.200 · SRGXF 27.000 · GLGDF 3.000 · QUEXF 5.000 · GAL 17.000 · SMI 9.500.
+  - TYBA, del resumen matutino: VOO 13,9984 · NVDA 35 · MSFT 16 · META 10 · B 139 · GOOGL 12 · BMM 700 · PPTA 144 · IONS 49.
+  - Sale EPU y entran GAL, PPTA e IONS.
+- `B` corregido: es **Barrick Mining** (NYSE: B), no Barnes Group.
+- Las posiciones en AUD y CAD (TSO, SMI, GAL) se guardan en USD con el FX de IBKR del pull y llevan el campo `ccy`.
+- Cash: TYBA $18,47 · IBK $85,87. Marks (`prevClose`): cierres del 2-oct.
+- Fondeos: aporte neto de $11.000 en may-2026, fechado el 27-may (salto de NAV en IBKR PA con TWR plano). Total: $99.397,75, igual al brief.
+- Se registran los cierres realizados de IBK posteriores a abril (RIOFF ×3, MSFT, TSO).
+- Se elimina la alerta de EPU (posición cerrada).
+
+**Código (`build_v7.py`, patches 12–16)**
+- Conversión FX en vivo para TSO.AX, SMI.AX y GAL.V. Si el tipo de cambio en vivo falta o es implausible, usa el último FX de IBKR. Antes, SMI.AX se sumaba en AUD como si fuera USD.
+- TSO deja de ser solo manual.
+- XIRR: solo flujos externos más el valor final. Antes sumaba el producto de las ventas como si fuera retiro, aunque se reinvirtió.
+- "Profit total" = patrimonio − fondeado. El log de ventas no tiene las ventas TYBA posteriores a abril.
+- Migración: si el `dataVersion` guardado difiere del actual, se respalda el estado (`luigi_portfolio_v7_backup_*`), se cargan los datos nuevos y se conservan las alertas del usuario.
+- Se reemplaza el contenido fijo de abril:
+  - "Acciones recomendadas" pasa a ser **Controles IPS**, calculados en vivo.
+  - El calendario de earnings pasa a ser la **agenda de catalizadores** del brief.
+  - Noticias, nota macro y FOMC usan datos fechados del brief.
+  - La distribución por sector usa un único mapa (antes omitía GAL, PPTA, B e IONS).
+  - Oro y WTI muestran "—" cuando no hay dato en vivo, en lugar de valores de abril.
+
+**Validación**: `node test_portfolio.mjs` → 33/33 · `node smoke_test.mjs` → 11/11 · render en Chromium sin errores (escritorio y 390 px).
+Patrimonio $141.954 · PnL abierto $26.577 · XIRR 36,5% (brief: 36,0%).
+
 ## Resumen ejecutivo
 
 **Problema reportado:** "no actualiza pero me encanta la presentación".

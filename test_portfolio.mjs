@@ -33,6 +33,11 @@ const fetchMock = async (url, opts = {}) => {
       "Symbol,Date,Time,Open,High,Low,Close,Volume\nVOO,2026-04-25,21:00:00,650,660,649,656.42,12345678\n"
     );
   }
+  // Yahoo FX pairs (checked before the generic Yahoo mock)
+  if (u.includes("query1.finance.yahoo.com") && (u.includes("AUDUSD") || u.includes("CADUSD"))) {
+    const rate = u.includes("AUDUSD") ? 0.7 : 0.72;
+    return okResp(JSON.stringify({ chart: { result: [{ meta: { regularMarketPrice: rate } }] } }));
+  }
   // Yahoo via any proxy: encoded query1.finance.yahoo.com
   if (u.includes("query1.finance.yahoo.com")) {
     return okResp(
@@ -125,61 +130,86 @@ test("STATE loaded from DEFAULT_STATE", () => {
   assert.ok(Array.isArray(STATE.positions));
 });
 
-console.log("\n[2] DEFAULT_STATE content matches Excel");
-test("14 active positions", () => {
+console.log("\n[2] DEFAULT_STATE matches broker snapshot (IBKR 4-oct + TYBA 2-oct)");
+const shares = (t) => getState().positions.find((p) => p.ticker === t)?.shares;
+test("16 active positions (7 IBK + 9 TYBA)", () => {
   const S = getState();
-  assert.equal(S.positions.length, 14, `got ${S.positions.length}`);
+  assert.equal(S.positions.length, 16, `got ${S.positions.length}`);
+  assert.equal(S.positions.filter((p) => p.broker === "IBK").length, 7);
+  assert.equal(S.positions.filter((p) => p.broker === "TYBA").length, 9);
 });
-test("positions contain new ticker B (Barnes)", () => {
+test("B is Barrick Mining (139 sh, TYBA), not Barnes", () => {
   const b = getState().positions.find((p) => p.ticker === "B");
   assert.ok(b, "missing 'B' position");
-  assert.equal(b.shares, 100);
+  assert.equal(b.shares, 139);
   assert.equal(b.broker, "TYBA");
+  assert.match(b.note, /Barrick/);
 });
-test("MSFT updated to 22 shares (was 18)", () => {
-  const m = getState().positions.find((p) => p.ticker === "MSFT");
-  assert.equal(m.shares, 22);
+test("IBK quantities match IBKR positions", () => {
+  assert.equal(shares("RIOFF"), 19000);
+  assert.equal(shares("TSO"), 17200);
+  assert.equal(shares("SRGXF"), 27000);
+  assert.equal(shares("SMI"), 9500);
+  assert.equal(shares("GAL"), 17000);
 });
-test("TSO updated to 8800 shares (was 4284)", () => {
-  const t = getState().positions.find((p) => p.ticker === "TSO");
-  assert.equal(t.shares, 8800);
+test("TYBA quantities match broker (MSFT 16, NVDA 35, PPTA 144, IONS 49)", () => {
+  assert.equal(shares("MSFT"), 16);
+  assert.equal(shares("NVDA"), 35);
+  assert.equal(shares("PPTA"), 144);
+  assert.equal(shares("IONS"), 49);
+  assert.equal(shares("EPU"), undefined);
+});
+test("foreign listings flagged with currency", () => {
+  const ccy = (t) => getState().positions.find((p) => p.ticker === t)?.ccy;
+  assert.equal(ccy("TSO"), "AUD");
+  assert.equal(ccy("SMI"), "AUD");
+  assert.equal(ccy("GAL"), "CAD");
+  assert.equal(ccy("RIOFF"), undefined);
 });
 test("transactions count matches Excel (~137)", () => {
   const n = getState().transactions.length;
   assert.ok(n >= 130 && n <= 140, `got ${n}`);
 });
-test("fundings include latest 2026-04-20 IBK $3500", () => {
-  const f = getState().fundings.find(
-    (x) => x.date === "2026-04-20" && x.amount === 3500
-  );
-  assert.ok(f, "missing latest funding");
+test("fundings include May-2026 $11,000", () => {
+  const f = getState().fundings.find((x) => x.date === "2026-05-27" && x.amount === 11000);
+  assert.ok(f, "missing May-2026 funding");
 });
-test("fundings sum to ~$88,398", () => {
+test("fundings sum to $99,397.75 (external capital in morning brief)", () => {
   const total = getState().fundings.reduce((s, f) => s + f.amount, 0);
-  assert.ok(Math.abs(total - 88397.75) < 1, `got ${total}`);
+  assert.ok(Math.abs(total - 99397.75) < 0.01, `got ${total}`);
 });
-test("cash balances match Excel", () => {
+test("cash balances match brokers", () => {
   const S = getState();
-  assert.equal(S.cash.TYBA, 3761.2);
-  assert.equal(S.cash.IBK, 95.36);
+  assert.equal(S.cash.TYBA, 18.47);
+  assert.equal(S.cash.IBK, 85.87);
 });
 
 console.log("\n[3] Calculations");
 // Reset PRICES to prevClose values so calc tests are deterministic
 // (init() may have populated PRICES with mock fetch values).
 ev("STATE.positions.forEach(p => { PRICES[p.ticker] = STATE.prevClose?.[p.ticker] || p.costAvg; });");
-test("calcKPIs returns sane patrimonio (~$128k)", () => {
+test("calcKPIs patrimonio = consolidated report $141,954 (±$5)", () => {
   const k = ev("calcKPIs()");
-  assert.ok(k.portfolioValue > 120000 && k.portfolioValue < 135000,
-    `got ${k.portfolioValue}`);
+  assert.ok(Math.abs(k.portfolioValue - 141954) < 5, `got ${k.portfolioValue}`);
+});
+test("unrealized PnL = consolidated report $26,577 (±$5)", () => {
+  const k = ev("calcKPIs()");
+  assert.ok(Math.abs(k.unrealizedPnL - 26577) < 5, `got ${k.unrealizedPnL}`);
 });
 test("calcKPIs unrealizedPnL is positive", () => {
   const k = ev("calcKPIs()");
   assert.ok(k.unrealizedPnL > 0, `got ${k.unrealizedPnL}`);
 });
-test("calcXIRR returns positive number", () => {
+test("calcXIRR uses external flows only (in line with brief's 36% XIRR)", () => {
   const x = ev("calcXIRR()");
-  assert.ok(x !== null && x > 0, `got ${x}`);
+  // Brief: 36.0% on 2-oct with 17 dated external flows. Terminal date here is "now",
+  // so allow a band rather than an exact match.
+  assert.ok(x !== null && x > 28 && x < 44, `got ${x}`);
+});
+test("profit total = patrimonio − fondeado ($42,556 ±$5)", () => {
+  const k = ev("calcKPIs()");
+  assert.ok(Math.abs(k.totalPnL - (k.portfolioValue - 99397.75)) < 0.01, `got ${k.totalPnL}`);
+  assert.ok(Math.abs(k.totalPnL - 42556) < 5, `got ${k.totalPnL}`);
 });
 test("calcRealizedPnL > 0 (winners > losers historically)", () => {
   const r = ev("calcRealizedPnL()");
@@ -214,9 +244,13 @@ test("OTC_TICKERS set contains the 5 pinks", () => {
     assert.ok(has(t), `missing ${t} from OTC set`);
   });
 });
-test("YAHOO_SUFFIX maps TSO and SMI to .AX", () => {
+test("YAHOO_SUFFIX maps TSO/SMI to .AX and GAL to .V", () => {
   assert.equal(ev("YAHOO_SUFFIX.TSO"), "TSO.AX");
   assert.equal(ev("YAHOO_SUFFIX.SMI"), "SMI.AX");
+  assert.equal(ev("YAHOO_SUFFIX.GAL"), "GAL.V");
+});
+test("TSO is no longer manual-only", () => {
+  assert.equal(ev("SKIP_FETCH.has('TSO')"), false);
 });
 
 // Helper to run async window code that needs to wait for fetches
@@ -242,16 +276,37 @@ await test_async("fetchTicker for RIOFF skips Stooq, goes to Yahoo", async () =>
 
 await test_async("fetchTicker for TSO uses TSO.AX symbol", async () => {
   fetchCalls.length = 0;
-  const r = await evAsync(`
-    SKIP_FETCH.delete("TSO");
-    const r = await fetchTicker("TSO");
-    SKIP_FETCH.add("TSO");
-    return r;
-  `);
+  const r = await evAsync(`return await fetchTicker("TSO");`);
   assert.ok(r);
   assert.equal(r.source, "yahoo");
   assert.ok(fetchCalls.some((u) => u.includes("TSO.AX")),
     "should have used .AX suffix");
+});
+
+await test_async("TSO price converted AUD->USD with live FX", async () => {
+  ev("FX_CACHE = {}");
+  const r = await evAsync(`return await fetchTicker("TSO");`);
+  assert.equal(r.ccy, "AUD");
+  assert.equal(r.localPrice, 999.99);
+  assert.ok(Math.abs(r.price - 999.99 * 0.7) < 1e-6, `got ${r.price}`);
+});
+await test_async("GAL price converted CAD->USD via GAL.V", async () => {
+  ev("FX_CACHE = {}");
+  fetchCalls.length = 0;
+  const r = await evAsync(`return await fetchTicker("GAL");`);
+  assert.ok(fetchCalls.some((u) => u.includes("GAL.V")), "should use GAL.V");
+  assert.ok(Math.abs(r.price - 999.99 * 0.72) < 1e-6, `got ${r.price}`);
+});
+await test_async("FX falls back to stored IBKR rate if live rate is implausible", async () => {
+  const origFetch = w.fetch;
+  w.fetch = async () => ({ ok: true, status: 200, text: async () => "", json: async () => ({ chart: { result: [{ meta: { regularMarketPrice: 999.99 } }] } }) });
+  ev("FX_CACHE = {}");
+  const r = await evAsync(`return await fetchTicker("SMI");`);
+  w.fetch = origFetch;
+  assert.ok(Math.abs(r.fx - 0.69535525) < 1e-9, `got fx ${r.fx}`);
+});
+test("USD tickers are not converted", () => {
+  assert.equal(ev("tickerCcy('NVDA')"), "USD");
 });
 
 console.log("\n[5] Manual override is permanent (no 24h expiry)");
@@ -273,6 +328,21 @@ test("saveState writes to luigi_portfolio_v7 key", () => {
   assert.ok(stored, "no value stored");
   const parsed = JSON.parse(stored);
   assert.ok(Array.isArray(parsed.positions));
+});
+
+test("stale v7 cache is backed up and replaced, alerts kept", () => {
+  const stale = { positions: [{ ticker: "EPU", broker: "TYBA", shares: 81, costAvg: 85 }], alerts: [{ id: "x", ticker: "MSFT", condition: "below", price: 1 }], cash: { TYBA: 1, IBK: 1 } };
+  w.localStorage.setItem("luigi_portfolio_v7", JSON.stringify(stale));
+  const S = ev("loadState()");
+  assert.equal(S.dataVersion, ev("DEFAULT_STATE.dataVersion"));
+  assert.equal(S.positions.length, 16);
+  assert.equal(S.alerts.length, 1);
+  assert.ok(w.localStorage.getItem("luigi_portfolio_v7_backup_pre"), "backup missing");
+});
+test("current-version cache loads as-is", () => {
+  ev("saveState()");
+  const S = ev("loadState()");
+  assert.equal(S.positions.length, 16);
 });
 
 console.log("\n=========================================");
