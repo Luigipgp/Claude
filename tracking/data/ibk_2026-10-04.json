@@ -1,0 +1,25 @@
+{
+  "source": "IBKR connector (get_account_positions / get_account_balances / get_account_summary / get_account_orders / get_alerts / get_pa_performance_all_periods / get_price_snapshot)",
+  "pulled_at": "2026-10-04T05:22Z",
+  "fx_to_usd": {"USD": 1.0, "AUD": 0.69535525, "CAD": 0.701708},
+  "summary": {"net_liquidation": 89988.03, "gross_position_value": 89870.42, "total_cash_value": 85.87, "buying_power": 343.48, "excess_liquidity": 85.87, "leverage": 1.0, "unrealized_pnl_base": 16748.96},
+  "positions": [
+    {"ticker":"RIOFF","name":"Rio2 Ltd (OTC)","cid":378594701,"exch":"PINK","ccy":"USD","qty":19000,"price":2.27,"value":43130,"avg":1.30284233,"upnl":18375.9958,"dpnl":1520,"last_ts":1790971198,"hi52":3.0199,"lo52":1.26,"ytd_pct":-8.1,"hv":0.6538},
+    {"ticker":"TSO","name":"Tesoro Gold (ASX)","cid":402328577,"exch":"ASX","ccy":"AUD","qty":17200,"price":0.90499995,"value":15565.99914,"avg":1.00592713,"upnl":-1735.94756,"dpnl":687.99914,"last_ts":1790921419,"hi52":1.435,"lo52":0.76,"ytd_pct":-33.21,"hv":0.7593},
+    {"ticker":"SRGXF","name":"SRGXF (OTC)","cid":308625371,"exch":"PINK","ccy":"USD","qty":27000,"price":0.372835,"value":10066.545,"avg":0.41209927,"upnl":-1060.1353,"dpnl":456.165,"last_ts":1790957158,"hi52":0.657,"lo52":0.1425,"ytd_pct":6.51,"hv":1.4284},
+    {"ticker":"GLGDF","name":"GLGDF (OTC)","cid":390085433,"exch":"PINK","ccy":"USD","qty":3000,"price":2.87549995,"value":8626.49985,"avg":2.23233333,"upnl":1929.49985,"dpnl":-43.50015,"last_ts":1790971085,"hi52":3.29,"lo52":1.57,"ytd_pct":35.0,"hv":0.6040},
+    {"ticker":"QUEXF","name":"QUEXF (OTC)","cid":606826263,"exch":"PINK","ccy":"USD","qty":5000,"price":1.63,"value":8150,"avg":1.481,"upnl":745,"dpnl":150,"last_ts":1790952510,"hi52":2.45,"lo52":0.581,"ytd_pct":20.92,"hv":0.6783},
+    {"ticker":"GAL","name":"Galantas Gold (TSXV)","cid":417468740,"exch":"VENTURE","ccy":"CAD","qty":17000,"price":0.49,"value":8330,"avg":0.45974118,"upnl":514.4,"dpnl":166.4,"last_ts":null,"hi52":0.71,"lo52":0.06,"ytd_pct":null,"hv":0.9270},
+    {"ticker":"SMI","name":"SMI (ASX)","cid":128408813,"exch":"ASX","ccy":"AUD","qty":9500,"price":0.515,"value":4892.5,"avg":0.85128905,"upnl":-3194.746,"dpnl":-47.5,"last_ts":1790921419,"hi52":1.20,"lo52":0.405,"ytd_pct":-43.72,"hv":0.6260}
+  ],
+  "orders": [
+    {"id":1589506007,"ticker":"RIOFF","side":"SELL","qty":1000,"limit":2.79,"status":"NEW","tif":"GTC"},
+    {"id":1775589789,"ticker":"RIOFF","side":"SELL","qty":1000,"limit":2.89,"status":"REPLACED","tif":"GTC"},
+    {"id":1863836033,"ticker":"GLGDF","side":"SELL","qty":750,"limit":3.28,"status":"REPLACED","tif":"GTC"},
+    {"id":1337073478,"ticker":"QUEXF","side":"SELL","qty":1000,"limit":2.80,"status":"NEW","tif":"GTC"}
+  ],
+  "price_alerts_lte": {"RIOFF":2.37,"SRGXF":0.41,"GLGDF":2.83,"QUEXF":1.50,"GAL":0.52,"TSO":0.93,"SMI":0.52},
+  "performance_twr": {"1D":-0.00131782,"7D":-0.07722412,"MTD":0.01174749,"1M":-0.13717776,"YTD":-0.13365491,"1Y":0.5093584},
+  "nav_series_end": {"2025-10-03":26214.70,"2025-12-31":50282.43,"2026-09-03":104294.98,"2026-09-25":97518.84,"2026-10-04":89988.03},
+  "nav_peak": {"date":"2026-09-09","nav":106851.91}
+}
