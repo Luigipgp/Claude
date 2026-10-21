@@ -1,6 +1,6 @@
 """Sincroniza default_state.js (dashboard v7) con los snapshots validados de tracking/data.
 
-Uso: python3 tracking/sync_default_state.py tracking/data/ibk_2026-10-04.json tracking/data/tyba_2026-10-02.json
+Uso: python3 tracking/sync_default_state.py tracking/data/ibk_YYYY-MM-DD.json tracking/data/tyba_YYYY-MM-DD.json
 - Reescribe positions, cash, prevClose y fx; agrega dataVersion.
 - Agrega el aporte de mayo-2026 y los cierres realizados posteriores a abril-2026.
 - Las transacciones históricas (hasta 22-abr-2026) no se tocan.
@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DS = ROOT / "default_state.js"
 ibk, tyba = json.load(open(sys.argv[1])), json.load(open(sys.argv[2]))
 fx = ibk["fx_to_usd"]
-DATA_VERSION = "2026-10-02"
+DATA_VERSION = re.search(r"(\d{4}-\d{2}-\d{2})", Path(sys.argv[1]).name).group(1)  # fecha del snapshot IBK
 
 NOTES = {"RIOFF": "Junior - oro/cobre (Rio2)", "TSO": "Junior - oro (ASX, AUD)", "SRGXF": "Junior - cobre (Surge)",
          "GLGDF": "Junior - oro/plata (GoGold)", "QUEXF": "Junior - litio (Q2 Metals)", "GAL": "Junior - oro (TSXV, CAD)",

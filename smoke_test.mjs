@@ -7,6 +7,7 @@
 import { JSDOM, VirtualConsole } from "jsdom";
 import { readFileSync } from "node:fs";
 import { strict as assert } from "node:assert";
+import { expected } from "./expected_from_data.mjs";
 
 const html = readFileSync(new URL("./portfolio_v7.html", import.meta.url), "utf8");
 
@@ -70,10 +71,10 @@ t("positions table has 16 data rows", () => {
   assert.equal(rows.length, 16, `got ${rows.length}`);
 });
 
-t("Patrimonio shows ~$142k", () => {
+t(`Patrimonio shows broker value ~$${expected.portfolioValue.toFixed(0)}`, () => {
   const kpiV = $$("#kpiGrid .kpi .v")[0]?.textContent || "";
   const num = parseFloat(kpiV.replace(/[$,]/g, ""));
-  assert.ok(num > 141900 && num < 142010, `got "${kpiV}"`);
+  assert.ok(Math.abs(num - expected.portfolioValue) <= 1, `got "${kpiV}"`);
 });
 
 t("All 7 tabs are clickable", () => {

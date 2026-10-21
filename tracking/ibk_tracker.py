@@ -41,11 +41,13 @@ for r in sorted(rows, key=lambda r: -r["usd"]):
     print(f"{r['ticker']:7}{r['price']:>9.4f}{r['avg']:>9.4f}{r['usd']:>12,.0f}{r['usd']/tot:>7.1%}{r['upnl_usd']:>11,.0f}{r['price']/r['avg']-1:>8.1%}{r['dpnl_usd']:>9,.0f}{r['price']/r['hi52']-1:>8.1%}{ts:>18}")
 print(f"{'TOTAL':7}{'':>18}{tot:>12,.0f}{1:>7.0%}{upnl_tot:>11,.0f}{upnl_tot/sum(r['cost_usd'] for r in rows):>8.1%}{sum(r['dpnl_usd'] for r in rows):>9,.0f}")
 
-print("\n== ALERTAS DE PRECIO (last ≤ umbral) ==")
+print("\n== ALERTAS DE PRECIO IBKR ==")
 px = {r["ticker"]: r["price"] for r in rows}
-for t, th in snap["price_alerts_lte"].items():
-    st = "CRUZADA" if px[t] <= th else "activa"
-    print(f"  {t:6} umbral {th:<6} precio {px[t]:<8.4f} dist {px[t]/th-1:+7.1%}  -> {st}")
+alerts = snap.get("price_alerts") or [{"ticker": t, "op": "lte", "value": v} for t, v in snap.get("price_alerts_lte", {}).items()]
+for a in alerts:
+    t, th, op = a["ticker"], a["value"], a["op"]
+    hit = px[t] >= th if op == "gte" else px[t] <= th
+    print(f"  {t:6} {'≥' if op == 'gte' else '≤'} {th:<6} precio {px[t]:<8.4f} dist {px[t]/th-1:+7.1%}  -> {'CRUZADA' if hit else 'activa'}")
 
 print("\n== ÓRDENES VIVAS ==")
 for o in snap["orders"]:

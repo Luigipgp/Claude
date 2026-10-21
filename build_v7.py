@@ -438,7 +438,7 @@ html = html.replace(old_clear, "  STATE = {dataVersion:DEFAULT_STATE.dataVersion
 #     dated content from the latest morning brief (tracking/data/catalysts_*.json)
 # ---------------------------------------------------------------------------
 import json as _json
-CAT = _json.loads((ROOT / "tracking" / "data" / "catalysts_2026-10-02.json").read_text())
+CAT = _json.loads(sorted((ROOT / "tracking" / "data").glob("catalysts_*.json"))[-1].read_text())
 
 def sub_once(pattern, repl, label):
     global html
@@ -460,7 +460,7 @@ sub_once(r"function renderRecs\(k\)\{.*?\n\}\n\nfunction renderEarnings\(positio
   const mining = pos.filter(p=>SECTOR[p.ticker]==='Mining').reduce((s,p)=>s+p.value,0)/tot;
   const rows = [];
   const row = (ok,label,detail)=>rows.push(`<div class="r"><div class="al ${ok?'al-g':'al-w'}" style="margin:0;border:none;padding:6px 0;background:none"><b>${ok?'✓':'⚠'} ${label}</b>: ${detail}</div></div>`);
-  row(mining<=IPS.miningMax, 'Minería', `${(mining*100).toFixed(1)}% vs límite ${(IPS.miningMax*100).toFixed(0)}%`);
+  row(mining<=IPS.miningMax, 'Minería', `${(mining*100).toFixed(2)}% vs límite ${(IPS.miningMax*100).toFixed(0)}%`);
   const top = [...pos].sort((a,b)=>b.value-a.value)[0];
   if(top) row(top.value/tot<=IPS.positionMax, `Mayor posición ${top.ticker}`, `${(top.value/tot*100).toFixed(1)}% vs límite ${(IPS.positionMax*100).toFixed(0)}%`);
   row(k.cashTotal/tot>=IPS.cashMin, 'Liquidez', `cash $${fmt(k.cashTotal,0)} (${(k.cashTotal/tot*100).toFixed(2)}%) vs mínimo ${(IPS.cashMin*100).toFixed(0)}%`);
@@ -477,7 +477,7 @@ function renderEarnings(positions){
     const days = Math.ceil((new Date(e.d)-today)/86400000);
     const urg = days<=7?'al-w':days<=14?'al-b':'';
     return `<div class="al ${urg}" style="margin:4px 0"><b>${e.d}</b> · ${e.t} <span style="color:var(--t3)">· ${days>0?days+' días':'hoy'} · ${e.est}</span>${e.q?`<div style="color:var(--t3);font-size:10px;margin-top:2px">${e.q}</div>`:''}</div>`;
-  }).join('') + `<div class="nt" style="margin-top:6px">Fuente: agenda del resumen matutino del ${CATALYSTS_ASOF} (estado tal como lo publica).</div>`;
+  }).join('') + `<div class="nt" style="margin-top:6px">Fuente: agenda al ${CATALYSTS_ASOF} (resumen matutino + fechas verificadas en comunicados/calendarios; estado tal como lo publica la fuente).</div>`;
 }
 """, "renderRecs/renderEarnings")
 
@@ -497,7 +497,7 @@ sub_once(r"  const fallback = \[\n.*?\n  \];", "  // Dated headlines from the la
 m = CAT["macro"]
 sub_once(r"  document\.getElementById\('macroNote'\)\.innerHTML = `.*?`;\n\n  document\.getElementById\('geoList'\)\.innerHTML = `.*?`;\n\n  document\.getElementById\('peruList'\)\.innerHTML = `.*?`;",
 f"""  document.getElementById('macroNote').innerHTML = `
-    <b>Contexto al {CAT['as_of']} (resumen matutino):</b> {m['nfp']}. Tesoro 10 años {m['ust10y']}% ({m['ust10y_date']}; {m['ust_src']})`;
+    <b>Contexto al {CAT.get('macro_as_of', CAT['as_of'])} (resumen matutino):</b> {m['nfp']}. Tesoro 10 años {m['ust10y']}% ({m['ust10y_date']}; {m['ust_src']})`;
 
   const nextMacro = CATALYSTS.filter(e=>/FOMC|resultados|ASX/.test(e.t) && new Date(e.d+'T23:59:59')>=new Date());
   document.getElementById('geoList').innerHTML = nextMacro.length ? nextMacro.map(e=>`<div class="al al-b"><b>${{e.d}}</b> · ${{e.t}} <span style="color:var(--t3)">· ${{e.est}}</span></div>`).join('') : '<div class="nt">Sin eventos próximos en la agenda.</div>';

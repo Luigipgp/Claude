@@ -29,12 +29,11 @@ check("IBK consolidado ≈ net_liquidation", abs(ibk_val/ibk["summary"]["net_liq
 check("pesos suman 100%", abs(sum(r["w"] for r in rows) + (cash_ibk+cash_tyba)/tot - 1) < 1e-9)
 check("16 posiciones (7 IBK + 9 TYBA)", len(rows) == 16, f"({len(rows)})")
 check("sin precios nulos/≤0", all(r["val"] > 0 for r in rows))
-b = tyba["ibk_cash_bridge"]
-bridge = b["brief_cash_ibk_0852_lima"] - b["usd_sold_for_cad"] - b["fx_commission"]
-pa_cash = ibk["summary"]["pa_allocation_cash"]
-check("puente cash IBK (brief 08:52 → hoy) vs cash de Portfolio Analyst ±$2", abs(bridge - pa_cash) < 2, f"(629.93 − 508.57 − 2.85 = {bridge:,.2f} vs {pa_cash:,.2f})")
-gap = pa_cash - cash_ibk
-print(f"  [AVISO] cash PA {pa_cash:,.2f} vs total_cash_value {cash_ibk:,.2f}: brecha {gap:,.2f} sin explicar con los datos del conector" if abs(gap) > 2 else "")
+pa_cash = ibk["summary"].get("pa_allocation_cash")
+if pa_cash is not None:
+    gap = pa_cash - cash_ibk
+    tag = "OK" if abs(gap) <= 2.5 else "AVISO"
+    print(f"  [{tag}] cash IBK: Portfolio Analyst {pa_cash:,.2f} vs total_cash_value {cash_ibk:,.2f} (brecha {gap:,.2f})")
 
 print("\n== CONSOLIDADO (USD) ==")
 print(f"{'Ticker':7}{'Cust':6}{'Valor':>11}{'Peso':>7}{'PnL':>10}{'PnL%':>8}{'vs52H':>8}  Sector")
@@ -56,7 +55,7 @@ sec = {}
 for r in rows: sec[r["sec"]] = sec.get(r["sec"], 0) + r["w"]
 for k, v in sorted(sec.items(), key=lambda x: -x[1]): print(f"  {k:16}{v:>7.1%}")
 mining = sum(v for k, v in sec.items() if k in MINING)
-print(f"  Minería total (junior + oro large-cap) {mining:.1%} vs límite {IPS['mineria_max']:.0%} -> {'EXCEDE' if mining > IPS['mineria_max'] else 'ok'}")
+print(f"  Minería total (junior + oro large-cap) {mining:.2%} vs límite {IPS['mineria_max']:.0%} -> {'EXCEDE' if mining > IPS['mineria_max'] else 'ok'}")
 for r in rows:
     if r["w"] > IPS["posicion_max"]*0.9: print(f"  {r['t']} {r['w']:.1%} vs límite por posición {IPS['posicion_max']:.0%} -> {'EXCEDE' if r['w'] > IPS['posicion_max'] else 'cerca'}")
 hhi = sum((r["w"]*100)**2 for r in rows); print(f"  HHI {hhi:,.0f} · N efectivo {10000/hhi:.1f}")

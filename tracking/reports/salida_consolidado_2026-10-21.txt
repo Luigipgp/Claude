@@ -1,0 +1,45 @@
+== CONTROLES ==
+  [OK] IBK consolidado ≈ net_liquidation (80,931.97 vs 81,286.75, -0.44%)
+  [OK] pesos suman 100% 
+  [OK] 16 posiciones (7 IBK + 9 TYBA) (16)
+  [OK] sin precios nulos/≤0 
+  [OK] cash IBK: Portfolio Analyst 117.61 vs total_cash_value 115.63 (brecha 1.98)
+
+== CONSOLIDADO (USD) ==
+Ticker Cust        Valor   Peso       PnL    PnL%   vs52H  Sector
+RIOFF  IBK        39,140  29.7%    14,386   58.1%  -31.8%  Minería junior
+TSO    IBK        10,983   8.3%    -1,158   -9.5%  -36.6%  Minería junior
+VOO    TYBA        9,919   7.5%     2,782   39.0%   -1.4%  Índice S&P 500
+SRGXF  IBK         8,540   6.5%    -2,587  -23.2%  -51.9%  Minería junior
+MSFT   TYBA        8,476   6.4%     1,791   26.8%   -3.9%  Tecnología
+GLGDF  IBK         8,070   6.1%     1,373   20.5%  -18.2%  Minería junior
+NVDA   TYBA        7,723   5.9%     2,655   52.4%   -9.3%  Tecnología
+META   TYBA        6,915   5.3%       518    8.1%  -11.3%  Tecnología
+QUEXF  IBK         6,600   5.0%      -805  -10.9%  -46.1%  Minería junior
+B      TYBA        5,670   4.3%       185    3.4%  -24.4%  Oro large-cap
+GAL    IBK         4,717   3.6%      -844  -15.2%  -45.1%  Minería junior
+GOOGL  TYBA        4,041   3.1%     2,244  124.9%  -17.5%  Tecnología
+BMM    TYBA        3,066   2.3%      -119   -3.7%  -49.2%  Minería junior
+SMI    IBK         2,766   2.1%    -2,908  -51.3%  -65.4%  Minería junior
+PPTA   TYBA        2,701   2.1%      -644  -19.3%  -49.8%  Minería junior
+IONS   TYBA        2,252   1.7%      -801  -26.3%  -47.0%  Biotecnología
+POS.             131,578  99.9%    16,068   13.9%
+CASH                 134   0.1%
+TOTAL            131,712
+  IBK: 80,932 (61.4%)
+  TYBA: 50,780 (38.6%)
+
+== RETORNO SOBRE CAPITAL APORTADO ==
+  Aportes externos 99,397.75 · ganancia 32,315 · retorno acumulado 32.5%
+
+== IPS ==
+  Minería junior    65.7%
+  Tecnología        20.6%
+  Índice S&P 500     7.5%
+  Oro large-cap      4.3%
+  Biotecnología      1.7%
+  Minería total (junior + oro large-cap) 70.04% vs límite 70% -> EXCEDE
+  RIOFF 29.7% vs límite por posición 30% -> cerca
+  HHI 1,275 · N efectivo 7.8
+
+Resultado de controles: TODOS OK

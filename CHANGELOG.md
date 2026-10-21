@@ -1,5 +1,18 @@
 # Portfolio v7 — Changelog
 
+## 2026-10-21 · Actualización a hoy
+
+- **Datos:** `tracking/data/ibk_2026-10-21.json` (conector IBKR) y `tyba_2026-10-21.json` (cantidades del 2-oct con precios IBKR del 21-oct).
+- **Agenda:** `catalysts_2026-10-21.json`. META (21-oct) y MSFT (28-oct) quedan confirmados; GOOGL, IONS y PPTA se agregan como "por confirmar".
+- **Dashboard:** `dataVersion` 2026-10-21. Patrimonio $131.712 · PnL abierto $16.068 · XIRR 26,8%.
+- **Tests basados en datos:** `expected_from_data.mjs` calcula los valores esperados desde los snapshots más recientes, así que los tests ya no tienen números fijos. El XIRR se valida contra una bisección independiente.
+- **Scripts:**
+  - `ibk_tracker.py` acepta alertas ≥/≤.
+  - `consolidated.py` reemplaza el puente de cash del brief por el control PA vs `total_cash_value`.
+  - `sync_default_state.py` toma `dataVersion` del nombre del snapshot.
+  - El build usa el `catalysts_*.json` más reciente.
+- **Control IPS de minería:** se muestra con 2 decimales (70,04%).
+
 ## 2026-10-04 · Sincronización con IBKR + resumen matutino del 2-oct
 
 **Datos (`default_state.js`, regenerado con `tracking/sync_default_state.py`)**
