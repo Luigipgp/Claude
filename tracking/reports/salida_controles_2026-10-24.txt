@@ -1,0 +1,59 @@
+== CONTROLES ==
+  [OK] recon RIOFF qty*precio=valor (desv 0.0000%)
+  [OK] PnL RIOFF (calc 11,066.70 vs broker 11,066.70)
+  [OK] recon TSO qty*precio=valor (desv 0.0000%)
+  [OK] PnL TSO (calc -2,853.95 vs broker -2,853.95)
+  [OK] recon SRGXF qty*precio=valor (desv 0.0000%)
+  [OK] PnL SRGXF (calc -2,864.68 vs broker -2,864.68)
+  [OK] recon GLGDF qty*precio=valor (desv 0.0000%)
+  [OK] PnL GLGDF (calc 623.00 vs broker 623.00)
+  [OK] recon QUEXF qty*precio=valor (desv 0.0000%)
+  [OK] PnL QUEXF (calc -1,555.00 vs broker -1,555.00)
+  [OK] recon GAL qty*precio=valor (desv 0.0000%)
+  [OK] PnL GAL (calc -1,695.60 vs broker -1,695.60)
+  [OK] recon SMI qty*precio=valor (desv 0.0000%)
+  [OK] PnL SMI (calc -4,382.25 vs broker -4,382.25)
+  [FALLA] suma posiciones ≈ gross_position_value (74,392.72 vs 73,923.94)
+  [FALLA] posiciones + cash ≈ net_liq 
+  [FALLA] PnL no realizado total ≈ broker (balances) (968.89 vs 500.10, brecha 468.79 = 0.63% del bruto)
+
+== POSICIONES (USD, marks IBK) ==
+Ticker        Px    Costo   Valor USD   Peso    PnL USD    PnL%  Día USD   vs52H  Últ. trade (UTC)
+RIOFF     1.8853   1.3028      35,821  48.2%     11,067   44.7%     -194  -37.6%               n/d
+TSO       0.8400   1.0059      10,163  13.7%     -2,008  -16.5%     -786  -41.5%               n/d
+SRGXF     0.3060   0.4121       8,262  11.1%     -2,865  -25.7%      396  -53.4%               n/d
+GLGDF     2.4400   2.2323       7,320   9.8%        623    9.3%     -240  -25.8%               n/d
+QUEXF     1.1700   1.4810       5,850   7.9%     -1,555  -21.0%     -200  -52.2%               n/d
+GAL       0.3600   0.4597       4,370   5.9%     -1,211  -21.7%      -61  -49.3%               n/d
+SMI       0.3900   0.8513       2,606   3.5%     -3,083  -54.2%     -167  -67.5%               n/d
+TOTAL                          74,393   100%        969    1.3%   -1,252
+
+== ALERTAS DE PRECIO IBKR ==
+  RIOFF  ≥ 2.7    precio 1.8853   dist  -30.2%  -> activa
+  RIOFF  ≥ 2.41   precio 1.8853   dist  -21.8%  -> activa
+  SRGXF  ≥ 0.41   precio 0.3060   dist  -25.4%  -> activa
+  GLGDF  ≥ 2.94   precio 2.4400   dist  -17.0%  -> activa
+  GAL    ≥ 0.53   precio 0.3600   dist  -32.1%  -> activa
+  TSO    ≥ 0.94   precio 0.8400   dist  -10.6%  -> activa
+  SMI    ≥ 0.52   precio 0.3900   dist  -25.0%  -> activa
+  SMI    ≤ 0.4    precio 0.3900   dist   -2.5%  -> CRUZADA
+  QUEXF  ≤ 1.17   precio 1.1700   dist   -0.0%  -> CRUZADA
+
+== ÓRDENES VIVAS ==
+  SELL 1500 RIOFF @ 2.79 (REPLACED, GTC) -> requiere +48.0% desde 1.88530005
+  SELL 2500 RIOFF @ 2.88 (REPLACED, GTC) -> requiere +52.8% desde 1.88530005
+  SELL 750 GLGDF @ 3.28 (REPLACED, GTC) -> requiere +34.4% desde 2.44000005
+  SELL 1000 QUEXF @ 2.8 (NEW, GTC) -> requiere +139.3% desde 1.16999995
+
+== RIESGO ==
+  Mayor posición: RIOFF 48.2% de la cuenta IBK
+  Cash: 115.63 USD (0.16%) · buying power 462.52 · leverage 1.0
+  Drawdown NAV desde pico 2026-09-09 (106,852): -30.7% (incluye flujos; ver TWR)
+  TWR 1D  : -0.67%
+  TWR 7D  : -10.35%
+  TWR MTD : -16.75%
+  TWR 1M  : -24.84%
+  TWR YTD : -28.72%
+  TWR 1Y  : +26.18%
+
+Resultado de controles: 3 FALLAS: ['suma posiciones ≈ gross_position_value', 'posiciones + cash ≈ net_liq', 'PnL no realizado total ≈ broker (balances)'] 

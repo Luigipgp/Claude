@@ -1,0 +1,110 @@
+{
+ "source": "Resumen_matutino_2026-10-02.html (agenda, news, fomc, curva) — fechas y estados tal como los publica el brief",
+ "as_of": "2026-10-02",
+ "agenda": [
+  {
+   "d": "2026-10-12",
+   "t": "Verificar fechas de resultados 3T (MSFT, GOOGL, META, NVDA, IONS, B, PPTA)",
+   "est": "Recordatorio",
+   "q": "B 9-nov confirmado; NVDA 17-nov; MSFT/GOOGL/META ~28–30 oct por confirmar en IR."
+  },
+  {
+   "d": "2026-10-28",
+   "t": "FOMC · decisión de tasas (sin proyecciones)",
+   "est": "Verificado",
+   "q": "2:00 p.m. ET. Tras el empleo débil de hoy (29K) el mercado reevalúa la segunda alza que sugería el dot plot."
+  },
+  {
+   "d": "2026-10-29",
+   "t": "BMM · cierre de la facilidad de prepago de tungsteno y acuerdos definitivos con Elmet",
+   "est": "Por confirmar",
+   "q": "Sujeto a due diligence y aprobación del TSXV; dilución estimada 3.3%–6.3%."
+  },
+  {
+   "d": "2026-10-30",
+   "t": "Plazo reportes trimestrales ASX de TSO y SMI (trimestre a septiembre)",
+   "est": "Regla ASX",
+   "q": "Caja, runway y avance de permisos. TSO: caja neta A$15.3M al 30-jun."
+  },
+  {
+   "d": "2026-11-09",
+   "t": "B · resultados 3T",
+   "est": "Confirmado",
+   "q": "Fuente: barrick.com (nota del calendario, 1-oct)."
+  },
+  {
+   "d": "2026-11-17",
+   "t": "NVDA · resultados 3T (after market)",
+   "est": "Por confirmar",
+   "q": "Wall Street Horizon."
+  },
+  {
+   "d": "2026-11-26",
+   "t": "GAL · resultados 3T y caja actualizada",
+   "est": "Estimado por patrón",
+   "q": "NYSE cerrado ese día (Acción de Gracias)."
+  },
+  {
+   "d": "2026-12-09",
+   "t": "FOMC · decisión + dot plot",
+   "est": "Verificado",
+   "q": "Última reunión del año."
+  },
+  {
+   "d": "2026-12-15",
+   "t": "SRGXF · revisión del avance de Berg (fase de Compromiso Temprano, EAO BC)",
+   "est": "Revisión propia",
+   "q": "No es un hito anunciado."
+  },
+  {
+   "d": "2026-12-15",
+   "t": "GAL · PEA de Andacollo (guía 4T) y traslado del chancador",
+   "est": "Guía del CEO · Por confirmar",
+   "q": ""
+  },
+  {
+   "d": "2026-12-31",
+   "t": "TSO · DFS de El Zorro (guía: diciembre 2026)",
+   "est": "Guía de la empresa",
+   "q": "Mining Forum 30-sep: DFS en diciembre; EIA y decisión de inversión 1T-2027. Fecha exacta sin anunciar."
+  }
+ ],
+ "news": [
+  {
+   "tick": "MACRO",
+   "date": "02-oct-2026",
+   "title": "Empleo de septiembre: +29,000 nóminas (esperado ~84–90 mil); desempleo sube a 4.2%",
+   "detail": "Dato débil: favorece al oro vía tasas (GLD y GDXJ suben en la apertura).",
+   "link": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html",
+   "src": "CNBC / BLS"
+  },
+  {
+   "tick": "RIOFF",
+   "date": "28-sep-2026",
+   "title": "Rio2 publica actualización operativa del 3T de Fenix Gold: impacto de tormentas invernales severas",
+   "detail": "Comunicado oficial; sin guía de producción nueva. Coincide con la caída de ~20% desde el 22-sep.",
+   "link": "https://www.rio2.com/post/rio2-provides-fenix-gold-q3-operations-update",
+   "src": "Rio2 (comunicado)"
+  },
+  {
+   "tick": "SRGXF",
+   "date": "02-oct-2026",
+   "title": "Surge Copper anuncia resultados de la junta anual y otorga unidades diferidas (DSU) a directores",
+   "detail": "Gobierno corporativo; sin impacto operativo. Dilución menor por DSU.",
+   "link": "https://surgecopper.com/news-releases/surge-copper-announces-agm-results-and-grant-of-deferred-share-units/",
+   "src": "Surge Copper (comunicado)"
+  }
+ ],
+ "macro": {
+  "fomc_date": "2026-09-16",
+  "fomc_range": "3.75% - 4.00%",
+  "fomc_prev": "3.50% - 3.75%",
+  "fomc_vote": "Unánime (12-0)",
+  "dots_2026": 4.1,
+  "dots_2027": 4.1,
+  "ust10y": 5.24,
+  "ust10y_date": "1-oct",
+  "ust_src": "Fuente: FMP treasury-rates (último publicado 1-oct).",
+  "nfp": "Empleo de septiembre: +29,000 nóminas; desempleo 4.2% (CNBC/BLS, 2-oct)"
+ }
+}
