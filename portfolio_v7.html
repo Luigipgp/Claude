@@ -373,7 +373,7 @@ tr.flash-red td{background:var(--red-bg);transition:background 1.5s}
     <div class="sec">
       <h2>Info versión</h2>
       <div class="nt">
-        <b>v7</b> · Datos: snapshot 2026-10-21 (IBKR + resumen matutino) · ver tracking/ en el repo<br>
+        <b>v7</b> · Datos: snapshot 2026-10-24 (IBKR + resumen matutino) · ver tracking/ en el repo<br>
         Multi-source pricing con 3 niveles de fallback. Auto-refresh cada 5 min. Noticias cada 15 min.<br>
         <b>Compatible:</b> Chrome, Firefox, Safari, Edge (mobile + desktop).<br>
         <b>Shareable:</b> HTML standalone. Subir a GitHub Pages o Netlify → URL pública.
@@ -481,7 +481,7 @@ tr.flash-red td{background:var(--red-bg);transition:background 1.5s}
 // DEFAULT STATE (2-oct-2026 — IBKR connector + resumen matutino; see tracking/)
 // ═══════════════════════════════════════════════════════
 const DEFAULT_STATE = {
-  dataVersion: '2026-10-21',
+  dataVersion: '2026-10-24',
   positions: [
     {ticker:'VOO', broker:'TYBA', shares:13.9984, costAvg:509.843268, note:'Core S&P 500'},
     {ticker:'NVDA', broker:'TYBA', shares:35, costAvg:144.806286, note:'AI semis'},
@@ -493,12 +493,12 @@ const DEFAULT_STATE = {
     {ticker:'PPTA', broker:'TYBA', shares:144, costAvg:23.233889, note:'Junior - oro/antimonio (Perpetua)'},
     {ticker:'IONS', broker:'TYBA', shares:49, costAvg:62.305102, note:'Biotecnología'},
     {ticker:'RIOFF', broker:'IBK', shares:19000, costAvg:1.302842, note:'Junior - oro/cobre (Rio2)'},
-    {ticker:'TSO', broker:'IBK', shares:17200, costAvg:0.70585, note:'Junior - oro (ASX, AUD)', ccy:'AUD'},
+    {ticker:'TSO', broker:'IBK', shares:17200, costAvg:0.70762, note:'Junior - oro (ASX, AUD)', ccy:'AUD'},
     {ticker:'SRGXF', broker:'IBK', shares:27000, costAvg:0.412099, note:'Junior - cobre (Surge)'},
     {ticker:'GLGDF', broker:'IBK', shares:3000, costAvg:2.232333, note:'Junior - oro/plata (GoGold)'},
     {ticker:'QUEXF', broker:'IBK', shares:5000, costAvg:1.481, note:'Junior - litio (Q2 Metals)'},
-    {ticker:'GAL', broker:'IBK', shares:17000, costAvg:0.327091, note:'Junior - oro (TSXV, CAD)', ccy:'CAD'},
-    {ticker:'SMI', broker:'IBK', shares:9500, costAvg:0.597342, note:'Junior - oro (ASX, AUD)', ccy:'AUD'},
+    {ticker:'GAL', broker:'IBK', shares:17000, costAvg:0.328301, note:'Junior - oro (TSXV, CAD)', ccy:'CAD'},
+    {ticker:'SMI', broker:'IBK', shares:9500, costAvg:0.59884, note:'Junior - oro (ASX, AUD)', ccy:'AUD'},
   ],
   transactions: [
     {id:'t1', date:'2025-03-31', type:'compra', ticker:'VOO', broker:'TYBA', qty:9.9984, price:508.56, note:''},
@@ -683,7 +683,7 @@ const DEFAULT_STATE = {
     {ticker:'XLE', pnl:-84, date:'2025'},
   ],
   cash: {TYBA:18.47, IBK:115.63},
-  fx: {AUD:0.70169075, CAD:0.71146865},
+  fx: {AUD:0.7034505, CAD:0.71409905},
   priceOverrides: {},
   alerts: [
     {id:'a1', ticker:'MSFT', condition:'below', price:390, note:'DCA entry zone'},
@@ -692,22 +692,22 @@ const DEFAULT_STATE = {
     {id:'a5', ticker:'BMM', condition:'above', price:9.00, note:'Trim candidate'},
   ],
   prevClose: {
-    VOO: 708.55,
-    NVDA: 220.65,
-    MSFT: 529.74,
-    META: 691.5,
-    B: 40.79,
-    GOOGL: 336.74,
-    BMM: 4.38,
-    PPTA: 18.76,
-    IONS: 45.95,
-    RIOFF: 2.06,
-    TSO: 0.638539,
-    SRGXF: 0.316297,
-    GLGDF: 2.69,
-    QUEXF: 1.32,
-    GAL: 0.277473,
-    SMI: 0.291202,
+    VOO: 699.53,
+    NVDA: 211.11,
+    MSFT: 524.92,
+    META: 640.1,
+    B: 38.2,
+    GOOGL: 321.15,
+    BMM: 3.89,
+    PPTA: 16.5,
+    IONS: 43.88,
+    RIOFF: 1.8853,
+    TSO: 0.590898,
+    SRGXF: 0.306,
+    GLGDF: 2.44,
+    QUEXF: 1.17,
+    GAL: 0.257076,
+    SMI: 0.274346,
   },
 };
 
@@ -1462,8 +1462,8 @@ function render(){
   renderMacro();
 }
 
-const CATALYSTS = [{"d": "2026-10-21", "t": "META · resultados 3T (after market, call 4:30 p.m. ET)", "est": "Confirmado", "q": "Comunicado de Meta del 12-oct (investor.atmeta.com)."}, {"d": "2026-10-28", "t": "FOMC · decisión de tasas (sin proyecciones)", "est": "Verificado", "q": "2:00 p.m. ET. Tras el empleo débil del 2-oct (+29K) el mercado reevalúa la segunda alza que sugería el dot plot."}, {"d": "2026-10-28", "t": "MSFT · resultados 1T FY27 (after market, webcast 2:30 p.m. PT)", "est": "Confirmado", "q": "Comunicado de Microsoft del 7-oct (vía finviz.com)."}, {"d": "2026-10-28", "t": "GOOGL · resultados 3T", "est": "Por confirmar", "q": "Estimación de calendarios; AlphaQuery proyecta 4-nov. Sin anuncio oficial al 21-oct."}, {"d": "2026-10-29", "t": "BMM · cierre de la facilidad de prepago de tungsteno y acuerdos definitivos con Elmet", "est": "Por confirmar", "q": "Sujeto a due diligence y aprobación del TSXV; dilución estimada 3.3%–6.3%."}, {"d": "2026-10-29", "t": "IONS · resultados 3T", "est": "Por confirmar", "q": "Patrón 2025 (29-oct); sin anuncio al 21-oct (ir.ionis.com)."}, {"d": "2026-10-30", "t": "Plazo reportes trimestrales ASX de TSO y SMI (trimestre a septiembre)", "est": "Regla ASX", "q": "Caja, runway y avance de permisos. TSO: caja neta A$15.3M al 30-jun."}, {"d": "2026-11-09", "t": "B · resultados 3T", "est": "Confirmado", "q": "Fuente: barrick.com (nota del calendario, 1-oct)."}, {"d": "2026-11-13", "t": "PPTA · resultados 3T", "est": "Por confirmar", "q": "AJ Bell / Earnings Whispers: 13-nov; TipRanks: 16-nov. Sin confirmación de la empresa."}, {"d": "2026-11-17", "t": "NVDA · resultados 3T (after market)", "est": "Por confirmar", "q": "Wall Street Horizon."}, {"d": "2026-11-26", "t": "GAL · resultados 3T y caja actualizada", "est": "Estimado por patrón", "q": "NYSE cerrado ese día (Acción de Gracias)."}, {"d": "2026-12-09", "t": "FOMC · decisión + dot plot", "est": "Verificado", "q": "Última reunión del año."}, {"d": "2026-12-15", "t": "SRGXF · revisión del avance de Berg (fase de Compromiso Temprano, EAO BC)", "est": "Revisión propia", "q": "No es un hito anunciado."}, {"d": "2026-12-15", "t": "GAL · PEA de Andacollo (guía 4T) y traslado del chancador", "est": "Guía del CEO · Por confirmar", "q": ""}, {"d": "2026-12-31", "t": "TSO · DFS de El Zorro (guía: diciembre 2026)", "est": "Guía de la empresa", "q": "Mining Forum 30-sep: DFS en diciembre; EIA y decisión de inversión 1T-2027. Fecha exacta sin anunciar."}];
-const CATALYSTS_ASOF = "2026-10-21";
+const CATALYSTS = [{"d": "2026-10-28", "t": "FOMC · decisión de tasas (sin proyecciones)", "est": "Verificado", "q": "Mercado ~81% hold en 3.75–4.00%; PIMCO ve sesgo restrictivo y alza de 25 pb en diciembre como próximo paso más probable."}, {"d": "2026-10-28", "t": "MSFT · resultados 1T FY27 (after market, webcast 2:30 p.m. PT)", "est": "Confirmado", "q": "Comunicado de Microsoft del 7-oct (vía finviz.com)."}, {"d": "2026-10-28", "t": "GOOGL · resultados 3T", "est": "Por confirmar", "q": "Estimación de calendarios; AlphaQuery proyecta 4-nov. Sin anuncio oficial al 21-oct."}, {"d": "2026-10-29", "t": "BMM · cierre de la facilidad de prepago de tungsteno y acuerdos definitivos con Elmet", "est": "Por confirmar", "q": "Sujeto a due diligence y aprobación del TSXV; dilución estimada 3.3%–6.3%."}, {"d": "2026-10-29", "t": "IONS · resultados 3T", "est": "Por confirmar", "q": "Patrón 2025 (29-oct); sin anuncio al 21-oct (ir.ionis.com)."}, {"d": "2026-10-30", "t": "Plazo reportes trimestrales ASX de TSO y SMI (trimestre a septiembre)", "est": "Regla ASX", "q": "Caja, runway y avance de permisos. TSO: caja neta A$15.3M al 30-jun."}, {"d": "2026-11-03", "t": "EE. UU. · elecciones de mitad de período", "est": "Fecha fija", "q": "Reportes indican que EE. UU./Israel preparan planes para reanudar ataques a Irán después de las elecciones (no confirmado oficialmente)."}, {"d": "2026-11-09", "t": "B · resultados 3T", "est": "Confirmado", "q": "Fuente: barrick.com (nota del calendario, 1-oct)."}, {"d": "2026-11-13", "t": "PPTA · resultados 3T", "est": "Por confirmar", "q": "AJ Bell / Earnings Whispers: 13-nov; TipRanks: 16-nov. Sin confirmación de la empresa."}, {"d": "2026-11-17", "t": "NVDA · resultados 3T (after market)", "est": "Por confirmar", "q": "Wall Street Horizon."}, {"d": "2026-11-26", "t": "GAL · resultados 3T y caja actualizada", "est": "Estimado por patrón", "q": "NYSE cerrado ese día (Acción de Gracias)."}, {"d": "2026-12-09", "t": "FOMC · decisión + dot plot", "est": "Verificado", "q": "Última reunión del año."}, {"d": "2026-12-15", "t": "SRGXF · revisión del avance de Berg (fase de Compromiso Temprano, EAO BC)", "est": "Revisión propia", "q": "No es un hito anunciado."}, {"d": "2026-12-15", "t": "GAL · PEA de Andacollo (guía 4T) y traslado del chancador", "est": "Guía del CEO · Por confirmar", "q": ""}, {"d": "2026-12-31", "t": "TSO · DFS de El Zorro (guía: diciembre 2026)", "est": "Guía de la empresa", "q": "Mining Forum 30-sep: DFS en diciembre; EIA y decisión de inversión 1T-2027. Fecha exacta sin anunciar."}];
+const CATALYSTS_ASOF = "2026-10-24";
 const IPS = {miningMax:0.70, positionMax:0.30, cashMin:0.02, drawdownReview:-0.30};
 const SECTOR = {MSFT:'Tech',NVDA:'Tech',GOOGL:'Tech',META:'Tech',VOO:'ETFs',IONS:'Biotech',B:'Mining',RIOFF:'Mining',QUEXF:'Mining',SRGXF:'Mining',GLGDF:'Mining',BMM:'Mining',SMI:'Mining',TSO:'Mining',GAL:'Mining',PPTA:'Mining'};
 function renderRecs(k){
@@ -1497,7 +1497,7 @@ function renderNews(){
   if(!newsEl) return;
 
   // Dated headlines from the latest morning brief (shown only when the live RSS fails)
-  const fallback = [{"tick": "MACRO", "title": "Empleo de septiembre: +29,000 nóminas (esperado ~84–90 mil); desempleo sube a 4.2% · CNBC / BLS", "link": "https://www.cnbc.com/2026/10/02/jobs-report-september-2026.html", "pubDate": "02-oct-2026"}, {"tick": "RIOFF", "title": "Rio2 publica actualización operativa del 3T de Fenix Gold: impacto de tormentas invernales severas · Rio2 (comunicado)", "link": "https://www.rio2.com/post/rio2-provides-fenix-gold-q3-operations-update", "pubDate": "28-sep-2026"}, {"tick": "SRGXF", "title": "Surge Copper anuncia resultados de la junta anual y otorga unidades diferidas (DSU) a directores · Surge Copper (comunicado)", "link": "https://surgecopper.com/news-releases/surge-copper-announces-agm-results-and-grant-of-deferred-share-units/", "pubDate": "02-oct-2026"}];
+  const fallback = [{"tick": "PETRÓLEO", "title": "Brent sube ~3–4% a ~$116–117, máximo desde jun-2022; WTI ~$103, por temor a nuevos ataques de EE. UU. a Irán · CNBC · 23-oct-2026", "link": "https://www.cnbc.com/2026/10/23/oil-price-brent-wti-iran-war-saudi-arabia.html", "pubDate": ""}, {"tick": "GUERRA", "title": "Irán dice haber alcanzado 7 buques en Ormuz y advierte a EE. UU. de una respuesta más amplia (no verificado de forma independiente) · Al Jazeera · 22-oct-2026", "link": "https://www.aljazeera.com/news/2026/10/22/iran-says-seven-ships-hit-in-hormuz-strait-warns-us-of-wider-response", "pubDate": ""}, {"tick": "GUERRA", "title": "Misil hutí impacta edificio de Aramco en Dhahran; incendio limitado, personal en teletrabajo · Al-Monitor / Reuters · 13-oct-2026", "link": "https://www.al-monitor.com/originals/2026/10/saudi-aramco-headquarters-attacked-limited-fire-reported", "pubDate": ""}, {"tick": "ORO", "title": "Oro cae bajo $4,000 por primera vez desde julio; peor semana desde junio (−4%) por petróleo, inflación y apuestas de alza de la Fed · CNBC / Reuters · 23-oct-2026", "link": "https://www.cnbc.com/2026/10/23/gold-heads-for-steep-weekly-loss-as-oil-prices-fuel-fed-rate-concerns.html", "pubDate": ""}, {"tick": "BONOS", "title": "10 años vuelve a ~5.00% tras caer a 4.95% el 22-oct por huida a calidad ante la venta en tecnología/IA · CNBC · 23-oct-2026", "link": "https://www.cnbc.com/2026/10/23/bonds-yields-us-treasurys.html", "pubDate": ""}, {"tick": "FED", "title": "PIMCO: la Fed mantendría 3.75–4.00% el 28-oct con sesgo restrictivo; alza de 25 pb en diciembre como escenario base · PIMCO vía Advisor Perspectives · 23-oct-2026", "link": "https://www.advisorperspectives.com/commentaries/2026/10/23/pause-still-recalibration?topic=retirement-income", "pubDate": ""}, {"tick": "META", "title": "META 3T: ingresos $64.6B (+26%) sobre lo esperado; capex 2026 acotado a $130–145B. La acción cerró la semana en $640 (−7.4% vs 21-oct, IBKR) · Stocktwits + IBKR · 21-oct-2026", "link": "https://stocktwits.com/news-articles/markets/equity/meta-stock-jumps-3-after-hours-after-q3-revenue-beats-expectations-with-a-narrowed-ai-capex-outlook-and-new-non-voting-class-c-stock/cZxMhJJRBv6", "pubDate": ""}];
 
   const newsToShow = NEWS_CACHE.length ? NEWS_CACHE : fallback;
   const srcLabel = NEWS_CACHE.length ? 'YAHOO RSS' : 'CACHED';
@@ -1536,7 +1536,7 @@ function renderMacro(){
   }).join('');
 
   document.getElementById('macroNote').innerHTML = `
-    <b>Contexto al 2026-10-02 (resumen matutino):</b> Empleo de septiembre: +29,000 nóminas; desempleo 4.2% (CNBC/BLS, 2-oct). Tesoro 10 años 5.24% (1-oct; Fuente: FMP treasury-rates (último publicado 1-oct).)`;
+    <b>Contexto al 2026-10-23 (fuentes fechadas):</b> Brent ~$116–117 y WTI ~$103 (23-oct, CNBC/Anadolu); oro spot ~$3,998 (23-oct, CNBC); GLD $366.33 y GDXJ $99.35 (IBKR, 23-oct). Tesoro 10 años 5.00% (23-oct; FMP treasury-rates; 2 años 4.69%, 30 años 5.33%)`;
 
   const nextMacro = CATALYSTS.filter(e=>/FOMC|resultados|ASX/.test(e.t) && new Date(e.d+'T23:59:59')>=new Date());
   document.getElementById('geoList').innerHTML = nextMacro.length ? nextMacro.map(e=>`<div class="al al-b"><b>${e.d}</b> · ${e.t} <span style="color:var(--t3)">· ${e.est}</span></div>`).join('') : '<div class="nt">Sin eventos próximos en la agenda.</div>';

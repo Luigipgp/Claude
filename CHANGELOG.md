@@ -1,5 +1,16 @@
 # Portfolio v7 — Changelog
 
+## 2026-10-24 · Mercado (guerra, petróleo, oro, bonos) + actualización
+
+- **Datos:** `ibk_2026-10-24.json` y `tyba_2026-10-24.json` (cierre del 23-oct). `catalysts_2026-10-24.json` agrega noticias fechadas de guerra, petróleo, oro, bonos, Fed y META, la macro (curva FMP, Brent/oro de prensa, ETF IBKR) y las elecciones del 3-nov.
+- **Reporte:** `tracking/reports/mercado_y_portafolio_2026-10-24.md`.
+- **Dashboard:**
+  - Patrimonio $122.920 · XIRR 19,6%.
+  - Las noticias muestran su fecha como texto, en lugar de una hora 00:00 inventada.
+  - El 10 años se muestra con 2 decimales.
+  - La nota macro usa el campo `context`.
+- **Control abierto:** la suma de posiciones IBK difiere 0,63% del NAV oficial (FALLA documentada en `salida_controles_2026-10-24.txt`).
+
 ## 2026-10-21 · Actualización a hoy
 
 - **Datos:** `tracking/data/ibk_2026-10-21.json` (conector IBKR) y `tyba_2026-10-21.json` (cantidades del 2-oct con precios IBKR del 21-oct).

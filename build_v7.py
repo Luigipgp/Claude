@@ -490,14 +490,15 @@ sub_once(r"document\.getElementById\('distribView'\)\.innerHTML = Object\.entrie
          "const bySector = {};\n  sorted.forEach(p=>{const s=SECTOR[p.ticker]||'Otros'; bySector[s]=(bySector[s]||0)+p.value;});\n"
          "  bySector.Cash = k.cashTotal;\n  document.getElementById('distribView').innerHTML = Object.entries(bySector", "distribView")
 
-news = [{"tick":n["tick"],"title":f'{n["title"]} · {n["src"]}',"link":n["link"],"pubDate":n["date"]} for n in CAT["news"]]
+# Date goes in the text (no pubDate): a bare date parsed as Date would render a fake 00:00 time
+news = [{"tick":n["tick"],"title":f'{n["title"]} · {n["src"]} · {n["date"]}',"link":n["link"],"pubDate":""} for n in CAT["news"]]
 sub_once(r"  const fallback = \[\n.*?\n  \];", "  // Dated headlines from the latest morning brief (shown only when the live RSS fails)\n  const fallback = "
          + _json.dumps(news, ensure_ascii=False) + ";", "news fallback")
 
 m = CAT["macro"]
 sub_once(r"  document\.getElementById\('macroNote'\)\.innerHTML = `.*?`;\n\n  document\.getElementById\('geoList'\)\.innerHTML = `.*?`;\n\n  document\.getElementById\('peruList'\)\.innerHTML = `.*?`;",
 f"""  document.getElementById('macroNote').innerHTML = `
-    <b>Contexto al {CAT.get('macro_as_of', CAT['as_of'])} (resumen matutino):</b> {m['nfp']}. Tesoro 10 años {m['ust10y']}% ({m['ust10y_date']}; {m['ust_src']})`;
+    <b>Contexto al {CAT.get('macro_as_of', CAT['as_of'])} (fuentes fechadas):</b> {m.get('context') or m.get('nfp')}. Tesoro 10 años {m['ust10y']:.2f}% ({m['ust10y_date']}; {m['ust_src']})`;
 
   const nextMacro = CATALYSTS.filter(e=>/FOMC|resultados|ASX/.test(e.t) && new Date(e.d+'T23:59:59')>=new Date());
   document.getElementById('geoList').innerHTML = nextMacro.length ? nextMacro.map(e=>`<div class="al al-b"><b>${{e.d}}</b> · ${{e.t}} <span style="color:var(--t3)">· ${{e.est}}</span></div>`).join('') : '<div class="nt">Sin eventos próximos en la agenda.</div>';

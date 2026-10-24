@@ -1,0 +1,44 @@
+== CONTROLES ==
+  [FALLA] IBK consolidado ≈ net_liquidation (74,508.35 vs 74,041.55, +0.63%)
+  [OK] pesos suman 100% 
+  [OK] 16 posiciones (7 IBK + 9 TYBA) (16)
+  [OK] sin precios nulos/≤0 
+
+== CONSOLIDADO (USD) ==
+Ticker Cust        Valor   Peso       PnL    PnL%   vs52H  Sector
+RIOFF  IBK        35,821  29.1%    11,067   44.7%  -37.6%  Minería junior
+TSO    IBK        10,163   8.3%    -2,008  -16.5%  -41.5%  Minería junior
+VOO    TYBA        9,792   8.0%     2,655   37.2%   -2.6%  Índice S&P 500
+MSFT   TYBA        8,399   6.8%     1,714   25.6%   -4.8%  Tecnología
+SRGXF  IBK         8,262   6.7%    -2,865  -25.7%  -53.4%  Minería junior
+NVDA   TYBA        7,389   6.0%     2,321   45.8%  -13.3%  Tecnología
+GLGDF  IBK         7,320   6.0%       623    9.3%  -25.8%  Minería junior
+META   TYBA        6,401   5.2%         4    0.1%  -17.9%  Tecnología
+QUEXF  IBK         5,850   4.8%    -1,555  -21.0%  -52.2%  Minería junior
+B      TYBA        5,310   4.3%      -175   -3.2%  -29.2%  Oro large-cap
+GAL    IBK         4,370   3.6%    -1,211  -21.7%  -49.3%  Minería junior
+GOOGL  TYBA        3,854   3.1%     2,057  114.5%  -21.4%  Tecnología
+BMM    TYBA        2,723   2.2%      -462  -14.5%  -54.9%  Minería junior
+SMI    IBK         2,606   2.1%    -3,083  -54.2%  -67.5%  Minería junior
+PPTA   TYBA        2,376   1.9%      -970  -29.0%  -55.8%  Minería junior
+IONS   TYBA        2,150   1.7%      -903  -29.6%  -49.4%  Biotecnología
+POS.             122,786  99.9%     7,211    6.2%
+CASH                 134   0.1%
+TOTAL            122,920
+  IBK: 74,508 (60.6%)
+  TYBA: 48,412 (39.4%)
+
+== RETORNO SOBRE CAPITAL APORTADO ==
+  Aportes externos 99,397.75 · ganancia 23,523 · retorno acumulado 23.7%
+
+== IPS ==
+  Minería junior    64.7%
+  Tecnología        21.2%
+  Índice S&P 500     8.0%
+  Oro large-cap      4.3%
+  Biotecnología      1.7%
+  Minería total (junior + oro large-cap) 68.99% vs límite 70% -> ok
+  RIOFF 29.1% vs límite por posición 30% -> cerca
+  HHI 1,252 · N efectivo 8.0
+
+Resultado de controles: FALLAS: ['IBK consolidado ≈ net_liquidation']
