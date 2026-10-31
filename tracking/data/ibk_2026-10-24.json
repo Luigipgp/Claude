@@ -1,0 +1,241 @@
+{
+ "source": "IBKR connector (positions/balances/summary/orders/alerts/trades DAYS_30/pa_performance/pa_allocation/price_snapshot)",
+ "pulled_at": "2026-10-24T15:40Z",
+ "price_basis": "Marks de get_account_positions al cierre del viernes 23-oct (ASX: 23-oct)",
+ "fx_to_usd": {
+  "USD": 1.0,
+  "AUD": 0.7034505,
+  "CAD": 0.71409905
+ },
+ "summary": {
+  "net_liquidation": 74041.55,
+  "gross_position_value": 73923.94,
+  "total_cash_value": 115.63,
+  "buying_power": 462.52,
+  "excess_liquidity": 115.63,
+  "leverage": 1.0,
+  "unrealized_pnl_base": 500.1,
+  "pa_allocation_cash": null
+ },
+ "positions": [
+  {
+   "ticker": "RIOFF",
+   "name": "Rio2 Ltd (OTC)",
+   "cid": 378594701,
+   "exch": "PINK",
+   "ccy": "USD",
+   "qty": 19000,
+   "price": 1.88530005,
+   "value": 35820.70095,
+   "avg": 1.30284233,
+   "upnl": 11066.69675,
+   "dpnl": -193.79905,
+   "last_ts": null,
+   "hi52": 3.0199,
+   "lo52": 1.26
+  },
+  {
+   "ticker": "TSO",
+   "name": "Tesoro Gold (ASX)",
+   "cid": 402328577,
+   "exch": "ASX",
+   "ccy": "AUD",
+   "qty": 17200,
+   "price": 0.83999995,
+   "value": 14447.99914,
+   "avg": 1.00592713,
+   "upnl": -2853.94756,
+   "dpnl": -1118.00086,
+   "last_ts": null,
+   "hi52": 1.435,
+   "lo52": 0.76
+  },
+  {
+   "ticker": "SRGXF",
+   "name": "Surge Copper (OTC)",
+   "cid": 308625371,
+   "exch": "PINK",
+   "ccy": "USD",
+   "qty": 27000,
+   "price": 0.306,
+   "value": 8262,
+   "avg": 0.41209927,
+   "upnl": -2864.6803,
+   "dpnl": 396.225,
+   "last_ts": null,
+   "hi52": 0.657,
+   "lo52": 0.1425
+  },
+  {
+   "ticker": "GLGDF",
+   "name": "GoGold (OTC)",
+   "cid": 390085433,
+   "exch": "PINK",
+   "ccy": "USD",
+   "qty": 3000,
+   "price": 2.44000005,
+   "value": 7320.00015,
+   "avg": 2.23233333,
+   "upnl": 623.00015,
+   "dpnl": -239.99985,
+   "last_ts": null,
+   "hi52": 3.29,
+   "lo52": 1.57
+  },
+  {
+   "ticker": "QUEXF",
+   "name": "Q2 Metals (OTC)",
+   "cid": 606826263,
+   "exch": "PINK",
+   "ccy": "USD",
+   "qty": 5000,
+   "price": 1.16999995,
+   "value": 5849.99975,
+   "avg": 1.481,
+   "upnl": -1555.00025,
+   "dpnl": -200.00025,
+   "last_ts": null,
+   "hi52": 2.45,
+   "lo52": 0.581
+  },
+  {
+   "ticker": "GAL",
+   "name": "Galantas Gold (TSXV)",
+   "cid": 417468740,
+   "exch": "VENTURE",
+   "ccy": "CAD",
+   "qty": 17000,
+   "price": 0.36,
+   "value": 6120,
+   "avg": 0.45974118,
+   "upnl": -1695.6,
+   "dpnl": -85,
+   "last_ts": null,
+   "hi52": 0.71,
+   "lo52": 0.06
+  },
+  {
+   "ticker": "SMI",
+   "name": "Santana Minerals (ASX)",
+   "cid": 128408813,
+   "exch": "ASX",
+   "ccy": "AUD",
+   "qty": 9500,
+   "price": 0.39,
+   "value": 3705,
+   "avg": 0.85128905,
+   "upnl": -4382.246,
+   "dpnl": -237.5,
+   "last_ts": null,
+   "hi52": 1.2,
+   "lo52": 0.405
+  }
+ ],
+ "orders": [
+  {
+   "id": 1589506007,
+   "ticker": "RIOFF",
+   "side": "SELL",
+   "qty": 1500,
+   "limit": 2.79,
+   "status": "REPLACED",
+   "tif": "GTC"
+  },
+  {
+   "id": 1775589789,
+   "ticker": "RIOFF",
+   "side": "SELL",
+   "qty": 2500,
+   "limit": 2.88,
+   "status": "REPLACED",
+   "tif": "GTC"
+  },
+  {
+   "id": 1863836033,
+   "ticker": "GLGDF",
+   "side": "SELL",
+   "qty": 750,
+   "limit": 3.28,
+   "status": "REPLACED",
+   "tif": "GTC"
+  },
+  {
+   "id": 1337073478,
+   "ticker": "QUEXF",
+   "side": "SELL",
+   "qty": 1000,
+   "limit": 2.8,
+   "status": "NEW",
+   "tif": "GTC"
+  }
+ ],
+ "price_alerts": [
+  {
+   "ticker": "RIOFF",
+   "op": "gte",
+   "value": 2.7,
+   "name": "RIOFF · decisión 2.70"
+  },
+  {
+   "ticker": "RIOFF",
+   "op": "gte",
+   "value": 2.41,
+   "name": "RIOFF"
+  },
+  {
+   "ticker": "SRGXF",
+   "op": "gte",
+   "value": 0.41,
+   "name": "SRGXF"
+  },
+  {
+   "ticker": "GLGDF",
+   "op": "gte",
+   "value": 2.94,
+   "name": "GLGDF"
+  },
+  {
+   "ticker": "GAL",
+   "op": "gte",
+   "value": 0.53,
+   "name": "GAL"
+  },
+  {
+   "ticker": "TSO",
+   "op": "gte",
+   "value": 0.94,
+   "name": "TSO"
+  },
+  {
+   "ticker": "SMI",
+   "op": "gte",
+   "value": 0.52,
+   "name": "SMI"
+  },
+  {
+   "ticker": "SMI",
+   "op": "lte",
+   "value": 0.4,
+   "name": "SMI · stop mental 0.40"
+  },
+  {
+   "ticker": "QUEXF",
+   "op": "lte",
+   "value": 1.17,
+   "name": "QUEXF"
+  }
+ ],
+ "trades_since_prev": "Sin operaciones en los últimos 7 días (get_account_trades DAYS_7 vacío).",
+ "performance_twr": {
+  "1D": -0.006718,
+  "7D": -0.10348221,
+  "MTD": -0.16754094,
+  "1M": -0.24837351,
+  "YTD": -0.28717706,
+  "1Y": 0.26177672
+ },
+ "nav_peak": {
+  "date": "2026-09-09",
+  "nav": 106851.91
+ }
+}

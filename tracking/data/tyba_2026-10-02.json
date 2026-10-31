@@ -1,0 +1,19 @@
+{
+  "source_holdings": "Resumen_matutino_2026-10-02.html (const D.pos, cust=TYBA) · cantidades y costo del bróker TYBA",
+  "source_prices": "IBKR get_price_snapshot, último print del 2-oct (US, puede incluir after-hours; is_close=false)",
+  "cash_usd": 18.47,
+  "external_contributions_usd": 99397.75,
+  "contributions_note": "Aportes externos netos según el brief (excluye $28,200 de traspasos TYBA→IBK). No hubo aportes nuevos entre el 2 y el 4-oct según las operaciones IBK (la compra de GAL se financió con cash).",
+  "positions": [
+    {"ticker":"VOO","name":"Vanguard S&P 500 ETF","sec":"Índice S&P 500","qty":13.9984,"cost":7136.99,"price":707.50,"ts":1790985530,"hi52":716.38},
+    {"ticker":"NVDA","name":"NVIDIA","sec":"Tecnología","qty":35,"cost":5068.22,"price":234.22,"ts":1790985598,"hi52":237.88},
+    {"ticker":"MSFT","name":"Microsoft","sec":"Tecnología","qty":16,"cost":6684.48,"price":517.19,"ts":1790985588,"hi52":550.29},
+    {"ticker":"META","name":"Meta Platforms","sec":"Tecnología","qty":10,"cost":6396.62,"price":727.65,"ts":1790985588,"hi52":779.82},
+    {"ticker":"B","name":"Barrick Mining","sec":"Oro large-cap","qty":139,"cost":5484.34,"price":40.09,"ts":1790985272,"hi52":53.99},
+    {"ticker":"GOOGL","name":"Alphabet","sec":"Tecnología","qty":12,"cost":1797.00,"price":343.25,"ts":1790985597,"hi52":408.36},
+    {"ticker":"BMM","name":"Blue Moon Metals","sec":"Minería junior","qty":700,"cost":3185.00,"price":4.77,"ts":1790981264,"hi52":8.63},
+    {"ticker":"PPTA","name":"Perpetua Resources","sec":"Minería junior","qty":144,"cost":3345.68,"price":20.7261,"ts":1790971529,"hi52":37.37},
+    {"ticker":"IONS","name":"Ionis Pharmaceuticals","sec":"Biotecnología","qty":49,"cost":3052.95,"price":43.61,"ts":1790976831,"hi52":86.74}
+  ],
+  "ibk_cash_bridge": {"brief_cash_ibk_0852_lima":629.93, "gal_buy_cad":720.0, "usd_sold_for_cad":508.57, "fx_commission":2.85, "gal_commissions_cad":3.6, "trade_time_utc":"2026-10-02T14:29:55Z"}
+}

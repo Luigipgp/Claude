@@ -1,5 +1,59 @@
 # Portfolio v7 — Changelog
 
+## 2026-10-24 · Mercado (guerra, petróleo, oro, bonos) + actualización
+
+- **Datos:** `ibk_2026-10-24.json` y `tyba_2026-10-24.json` (cierre del 23-oct). `catalysts_2026-10-24.json` agrega noticias fechadas de guerra, petróleo, oro, bonos, Fed y META, la macro (curva FMP, Brent/oro de prensa, ETF IBKR) y las elecciones del 3-nov.
+- **Reporte:** `tracking/reports/mercado_y_portafolio_2026-10-24.md`.
+- **Dashboard:**
+  - Patrimonio $122.920 · XIRR 19,6%.
+  - Las noticias muestran su fecha como texto, en lugar de una hora 00:00 inventada.
+  - El 10 años se muestra con 2 decimales.
+  - La nota macro usa el campo `context`.
+- **Control abierto:** la suma de posiciones IBK difiere 0,63% del NAV oficial (FALLA documentada en `salida_controles_2026-10-24.txt`).
+
+## 2026-10-21 · Actualización a hoy
+
+- **Datos:** `tracking/data/ibk_2026-10-21.json` (conector IBKR) y `tyba_2026-10-21.json` (cantidades del 2-oct con precios IBKR del 21-oct).
+- **Agenda:** `catalysts_2026-10-21.json`. META (21-oct) y MSFT (28-oct) quedan confirmados; GOOGL, IONS y PPTA se agregan como "por confirmar".
+- **Dashboard:** `dataVersion` 2026-10-21. Patrimonio $131.712 · PnL abierto $16.068 · XIRR 26,8%.
+- **Tests basados en datos:** `expected_from_data.mjs` calcula los valores esperados desde los snapshots más recientes, así que los tests ya no tienen números fijos. El XIRR se valida contra una bisección independiente.
+- **Scripts:**
+  - `ibk_tracker.py` acepta alertas ≥/≤.
+  - `consolidated.py` reemplaza el puente de cash del brief por el control PA vs `total_cash_value`.
+  - `sync_default_state.py` toma `dataVersion` del nombre del snapshot.
+  - El build usa el `catalysts_*.json` más reciente.
+- **Control IPS de minería:** se muestra con 2 decimales (70,04%).
+
+## 2026-10-04 · Sincronización con IBKR + resumen matutino del 2-oct
+
+**Datos (`default_state.js`, regenerado con `tracking/sync_default_state.py`)**
+- 16 posiciones (7 IBK + 9 TYBA). Antes eran 14, con datos de abril.
+  - IBK, del conector IBKR: RIOFF 19.000 · TSO 17.200 · SRGXF 27.000 · GLGDF 3.000 · QUEXF 5.000 · GAL 17.000 · SMI 9.500.
+  - TYBA, del resumen matutino: VOO 13,9984 · NVDA 35 · MSFT 16 · META 10 · B 139 · GOOGL 12 · BMM 700 · PPTA 144 · IONS 49.
+  - Sale EPU y entran GAL, PPTA e IONS.
+- `B` corregido: es **Barrick Mining** (NYSE: B), no Barnes Group.
+- Las posiciones en AUD y CAD (TSO, SMI, GAL) se guardan en USD con el FX de IBKR del pull y llevan el campo `ccy`.
+- Cash: TYBA $18,47 · IBK $85,87. Marks (`prevClose`): cierres del 2-oct.
+- Fondeos: aporte neto de $11.000 en may-2026, fechado el 27-may (salto de NAV en IBKR PA con TWR plano). Total: $99.397,75, igual al brief.
+- Se registran los cierres realizados de IBK posteriores a abril (RIOFF ×3, MSFT, TSO).
+- Se elimina la alerta de EPU (posición cerrada).
+
+**Código (`build_v7.py`, patches 12–16)**
+- Conversión FX en vivo para TSO.AX, SMI.AX y GAL.V. Si el tipo de cambio en vivo falta o es implausible, usa el último FX de IBKR. Antes, SMI.AX se sumaba en AUD como si fuera USD.
+- TSO deja de ser solo manual.
+- XIRR: solo flujos externos más el valor final. Antes sumaba el producto de las ventas como si fuera retiro, aunque se reinvirtió.
+- "Profit total" = patrimonio − fondeado. El log de ventas no tiene las ventas TYBA posteriores a abril.
+- Migración: si el `dataVersion` guardado difiere del actual, se respalda el estado (`luigi_portfolio_v7_backup_*`), se cargan los datos nuevos y se conservan las alertas del usuario.
+- Se reemplaza el contenido fijo de abril:
+  - "Acciones recomendadas" pasa a ser **Controles IPS**, calculados en vivo.
+  - El calendario de earnings pasa a ser la **agenda de catalizadores** del brief.
+  - Noticias, nota macro y FOMC usan datos fechados del brief.
+  - La distribución por sector usa un único mapa (antes omitía GAL, PPTA, B e IONS).
+  - Oro y WTI muestran "—" cuando no hay dato en vivo, en lugar de valores de abril.
+
+**Validación**: `node test_portfolio.mjs` → 33/33 · `node smoke_test.mjs` → 11/11 · render en Chromium sin errores (escritorio y 390 px).
+Patrimonio $141.954 · PnL abierto $26.577 · XIRR 36,5% (brief: 36,0%).
+
 ## Resumen ejecutivo
 
 **Problema reportado:** "no actualiza pero me encanta la presentación".

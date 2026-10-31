@@ -1,0 +1,168 @@
+{
+ "source": "Agenda verificada 21-oct + noticias y macro del 21–23-oct (CNBC, Al Jazeera, Al-Monitor, PIMCO, FMP, IBKR)",
+ "as_of": "2026-10-24",
+ "agenda": [
+  {
+   "d": "2026-10-28",
+   "t": "FOMC · decisión de tasas (sin proyecciones)",
+   "est": "Verificado",
+   "q": "Mercado ~81% hold en 3.75–4.00%; PIMCO ve sesgo restrictivo y alza de 25 pb en diciembre como próximo paso más probable."
+  },
+  {
+   "d": "2026-10-28",
+   "t": "MSFT · resultados 1T FY27 (after market, webcast 2:30 p.m. PT)",
+   "est": "Confirmado",
+   "q": "Comunicado de Microsoft del 7-oct (vía finviz.com)."
+  },
+  {
+   "d": "2026-10-28",
+   "t": "GOOGL · resultados 3T",
+   "est": "Por confirmar",
+   "q": "Estimación de calendarios; AlphaQuery proyecta 4-nov. Sin anuncio oficial al 21-oct."
+  },
+  {
+   "d": "2026-10-29",
+   "t": "BMM · cierre de la facilidad de prepago de tungsteno y acuerdos definitivos con Elmet",
+   "est": "Por confirmar",
+   "q": "Sujeto a due diligence y aprobación del TSXV; dilución estimada 3.3%–6.3%."
+  },
+  {
+   "d": "2026-10-29",
+   "t": "IONS · resultados 3T",
+   "est": "Por confirmar",
+   "q": "Patrón 2025 (29-oct); sin anuncio al 21-oct (ir.ionis.com)."
+  },
+  {
+   "d": "2026-10-30",
+   "t": "Plazo reportes trimestrales ASX de TSO y SMI (trimestre a septiembre)",
+   "est": "Regla ASX",
+   "q": "Caja, runway y avance de permisos. TSO: caja neta A$15.3M al 30-jun."
+  },
+  {
+   "d": "2026-11-03",
+   "t": "EE. UU. · elecciones de mitad de período",
+   "est": "Fecha fija",
+   "q": "Reportes indican que EE. UU./Israel preparan planes para reanudar ataques a Irán después de las elecciones (no confirmado oficialmente)."
+  },
+  {
+   "d": "2026-11-09",
+   "t": "B · resultados 3T",
+   "est": "Confirmado",
+   "q": "Fuente: barrick.com (nota del calendario, 1-oct)."
+  },
+  {
+   "d": "2026-11-13",
+   "t": "PPTA · resultados 3T",
+   "est": "Por confirmar",
+   "q": "AJ Bell / Earnings Whispers: 13-nov; TipRanks: 16-nov. Sin confirmación de la empresa."
+  },
+  {
+   "d": "2026-11-17",
+   "t": "NVDA · resultados 3T (after market)",
+   "est": "Por confirmar",
+   "q": "Wall Street Horizon."
+  },
+  {
+   "d": "2026-11-26",
+   "t": "GAL · resultados 3T y caja actualizada",
+   "est": "Estimado por patrón",
+   "q": "NYSE cerrado ese día (Acción de Gracias)."
+  },
+  {
+   "d": "2026-12-09",
+   "t": "FOMC · decisión + dot plot",
+   "est": "Verificado",
+   "q": "Última reunión del año."
+  },
+  {
+   "d": "2026-12-15",
+   "t": "SRGXF · revisión del avance de Berg (fase de Compromiso Temprano, EAO BC)",
+   "est": "Revisión propia",
+   "q": "No es un hito anunciado."
+  },
+  {
+   "d": "2026-12-15",
+   "t": "GAL · PEA de Andacollo (guía 4T) y traslado del chancador",
+   "est": "Guía del CEO · Por confirmar",
+   "q": ""
+  },
+  {
+   "d": "2026-12-31",
+   "t": "TSO · DFS de El Zorro (guía: diciembre 2026)",
+   "est": "Guía de la empresa",
+   "q": "Mining Forum 30-sep: DFS en diciembre; EIA y decisión de inversión 1T-2027. Fecha exacta sin anunciar."
+  }
+ ],
+ "news": [
+  {
+   "tick": "PETRÓLEO",
+   "date": "23-oct-2026",
+   "title": "Brent sube ~3–4% a ~$116–117, máximo desde jun-2022; WTI ~$103, por temor a nuevos ataques de EE. UU. a Irán",
+   "detail": "",
+   "link": "https://www.cnbc.com/2026/10/23/oil-price-brent-wti-iran-war-saudi-arabia.html",
+   "src": "CNBC"
+  },
+  {
+   "tick": "GUERRA",
+   "date": "22-oct-2026",
+   "title": "Irán dice haber alcanzado 7 buques en Ormuz y advierte a EE. UU. de una respuesta más amplia (no verificado de forma independiente)",
+   "detail": "",
+   "link": "https://www.aljazeera.com/news/2026/10/22/iran-says-seven-ships-hit-in-hormuz-strait-warns-us-of-wider-response",
+   "src": "Al Jazeera"
+  },
+  {
+   "tick": "GUERRA",
+   "date": "13-oct-2026",
+   "title": "Misil hutí impacta edificio de Aramco en Dhahran; incendio limitado, personal en teletrabajo",
+   "detail": "",
+   "link": "https://www.al-monitor.com/originals/2026/10/saudi-aramco-headquarters-attacked-limited-fire-reported",
+   "src": "Al-Monitor / Reuters"
+  },
+  {
+   "tick": "ORO",
+   "date": "23-oct-2026",
+   "title": "Oro cae bajo $4,000 por primera vez desde julio; peor semana desde junio (−4%) por petróleo, inflación y apuestas de alza de la Fed",
+   "detail": "",
+   "link": "https://www.cnbc.com/2026/10/23/gold-heads-for-steep-weekly-loss-as-oil-prices-fuel-fed-rate-concerns.html",
+   "src": "CNBC / Reuters"
+  },
+  {
+   "tick": "BONOS",
+   "date": "23-oct-2026",
+   "title": "10 años vuelve a ~5.00% tras caer a 4.95% el 22-oct por huida a calidad ante la venta en tecnología/IA",
+   "detail": "",
+   "link": "https://www.cnbc.com/2026/10/23/bonds-yields-us-treasurys.html",
+   "src": "CNBC"
+  },
+  {
+   "tick": "FED",
+   "date": "23-oct-2026",
+   "title": "PIMCO: la Fed mantendría 3.75–4.00% el 28-oct con sesgo restrictivo; alza de 25 pb en diciembre como escenario base",
+   "detail": "",
+   "link": "https://www.advisorperspectives.com/commentaries/2026/10/23/pause-still-recalibration?topic=retirement-income",
+   "src": "PIMCO vía Advisor Perspectives"
+  },
+  {
+   "tick": "META",
+   "date": "21-oct-2026",
+   "title": "META 3T: ingresos $64.6B (+26%) sobre lo esperado; capex 2026 acotado a $130–145B. La acción cerró la semana en $640 (−7.4% vs 21-oct, IBKR)",
+   "detail": "",
+   "link": "https://stocktwits.com/news-articles/markets/equity/meta-stock-jumps-3-after-hours-after-q3-revenue-beats-expectations-with-a-narrowed-ai-capex-outlook-and-new-non-voting-class-c-stock/cZxMhJJRBv6",
+   "src": "Stocktwits + IBKR"
+  }
+ ],
+ "macro": {
+  "context": "Brent ~$116–117 y WTI ~$103 (23-oct, CNBC/Anadolu); oro spot ~$3,998 (23-oct, CNBC); GLD $366.33 y GDXJ $99.35 (IBKR, 23-oct)",
+  "ust10y": 5.0,
+  "ust10y_date": "23-oct",
+  "ust_src": "FMP treasury-rates; 2 años 4.69%, 30 años 5.33%",
+  "fomc_date": "2026-09-16",
+  "fomc_range": "3.75% - 4.00%",
+  "fomc_prev": "3.50% - 3.75%",
+  "fomc_vote": "Unánime (12-0)",
+  "dots_2026": 4.1,
+  "dots_2027": 4.1
+ },
+ "macro_as_of": "2026-10-23",
+ "news_as_of": "2026-10-23"
+}
