@@ -1,0 +1,46 @@
+{
+ "version_esquema": "2.0",
+ "ticker_canonico": "SRGXF",
+ "empresa": "Surge Copper Corp.",
+ "fecha_corte": "2026-10-30",
+ "precio_referencia": {
+  "valor": 0.3,
+  "moneda": "USD",
+  "fecha": "2026-10-30",
+  "fuente1": "IBKR"
+ },
+ "score": {
+  "fundamental": 70,
+  "tecnico": 40,
+  "macro": 60,
+  "combinado": 63,
+  "confianza": "B",
+  "veredicto": "HOLD",
+  "gate": "cumple"
+ },
+ "niveles": {
+  "stop": {
+   "nivel": 0.25
+  },
+  "objetivo_12m": 0.45,
+  "moneda": "USD"
+ },
+ "supervisor": {
+  "veredicto": "APROBADO"
+ },
+ "bloqueadores_activos": [],
+ "riesgos_top3": [
+  "r1",
+  "r2",
+  ""
+ ],
+ "delta": [
+  {
+   "concepto": "Precio",
+   "anterior": "0.32",
+   "actual": "0.30",
+   "delta": "-6%",
+   "causa": "prueba"
+  }
+ ]
+}
